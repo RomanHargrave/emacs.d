@@ -52,6 +52,14 @@
 (use-package treemacs :ensure t)
 (use-package treemacs-evil :ensure t)
 
+(use-package magit :ensure t)
+(use-package evil-magit
+  :ensure t
+  :config
+  (setq evil-magit-state          'normal
+        evil-magit-use-y-for-yank nil)
+  (require 'evil-magit))
+
 (use-package doom-themes
   :ensure t
   :config
@@ -126,20 +134,33 @@
  "<right>" 'evil-window-right
  "o"       'evil-window-right)
 
+;; Misc. keys
 (general-define-key
  :states 'normal
  ;; Open treemacs
  "SPC t o"   'treemacs
- ;; Misc
  "SPC t t l" 'toggle-truncate-lines
- ;; helm-ag
- "SPC s a"   'helm-ag
- "SPC s s"   'helm-ag-project-root
- "SPC s f"   'helm-ag-this-file
- ;; Eval the current file
  "SPC f e x" 'eval-buffer)
 
-;; Tree bindings
+; helm-ag keys
+(general-define-key
+ :states 'normal
+ "SPC s a"   'helm-ag
+ "SPC s s"   'helm-ag-project-root
+ "SPC s f"   'helm-ag-this-file)
+
+(general-define-key
+ :states 'normal
+ "SPC g c c" 'magit-commit-create
+ "SPC g c a" 'magit-commit-amend
+ "SPC g c e" 'magit-commit-extend
+ "SPC g c r" 'magit-commit-reword
+ "SPC g a a" 'magit-stage
+ "SPC g a m" 'magit-stage-modified
+ "SPC g r s" 'magit-unstage
+ "SPC g r a" 'magit-unstage-all)
+
+;; treemacs-mode bindings
 (general-define-key
  :keymaps  'treemacs-mode-map
  "SPC t o" 'treemacs
