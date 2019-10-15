@@ -139,8 +139,8 @@
 (general-define-key
  :states 'normal
  ;; Open treemacs
- "SPC t m o" 'treemacs
- "SPC t m t" 'treemacs-select-window 
+ "SPC t m t" 'treemacs
+ "SPC t m o" 'treemacs-select-window 
  "SPC t t l" 'toggle-truncate-lines
  "SPC f e x" 'eval-buffer)
 
