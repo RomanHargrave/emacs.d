@@ -2,6 +2,7 @@
 elpa/**
 auto-save-list/**
 backups/**
+transient/**
+.cache/**
 \#*#
 .#*
-.cache/**
