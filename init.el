@@ -59,10 +59,14 @@
   :ensure t
   :hook (after-init . doom-modeline-mode))
 
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
 ; just a ton of modes
 (use-package dockerfile-mode :ensure t :mode "Dockerfile")
 (use-package php-mode        :ensure t :mode "\\.php\\'" :magic "#!/usr/bin/env php")
-
 
 ; general.el, keymapping
 (require 'general)
