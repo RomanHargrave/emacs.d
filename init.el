@@ -50,7 +50,22 @@
 
 (use-package general :ensure t)
 
-(use-package treemacs :ensure t)
+(use-package treemacs
+  :ensure t
+  :config
+ '(treemacs-RET-actions-config
+   (quote
+    ((file-node-close  . treemacs-visit-node-in-most-recently-used-window)
+     (file-node-open   . treemacs-visit-node-in-most-recently-used-window)
+     (root-node-open   . treemacs-toggle-node)
+     (root-node-closed . treemacs-toggle-node)
+     (dir-node-open    . treemacs-toggle-node)
+     (dir-node-closed  . treemacs-toggle-node)
+     (file-node-closed . treemacs-visit-node-default)
+     (tag-node-open    . treemacs-toggle-node-prefer-tag-visit)
+     (tag-node-closed  . treemacs-toggle-node-prefer-tag-visit)
+     (tag-node         . treemacs-visit-node-default)))))
+
 (use-package treemacs-evil :ensure t)
 
 (use-package magit :ensure t)
@@ -167,7 +182,8 @@
  :keymaps  'treemacs-mode-map
  "SPC t o" 'treemacs
  "C-c"     'treemacs
- "RET"     'treemacs-ret-action)
+ "r"       'treemacs-visit-node-in-most-recently-used-window
+ "R"       'treemacs-refresh)
 
 ;; because once was not enough
 (general-define-key
