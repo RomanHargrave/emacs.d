@@ -95,7 +95,8 @@
 
 ; just a ton of modes
 (use-package dockerfile-mode :ensure t :mode "Dockerfile")
-(use-package php-mode        :ensure t :mode "\\.php\\'" :magic "#!/usr/bin/env php")
+(use-package php-mode        :ensure t :mode "\\.php\\'" :magic "\#!.+php")
+(use-package lua-mode        :ensure t :mode "\\.lua\\'")
 
 ; general.el, keymapping
 (require 'general)
