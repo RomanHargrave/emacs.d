@@ -11,7 +11,11 @@
 
 (require 'use-package)
 
-(use-package helm    :ensure t)
+(use-package helm
+  :ensure t
+  :config
+  (require 'helm-config))
+
 (use-package general :ensure t)
 (use-package neotree :ensure t)
 
@@ -27,11 +31,6 @@
   :ensure t
   :hook (after-init . doom-modeline-mode))
 
-(use-package sublimity :ensure t)
-
-; Pin the cursor in the middle line whenever possible
-(use-package centered-cursor-mode :ensure t)
-
 ; just a ton of modes
 (use-package dockerfile-mode :ensure t :mode "Dockerfile")
 (use-package php-mode        :ensure t :mode "\\.php\\'" :magic "#!/usr/bin/env php")
@@ -41,6 +40,7 @@
 (set-face-attribute 'default t :font "Source Code Pro-10")
 
 ; Load evil
+(setq evil-want-keybinding nil)
 (add-to-list 'load-path "~/.emacs.d/evil")
 (require 'evil)
 (evil-mode 1)
@@ -49,6 +49,19 @@
 (require 'general)
 (require 'neotree)
 (require 'sublimity)
+
+; Load keymap fixes for evil
+(use-package evil-collection
+  :ensure t
+  :config
+  (evil-collection-translate-key nil 'evil-motion-state-map
+                                 "n" "j"
+                                 "e" "k"
+                                 "o" "l"
+                                 ;; 'o' needs to be somewhere else
+                                 "l" "o")
+  (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
+  (evil-collection-init))
 
 ; Disable tab auto-insertion
 (setq-default indent-tabs-mode nil)
@@ -70,21 +83,34 @@
 (setq delete-old-versions            -1)
 (setq custom-file                    "~/.emacs.d/custom.el")
 
-(sublimity-mode 1)
+;; Enable pair hilighting
 (show-paren-mode 1)
+
+(when (version<= "26.0.50" emacs-version)
+  (global-display-line-numbers-mode))
+
+;; Disable toolbar and _especially_ scrollbars
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
 
 ;; Stateless global keybindings
 (general-define-key
  "C-c" 'neotree-toggle
  "C-s" 'save-buffer)
 
-;; Normal mode
+; Normal mode
+;; Window movement
 (general-define-key
  :states 'normal
- "C-w <up>"    'evil-window-up
- "C-w <down>"  'evil-window-down
- "C-w <left>"  'evil-window-left
- "C-w <right>" 'evil-window-right)
+ :prefix "C-w"
+ "<up>"    'evil-window-up
+ "<down>"  'evil-window-down
+ "<left>"  'evil-window-left
+ "<right>" 'evil-window-right)
+
+(general-define-key
+ :states 'normal
+ "SPC f e x" 'eval-buffer)
 
 ;; Neotree bindings
 (general-define-key
