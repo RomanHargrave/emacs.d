@@ -4,4 +4,4 @@ auto-save-list/**
 backups/**
 \#*#
 .#*
-
+.cache/**
