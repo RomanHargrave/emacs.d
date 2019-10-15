@@ -38,6 +38,7 @@
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 (setq backup-directory-alist         `((".", "~/.emacs.d/backups")))
 (setq delete-old-versions            -1)
+(setq custom-file                    "~/.emacs.d/custom.el")
 
 ;; Stateless global keybindings
 (general-define-key
