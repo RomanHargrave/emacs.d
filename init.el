@@ -42,6 +42,11 @@
   :config
   (require 'helm-config))
 
+(use-package helm-ag
+  :ensure t
+  :config
+  (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
+
 (use-package general :ensure t)
 
 (use-package treemacs :ensure t)
@@ -123,7 +128,15 @@
 
 (general-define-key
  :states 'normal
+ ;; Open treemacs
  "SPC t o"   'treemacs
+ ;; Misc
+ "SPC t t l" 'toggle-truncate-lines
+ ;; helm-ag
+ "SPC s a"   'helm-ag
+ "SPC s s"   'helm-ag-project-root
+ "SPC s f"   'helm-ag-this-file
+ ;; Eval the current file
  "SPC f e x" 'eval-buffer)
 
 ;; Tree bindings
