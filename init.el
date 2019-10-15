@@ -20,7 +20,8 @@
   :ensure t
   :init
   (setq evil-want-keybinding  nil
-        evil-want-integration t)
+        evil-want-integration t
+        evil-search-module    'evil-search)
   :config
   (evil-mode 1))
 
@@ -117,8 +118,8 @@
 ;; Stateless global keybindings
 (general-define-key
  "C-s"   'save-buffer
- "A-n"   'evil-next-match
- "A-N"   'evil-previous-match)
+ "M-n"   'evil-next-match
+ "M-N"   'evil-previous-match)
 
 ; Normal mode
 ;; Window movement
@@ -172,9 +173,13 @@
  :keymaps 'treemacs-mode-map
  :prefix "C-w"
  "<up>"    'evil-window-up
+ "e"       'evil-window-up
  "<down>"  'evil-window-down
+ "n"       'evil-window-down
  "<left>"  'evil-window-left
- "<right>" 'evil-window-right)
+ "h"       'evil-window-left
+ "<right>" 'evil-window-right
+ "o"       'evil-window-right)
 
 ; set _ to a word character so that C-Left/C-Right/S-Left/S-Right don't skip over it
 (modify-syntax-entry ?_ "w")
