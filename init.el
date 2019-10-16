@@ -38,6 +38,10 @@
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
   (evil-collection-init))
 
+; general.el, keymapping
+(use-package general :ensure t)
+(require 'general)
+
 ; Popup window manager
 (use-package popwin
   :ensure t
@@ -83,9 +87,6 @@
   (setq company-box-icons-alist 'company-box-icons-all-the-icons)
   :hook
   (company-mode . company-box-mode))
-
-; General keybind management
-(use-package general :ensure t)
 
 ; Treemacs file & project browser as well as evil compatibility mode
 (use-package treemacs
@@ -175,9 +176,6 @@
   :ensure t
   :config
   (add-hook 'php-mode-hook 'php-refactor-mode))
-
-; general.el, keymapping
-(require 'general)
 
 ; Disable tab auto-insertion
 (setq-default indent-tabs-mode nil)
