@@ -232,8 +232,9 @@
  "SPC g r s" 'magit-unstage
  "SPC g r a" 'magit-unstage-all
  "SPC g s t" 'magit-status
- "SPC g d f" 'magit-diff-unstaged
- "SPC g d q" 'magit-diff-staged)
+ "SPC g d d" 'magit-diff-unstaged
+ "SPC g d q" 'magit-diff-staged
+ "SPC g d f" 'magit-diff-buffer-file)
 
 ;; treemacs-mode bindings
 (general-define-key
