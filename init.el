@@ -41,7 +41,8 @@
 (use-package helm
   :ensure t
   :config
-  (require 'helm-config))
+  (require 'helm-config)
+  (helm-mode 1))
 
 (use-package helm-ag
   :ensure t
@@ -53,18 +54,18 @@
 (use-package treemacs
   :ensure t
   :config
- '(treemacs-RET-actions-config
-   (quote
-    ((file-node-close  . treemacs-visit-node-in-most-recently-used-window)
-     (file-node-open   . treemacs-visit-node-in-most-recently-used-window)
-     (root-node-open   . treemacs-toggle-node)
-     (root-node-closed . treemacs-toggle-node)
-     (dir-node-open    . treemacs-toggle-node)
-     (dir-node-closed  . treemacs-toggle-node)
-     (file-node-closed . treemacs-visit-node-default)
-     (tag-node-open    . treemacs-toggle-node-prefer-tag-visit)
-     (tag-node-closed  . treemacs-toggle-node-prefer-tag-visit)
-     (tag-node         . treemacs-visit-node-default)))))
+  '(treemacs-RET-actions-config
+    (quote
+     ((file-node-close  . treemacs-visit-node-in-most-recently-used-window)
+      (file-node-open   . treemacs-visit-node-in-most-recently-used-window)
+      (root-node-open   . treemacs-toggle-node)
+      (root-node-closed . treemacs-toggle-node)
+      (dir-node-open    . treemacs-toggle-node)
+      (dir-node-closed  . treemacs-toggle-node)
+      (file-node-closed . treemacs-visit-node-default)
+      (tag-node-open    . treemacs-toggle-node-prefer-tag-visit)
+      (tag-node-closed  . treemacs-toggle-node-prefer-tag-visit)
+      (tag-node         . treemacs-visit-node-default)))))
 
 (use-package treemacs-evil :ensure t)
 
@@ -93,10 +94,12 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-; just a ton of modes
-(use-package dockerfile-mode :ensure t :mode "Dockerfile")
-(use-package php-mode        :ensure t :mode "\\.php\\'" :magic "\#!.+php")
-(use-package lua-mode        :ensure t :mode "\\.lua\\'")
+; modes
+(use-package dockerfile-mode  :ensure t :mode "Dockerfile")
+(use-package php-mode         :ensure t :mode "\\.php\\'" :magic "\#!.+php")
+(use-package lua-mode         :ensure t :mode "\\.lua\\'")
+(use-package apt-sources-list :ensure t)
+(use-package ansible          :ensure t)
 
 ; general.el, keymapping
 (require 'general)
@@ -130,6 +133,7 @@
 ;; Disable toolbar and _especially_ scrollbars
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; Stateless global keybindings
 (general-define-key
@@ -156,7 +160,8 @@
  :states 'normal
  ;; Open treemacs
  "SPC t m t" 'treemacs
- "SPC t m o" 'treemacs-select-window 
+ "SPC t m o" 'treemacs-select-window
+ "SPC t m b" 'helm-buffers-list
  "SPC t t l" 'toggle-truncate-lines
  "SPC f e x" 'eval-buffer)
 
