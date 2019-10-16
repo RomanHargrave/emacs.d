@@ -100,6 +100,9 @@
 
 (use-package treemacs-evil :ensure t)
 
+; g/e/ctags
+(use-package ggtags :ensure t)
+
 ; Project interactions
 (use-package projectile
   :ensure t
