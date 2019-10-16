@@ -38,6 +38,12 @@
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
   (evil-collection-init))
 
+; Popup window manager
+(use-package popwin
+  :ensure t
+  :config
+  (popwin-mode 1))
+
 (use-package helm
   :ensure t
   :config
@@ -77,6 +83,7 @@
         evil-magit-use-y-for-yank nil)
   (require 'evil-magit))
 
+; Theme components
 (use-package doom-themes
   :ensure t
   :config
@@ -181,7 +188,8 @@
  "SPC g a a" 'magit-stage
  "SPC g a m" 'magit-stage-modified
  "SPC g r s" 'magit-unstage
- "SPC g r a" 'magit-unstage-all)
+ "SPC g r a" 'magit-unstage-all
+ "SPC g s t" 'magit-status)
 
 ;; treemacs-mode bindings
 (general-define-key
