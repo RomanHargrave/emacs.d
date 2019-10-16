@@ -100,12 +100,19 @@
 
 (use-package treemacs-evil :ensure t)
 
+; Project interactions
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode 1))
+
 ; Centaur Tabs
 (use-package centaur-tabs
   :ensure t
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-build-helm-source)
+  (centaur-tabs-group-by-projectile-project)
   :bind
   (:map evil-normal-state-map
         ("g t" . centaur-tabs-forward)
