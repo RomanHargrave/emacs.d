@@ -42,8 +42,14 @@
 (use-package popwin
   :ensure t
   :config
-  (popwin-mode 1))
+  (popwin-mode 1)
+  (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config)
+  (add-hook 'helm-after-initialize-hook (lambda ()
+                                          (popwin:display-buffer helm-buffer t)
+                                          (popwin-mode -1)))
+  (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1))))
 
+; Helm & Helm extensions
 (use-package helm
   :ensure t
   :config
@@ -55,8 +61,27 @@
   :config
   (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
 
+; COMPlete ANYthing
+(use-package company
+  :ensure t
+  :bind
+  (:map evil-insert-state-map
+        ("C-p" . company-complete)))
+
+;; Backends
+(use-package company-php     :ensure t)
+(use-package company-nginx   :ensure t)
+(use-package company-ansible :ensure t)
+
+;; Enhanced frontend
+(use-package company-box
+  :ensure t
+  :hook (company-mode . company-box-mode))
+
+; General keybind management
 (use-package general :ensure t)
 
+; Treemacs file & project browser as well as evil compatibility mode
 (use-package treemacs
   :ensure t
   :config
@@ -75,6 +100,18 @@
 
 (use-package treemacs-evil :ensure t)
 
+; Centaur Tabs
+(use-package centaur-tabs
+  :ensure t
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-build-helm-source)
+  :bind
+  (:map evil-normal-state-map
+        ("g t" . centaur-tabs-forward)
+        ("g T" . centaur-tabs-backward)))
+
+; Magit and evil compatibility mode
 (use-package magit :ensure t)
 (use-package evil-magit
   :ensure t
