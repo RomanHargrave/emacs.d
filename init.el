@@ -72,7 +72,9 @@
   (add-hook 'prog-mode-hook #'company-mode)
   :bind
   (:map evil-insert-state-map
-        ("C-p" . company-complete)))
+        ("C-p" . company-complete))
+  (:map company-active-map
+        ("RET" . company-complete-selection)))
 
 ;; Backends
 (use-package company-php     :ensure t)
