@@ -64,6 +64,8 @@
 ; COMPlete ANYthing
 (use-package company
   :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'company-mode)
   :bind
   (:map evil-insert-state-map
         ("C-p" . company-complete)))
@@ -72,6 +74,7 @@
 (use-package company-php     :ensure t)
 (use-package company-nginx   :ensure t)
 (use-package company-ansible :ensure t)
+(use-package company-plsense :ensure t)
 
 ;; Enhanced frontend
 (use-package company-box
