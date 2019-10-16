@@ -153,6 +153,7 @@
 (use-package lua-mode          :ensure t :mode "\\.lua\\'")
 (use-package robots-txt-mode   :ensure t :mode "robots.txt")
 (use-package fish-mode         :ensure t :mode "\\.fish\\'" :magic "\\#!.+fish\\'")
+(use-package perl6-mode        :ensure t)
 (use-package apt-sources-list  :ensure t)
 (use-package ansible           :ensure t)
 
