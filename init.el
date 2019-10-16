@@ -154,6 +154,14 @@
 (use-package robots-txt-mode   :ensure t :mode "robots.txt")
 (use-package apt-sources-list  :ensure t)
 (use-package ansible           :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'"       . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "pandoc"))
+
 (use-package php-mode          :ensure t :mode "\\.php\\'" :magic "\#!.+php")
 (use-package php-refactor-mode
   :ensure t
