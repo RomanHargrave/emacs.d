@@ -214,5 +214,14 @@
  "<right>" 'evil-window-right
  "o"       'evil-window-right)
 
+(general-define-key
+ :keymaps 'tetris-mode-map
+ "a" 'tetris-move-left
+ "t" 'tetris-move-right
+ "s" 'tetris-move-down
+ "l" 'tetris-rotate-next
+ "e" 'tetris-rotate-prev
+ "p" 'tetris-pause)
+
 ; set _ to a word character so that C-Left/C-Right/S-Left/S-Right don't skip over it
 (modify-syntax-entry ?_ "w")
