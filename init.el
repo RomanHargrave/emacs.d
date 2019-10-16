@@ -229,6 +229,8 @@
  ;; Open treemacs
  "SPC t m t" 'treemacs
  "SPC t m o" 'treemacs-select-window
+ "SPC t f n" 'treemacs-create-file
+ "SPC t d n" 'treemacs-create-dir
  "SPC t m b" 'helm-buffers-list
  "SPC t t l" 'toggle-truncate-lines
  "SPC f e x" 'eval-buffer)
@@ -257,11 +259,11 @@
 
 ;; treemacs-mode bindings
 (general-define-key
- :keymaps  'treemacs-mode-map
- "SPC t o" 'treemacs
- "C-c"     'treemacs
- "r"       'treemacs-visit-node-in-most-recently-used-window
- "R"       'treemacs-refresh)
+ :keymaps    'treemacs-mode-map
+ "SPC t m t" 'treemacs
+ "C-c"       'treemacs
+ "r"         'treemacs-visit-node-in-most-recently-used-window
+ "R"         'treemacs-refresh)
 
 ;; because once was not enough
 (general-define-key
