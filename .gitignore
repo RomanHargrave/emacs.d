@@ -3,7 +3,9 @@ elpa/**
 auto-save-list/**
 backups/**
 transient/**
+games/**
 .cache/**
 \#*#
 .#*
+recentf
 custom.el
