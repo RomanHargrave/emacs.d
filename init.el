@@ -189,7 +189,9 @@
  "SPC g a m" 'magit-stage-modified
  "SPC g r s" 'magit-unstage
  "SPC g r a" 'magit-unstage-all
- "SPC g s t" 'magit-status)
+ "SPC g s t" 'magit-status
+ "SPC g d f" 'magit-diff-unstaged
+ "SPC g d q" 'magit-diff-staged)
 
 ;; treemacs-mode bindings
 (general-define-key
