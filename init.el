@@ -139,11 +139,16 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ; modes
-(use-package dockerfile-mode  :ensure t :mode "Dockerfile")
-(use-package php-mode         :ensure t :mode "\\.php\\'" :magic "\#!.+php")
-(use-package lua-mode         :ensure t :mode "\\.lua\\'")
-(use-package apt-sources-list :ensure t)
-(use-package ansible          :ensure t)
+(use-package dockerfile-mode   :ensure t :mode "Dockerfile")
+(use-package lua-mode          :ensure t :mode "\\.lua\\'")
+(use-package robots-txt-mode   :ensure t :mode "robots.txt")
+(use-package apt-sources-list  :ensure t)
+(use-package ansible           :ensure t)
+(use-package php-mode          :ensure t :mode "\\.php\\'" :magic "\#!.+php")
+(use-package php-refactor-mode
+  :ensure t
+  :config
+  (add-hook 'php-mode-hook 'php-refactor-mode))
 
 ; general.el, keymapping
 (require 'general)
