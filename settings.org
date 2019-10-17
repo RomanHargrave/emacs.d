@@ -188,7 +188,7 @@ Provides tab groups for navigating open buffers
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-gray-out-icons 'buffer)
   (setq centaur-tabs-style 'bar)
-  (setq centaur-tabs-set-modified-marker t)
+  (setq centaur-tabs-set-modified-marker nil)
   (defun centaur-tabs-hide-tab (n)
     (let ((name (format "%s" n)))
       (or
