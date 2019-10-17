@@ -56,6 +56,26 @@ Set the default font-face to /Source Code Pro/
 (set-face-attribute 'default t :font "Source Code Pro-10")
 #+END_SRC
 
+** Theme
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-molokai t)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
+
+;; XXX remember to run (all-the-icons-install-fonts)
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+
 * Extensions
 
 ** Popwin
@@ -100,7 +120,6 @@ Set the default font-face to /Source Code Pro/
 
 *** Backends
 #+BEGIN_SRC emacs-lisp
-;; Backends
 (use-package company-php     :ensure t)
 (use-package company-nginx   :ensure t)
 (use-package company-ansible :ensure t)
@@ -109,7 +128,6 @@ Set the default font-face to /Source Code Pro/
 
 *** Company Box frontend
 #+BEGIN_SRC emacs-lisp
-;; Enhanced frontend
 (use-package company-box
   :ensure t
   :config
@@ -118,16 +136,8 @@ Set the default font-face to /Source Code Pro/
   (company-mode . company-box-mode))
 #+END_SRC
 
-* Other settings
+** Treemacs
 #+BEGIN_SRC emacs-lisp
-; general.el, keymapping
-(use-package general :ensure t)
-(require 'general)
-
-; Popup window manager
-
-; COMPlete ANYthing
-; Treemacs file & project browser as well as evil compatibility mode
 (use-package treemacs
   :ensure t
   :config
@@ -151,15 +161,25 @@ Set the default font-face to /Source Code Pro/
 (use-package treemacs-magit
   :ensure t
   :after treemacs magit)
+#+END_SRC
 
-; g/e/ctags
-(use-package ggtags :ensure t)
 
-; Project interactions
+** Projectile
+#+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
   :config
   (projectile-mode 1))
+#+END_SRC
+
+* Other settings
+#+BEGIN_SRC emacs-lisp
+; general.el, keymapping
+(use-package general :ensure t)
+(require 'general)
+
+; g/e/ctags
+(use-package ggtags :ensure t)
 
 ; Centaur Tabs
 (use-package centaur-tabs
@@ -197,22 +217,6 @@ Set the default font-face to /Source Code Pro/
   (require 'evil-magit))
 
 ; Theme components
-(use-package doom-themes
-  :ensure t
-  :config
-  (load-theme 'doom-molokai t)
-  (doom-themes-treemacs-config)
-  (doom-themes-org-config))
-
-;; XXX remember to run (all-the-icons-install-fonts)
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode))
-
-(use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ; modes
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
