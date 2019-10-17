@@ -294,7 +294,8 @@
  "SPC g d d" 'magit-diff-unstaged
  "SPC g d q" 'magit-diff-staged
  "SPC g d f" 'magit-diff-buffer-file
- "SPC g p p" 'magit-push-to-remote)
+ "SPC g p p" 'magit-push-to-remote
+ "SPC g p r" 'magit-push-refspecs)
 
 ;; treemacs-mode bindings
 (general-define-key
