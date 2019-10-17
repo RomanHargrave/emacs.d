@@ -176,7 +176,10 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-(use-package php-mode          :ensure t :mode "\\.php\\'" :magic "\\#!.+php\\'")
+(use-package php-mode
+  :ensure t
+  :mode "\\.php\\'"
+  :magic "\\#!.+php\\'")
 (use-package php-refactor-mode
   :ensure t
   :config
