@@ -39,7 +39,10 @@
   (evil-collection-init))
 
 ; Replace bland welcome screen
-(use-package dashboard :ensure t)
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
 
 ; general.el, keymapping
 (use-package general :ensure t)
