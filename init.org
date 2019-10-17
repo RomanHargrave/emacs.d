@@ -1,16 +1,27 @@
+* Package init
+** Configure package sources
+/Note:/ If GNU ELPA is having package verification issues, set ~package-check-signature~ to ~nil~ (temporarily) and install ~gnu-elpa-keyring-update~
+#+BEGIN_SRC emacs-lisp
 (package-initialize)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; If GNU ELPA is having package verification issues, set package-check-signature to nil (temporarily) and install gnu-elpa-keyring-update
 (setq package-archives '(("gnu"     . "https://elpa.gnu.org/packages/")
                          ("melpa"   . "https://melpa.org/packages/")))
+#+END_SRC
 
+** Set up `use-package`
+#+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
 (require 'use-package)
+#+END_SRC
 
+* evil
+** Load evil
+~evil~ is enabled by default. The search module is set to ~evil-search~.
+#+BEGIN_SRC emacs-lisp
 (use-package evil
   :ensure t
   :init
@@ -19,19 +30,27 @@
         evil-search-module    'evil-search)
   :config
   (evil-mode 1))
+#+END_SRC
 
+** Load evil-collection
+~j~, ~k~, and ~l~ are re-mapped to ~n~, ~e~, and ~o~ for use with the Minimak-12 keyboard layout.
+~define-key~ has to be used to fix ~o~ for some reason.
+#+BEGIN_SRC emacs-lisp
 (use-package evil-collection
   :ensure t
+  :after evil
   :config
   (evil-collection-translate-key nil 'evil-motion-state-map
                                  "n" "j"
                                  "e" "k"
                                  "o" "l"
-                                 ;; 'o' needs to be somewhere else
                                  "l" "o")
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
   (evil-collection-init))
+#+END_SRC
 
+* Other settings
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
 (set-face-attribute 'default t :font "Source Code Pro-10")
 
@@ -326,3 +345,4 @@
 
 ; set _ to a word character so that C-Left/C-Right/S-Left/S-Right don't skip over it
 (modify-syntax-entry ?_ "w")
+#+END_SRC
