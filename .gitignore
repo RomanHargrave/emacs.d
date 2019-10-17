@@ -10,3 +10,6 @@ games/**
 recentf
 custom.el
 projectile-bookmarks.eld
+settings.el
+local.org
+local.el
