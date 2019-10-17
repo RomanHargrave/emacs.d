@@ -113,7 +113,13 @@
       (tag-node-closed  . treemacs-toggle-node-prefer-tag-visit)
       (tag-node         . treemacs-visit-node-default)))))
 
-(use-package treemacs-evil :ensure t)
+(use-package treemacs-evil
+  :ensure t
+  :after treemacs evil)
+
+(use-package treemacs-magit
+  :ensure t
+  :after treemacs magit)
 
 ; g/e/ctags
 (use-package ggtags :ensure t)
