@@ -38,12 +38,6 @@
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
   (evil-collection-init))
 
-; Replace bland welcome screen
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook))
-
 ; general.el, keymapping
 (use-package general :ensure t)
 (require 'general)
@@ -331,11 +325,6 @@
  "l" 'tetris-rotate-next
  "e" 'tetris-rotate-prev
  "p" 'tetris-pause)
-
-; Add a way to get to treemacs from dashboard
-(general-define-key
- :keymaps 'dashboard-mode-map
- "C-c" 'treemacs)
 
 ; set _ to a word character so that C-Left/C-Right/S-Left/S-Right don't skip over it
 (modify-syntax-entry ?_ "w")
