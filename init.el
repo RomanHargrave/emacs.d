@@ -142,7 +142,7 @@
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
-       (and (string-prefix-p "magit")
+       (and (string-prefix-p "magit" name)
             (not (file-name-extension name)))
        )))
   :bind
