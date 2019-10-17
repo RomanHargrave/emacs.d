@@ -163,25 +163,9 @@ Set the default font-face to /Source Code Pro/
   :after treemacs magit)
 #+END_SRC
 
-
-** Projectile
+** Centaur
+Provides tab groups for navigating open buffers
 #+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-mode 1))
-#+END_SRC
-
-* Other settings
-#+BEGIN_SRC emacs-lisp
-; general.el, keymapping
-(use-package general :ensure t)
-(require 'general)
-
-; g/e/ctags
-(use-package ggtags :ensure t)
-
-; Centaur Tabs
 (use-package centaur-tabs
   :ensure t
   :config
@@ -206,6 +190,24 @@ Set the default font-face to /Source Code Pro/
   (:map evil-normal-state-map
         ("g t" . centaur-tabs-forward)
         ("g T" . centaur-tabs-backward)))
+#+END_SRC
+
+** Projectile
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode 1))
+#+END_SRC
+
+* Other settings
+#+BEGIN_SRC emacs-lisp
+; general.el, keymapping
+(use-package general :ensure t)
+(require 'general)
+
+; g/e/ctags
+(use-package ggtags :ensure t)
 
 ; Magit and evil compatibility mode
 (use-package magit :ensure t)
