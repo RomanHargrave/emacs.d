@@ -131,6 +131,20 @@
   (centaur-tabs-mode t)
   (centaur-tabs-build-helm-source)
   (centaur-tabs-group-by-projectile-project)
+  (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-gray-out-icons 'buffer)
+  (setq centaur-tabs-style 'bar)
+  (setq centaur-tabs-set-modified-marker t)
+  (defun centaur-tabs-hide-tab (n)
+    (let ((name (format "%s" n)))
+      (or
+       (string-prefix-p "*epc" name)
+       (string-prefix-p "*helm" name)
+       (string-prefix-p "*Compile-Log*" name)
+       (string-prefix-p "*lsp" name)
+       (and (string-prefix-p "magit")
+            (not (file-name-extension name)))
+       )))
   :bind
   (:map evil-normal-state-map
         ("g t" . centaur-tabs-forward)
