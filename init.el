@@ -38,6 +38,9 @@
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
   (evil-collection-init))
 
+; Replace bland welcome screen
+(use-package dashboard :ensure t)
+
 ; general.el, keymapping
 (use-package general :ensure t)
 (require 'general)
@@ -178,6 +181,14 @@
   :ensure t
   :config
   (add-hook 'php-mode-hook 'php-refactor-mode))
+
+(use-package cmake-mode
+  :ensure t
+  :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
+(use-package cmake-ide
+  :ensure t
+  :config
+  (cmake-ide-setup))
 
 ; Disable tab auto-insertion
 (setq-default indent-tabs-mode nil)
