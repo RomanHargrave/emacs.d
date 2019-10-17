@@ -178,13 +178,35 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ; modes
-(use-package dockerfile-mode   :ensure t :mode "Dockerfile")
-(use-package lua-mode          :ensure t :mode "\\.lua\\'")
-(use-package robots-txt-mode   :ensure t :mode "robots.txt")
-(use-package fish-mode         :ensure t :mode "\\.fish\\'" :magic "\\#!.+fish\\'")
-(use-package perl6-mode        :ensure t)
-(use-package apt-sources-list  :ensure t)
-(use-package ansible           :ensure t)
+(use-package dockerfile-mode
+  :ensure t
+  :mode "Dockerfile")
+
+(use-package docker-compose-mode
+  :ensure t
+  :mode "docker-compose\\.yml")
+
+(use-package lua-mode
+  :ensure t
+  :mode "\\.lua\\'")
+
+(use-package robots-txt-mode
+  :ensure t
+  :mode "robots.txt")
+
+(use-package fish-mode
+  :ensure t
+  :mode "\\.fish\\'"
+  :magic "\\#!.+fish\\'")
+
+(use-package perl6-mode
+  :ensure t)
+
+(use-package apt-sources-list
+  :ensure t)
+
+(use-package ansible
+  :ensure t)
 
 (use-package markdown-mode
   :ensure t
