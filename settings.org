@@ -200,16 +200,8 @@ Provides tab groups for navigating open buffers
   (projectile-mode 1))
 #+END_SRC
 
-* Other settings
+** Magit
 #+BEGIN_SRC emacs-lisp
-; general.el, keymapping
-(use-package general :ensure t)
-(require 'general)
-
-; g/e/ctags
-(use-package ggtags :ensure t)
-
-; Magit and evil compatibility mode
 (use-package magit :ensure t)
 (use-package evil-magit
   :ensure t
@@ -217,10 +209,18 @@ Provides tab groups for navigating open buffers
   (setq evil-magit-state          'normal
         evil-magit-use-y-for-yank nil)
   (require 'evil-magit))
+#+END_SRC
 
-; Theme components
+** ggtags
+#+BEGIN_SRC emacs-lisp
+(use-package ggtags :ensure t)
+#+END_SRC
 
-; modes
+* Other settings
+#+BEGIN_SRC emacs-lisp
+(use-package general :ensure t)
+(require 'general)
+
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
 (use-package lua-mode          :ensure t :mode "\\.lua\\'")
 (use-package robots-txt-mode   :ensure t :mode "robots.txt")
