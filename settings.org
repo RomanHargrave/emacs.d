@@ -49,16 +49,17 @@
   (evil-collection-init))
 #+END_SRC
 
-* Other settings
+* Appearance
+Set the default font-face to /Source Code Pro/
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
 (set-face-attribute 'default t :font "Source Code Pro-10")
+#+END_SRC
 
-; general.el, keymapping
-(use-package general :ensure t)
-(require 'general)
+* Extensions
 
-; Popup window manager
+** Popwin
+#+BEGIN_SRC emacs-lisp
 (use-package popwin
   :ensure t
   :config
@@ -68,8 +69,10 @@
                                           (popwin:display-buffer helm-buffer t)
                                           (popwin-mode -1)))
   (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1))))
+#+END_SRC
 
-; Helm & Helm extensions
+** Helm
+#+BEGIN_SRC emacs-lisp
 (use-package helm
   :ensure t
   :config
@@ -80,8 +83,10 @@
   :ensure t
   :config
   (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
+#+END_SRC
 
-; COMPlete ANYthing
+** Company
+#+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
   :config
@@ -91,13 +96,19 @@
         ("C-p" . company-complete))
   (:map company-active-map
         ("RET" . company-complete-selection)))
+#+END_SRC
 
+*** Backends
+#+BEGIN_SRC emacs-lisp
 ;; Backends
 (use-package company-php     :ensure t)
 (use-package company-nginx   :ensure t)
 (use-package company-ansible :ensure t)
 (use-package company-plsense :ensure t)
+#+END_SRC
 
+*** Company Box frontend
+#+BEGIN_SRC emacs-lisp
 ;; Enhanced frontend
 (use-package company-box
   :ensure t
@@ -105,7 +116,17 @@
   (setq company-box-icons-alist 'company-box-icons-all-the-icons)
   :hook
   (company-mode . company-box-mode))
+#+END_SRC
 
+* Other settings
+#+BEGIN_SRC emacs-lisp
+; general.el, keymapping
+(use-package general :ensure t)
+(require 'general)
+
+; Popup window manager
+
+; COMPlete ANYthing
 ; Treemacs file & project browser as well as evil compatibility mode
 (use-package treemacs
   :ensure t
