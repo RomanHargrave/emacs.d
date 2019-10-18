@@ -230,6 +230,13 @@ Provides tab groups for navigating open buffers
 (use-package ggtags :ensure t)
 #+END_SRC
 
+** delim-kill
+#+BEGIN_SRC emacs-lisp
+  (use-package delim-kill 
+    :ensure t
+    :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
+#+END_SRC
+
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
