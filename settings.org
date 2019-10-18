@@ -236,6 +236,20 @@ Provides tab groups for navigating open buffers
   :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
 #+END_SRC
 
+** Corral
+#+BEGIN_SRC emacs-lisp
+(use-package corral
+  :ensure t
+  :bind (:map evil-insert-state-map
+              ("M-9" . corral-parenthesis-backward)
+              ("M-0" . corral-parenthesis-forward)
+              ("M-[" . corral-brackets-backward)
+              ("M-]" . corral-brackets-forward)
+              ("M-{" . corral-braces-backward)
+              ("M-}" . corral-braces-forward)
+              ("M-'" . corral-double-quotes-backward)))
+#+END_SRC
+
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
