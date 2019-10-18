@@ -231,9 +231,9 @@ Provides tab groups for navigating open buffers
 
 ** delim-kill
 #+BEGIN_SRC emacs-lisp
-  (use-package delim-kill 
-    :ensure t
-    :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
+(use-package delim-kill 
+  :ensure t
+  :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
 #+END_SRC
 
 ** Language Support Modes
