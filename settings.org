@@ -181,6 +181,7 @@ Provides tab groups for navigating open buffers
 #+BEGIN_SRC emacs-lisp
 (use-package centaur-tabs
   :ensure t
+  :demand
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-build-helm-source)
