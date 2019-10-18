@@ -197,8 +197,7 @@ Provides tab groups for navigating open buffers
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
-       (string-prefix-p "magit" name)
-       (string-prefix-p "Treemacs" name))))
+       (string-prefix-p "magit" name))))
   :bind
   (:map evil-normal-state-map
         ("g t" . centaur-tabs-forward)
