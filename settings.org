@@ -18,10 +18,11 @@
 (require 'use-package)
 #+END_SRC
 
-*** Set coding-system-for-read to utf8
+*** Set encoding system to utf8
 This is particularly necessary in order to use auctex due to a dependency upon ~text-jp.el~ which will not load unless this is set as such.
 #+BEGIN_SRC emacs-lisp
 (setq coding-system-for-read 'utf-8)
+(set-language-environment "UTF-8")
 #+END_SRC emacs-lisp
 
 * evil
@@ -130,6 +131,7 @@ Enable line number gutter
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'company-mode)
+  (add-hook 'latex-mode-hook #'company-mode)
   :bind
   (:map evil-insert-state-map
         ("C-p" . company-complete))
@@ -236,7 +238,7 @@ Provides tab groups for navigating open buffers
 
 ** delim-kill
 #+BEGIN_SRC emacs-lisp
-(use-package delim-kill 
+(use-package delim-kill
   :ensure t
   :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
 #+END_SRC
@@ -301,10 +303,11 @@ Also includes cmake-ide for clang integration
 Includes company backends
 #+BEGIN_SRC emacs-lisp
 (use-package auctex
-  :ensure t
-  :mode (("\\.tex\\'" . auctex-mode)))
+  :ensure auctex
+  :defer t)
 
 (use-package company-auctex
+  :after auctex
   :ensure t)
 
 (use-package edit-indirect-region-latex
