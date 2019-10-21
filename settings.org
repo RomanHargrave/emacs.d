@@ -335,6 +335,16 @@ Includes company backends
   :ensure t)
 #+END_SRC
 
+*** coleslaw-mode
+This is /sort of/ a language support mode.
+#+BEGIN_SRC emacs-lisp
+(use-package coleslaw
+  :quelpa (coleslaw
+           :fetcher github
+           :repo    "equwal/coleslaw-mode")
+  :config
+  (coleslaw-setup))
+#+END_SRC
 * Configuration
 
 ** Editor Behaviour
