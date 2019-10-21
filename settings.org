@@ -25,6 +25,21 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 (set-language-environment "UTF-8")
 #+END_SRC emacs-lisp
 
+** Use quelpa
+Quelpa allows for git repositories to be treated as package sources
+#+BEGIN_SRC emacs-lisp
+(use-package quelpa
+  :ensure t)
+
+(require 'quelpa)
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url     "https://framagit.org/steckerhalter/quelpa-use-package.git"))
+
+(require 'quelpa-use-package)
+#+END_SRC
 * evil
 ** Load evil
 ~evil~ is enabled by default. The search module is set to ~evil-search~.
