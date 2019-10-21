@@ -354,7 +354,8 @@ This is /sort of/ a language support mode.
   :mode (("\\.tmpl\\'" . web-mode)))
 
 (setq web-mode-engines-alist
-      '(("closure" . "\\.tmpl\\'")))
+      '(("closure"    . "\\.tmpl\\'")
+        ("freemarker" . "\\.ftl\\'"))
 
 (defun web-mode-config-hook ()
      "Configuration hook for web-mode"
