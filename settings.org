@@ -345,6 +345,21 @@ This is /sort of/ a language support mode.
   :config
   (coleslaw-setup))
 #+END_SRC
+
+*** web-mode
+#+BEGIN_SRC emacs-lisp
+(use-package web-mode
+  :ensure t
+  :mode (("\\.tmpl\\'" . web-mode)))
+
+(setq web-mode-engines-alist
+      '(("closure" . "\\.tmpl\\'")))
+
+(def web-mode-config-hook ()
+     "Configuration hook for web-mode"
+     (setq web-mode-markup-indent-offset 2))
+#+END_SRC
+
 * Configuration
 
 ** Editor Behaviour
