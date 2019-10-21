@@ -356,9 +356,11 @@ This is /sort of/ a language support mode.
 (setq web-mode-engines-alist
       '(("closure" . "\\.tmpl\\'")))
 
-(def web-mode-config-hook ()
+(defun web-mode-config-hook ()
      "Configuration hook for web-mode"
      (setq web-mode-markup-indent-offset 2))
+
+(add-hook 'web-mode-hook 'web-mode-config-hook)
 #+END_SRC
 
 * Configuration
