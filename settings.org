@@ -232,8 +232,14 @@ Provides tab groups for navigating open buffers
 (use-package projectile
   :ensure t
   :config
-  (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (projectile-mode 1))
+#+END_SRC
+
+*** Projectile Helm UI
+#+BEGIN_SRC emacs-lisp
+(use-package helm-projectile
+  :ensure t
+  :after projectile helm)
 #+END_SRC
 
 ** Magit
@@ -457,7 +463,11 @@ Fix word-skip behaviour
  "SPC g p r" 'magit-push-refspecs
  "SPC s a"   'helm-ag
  "SPC s s"   'helm-ag-project-root
- "SPC s f"   'helm-ag-this-file)
+ "SPC s f"   'helm-ag-this-file
+ "SPC p f f" 'helm-projectile-find-file
+ "SPC p f d" 'helm-projectile-find-dir
+ "SPC p s p" 'helm-projectile-switch-project
+ "SPC p a a" 'helm-projectile-rg)
 #+END_SRC
 
 *** Treemacs
