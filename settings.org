@@ -352,7 +352,9 @@ This is /sort of/ a language support mode.
 (use-package web-mode
   :ensure t
   :mode (("\\.tmpl\\'" . web-mode)
-         ("\\.ftl\\'"  . web-mode))
+         ("\\.ftl\\'"  . web-mode)
+         ("\\.html\\'" . web-mode)
+         ("\\.css\\'"  . web-mode))
 
 (setq web-mode-engines-alist
       '(("closure"    . "\\.tmpl\\'")
