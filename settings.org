@@ -360,11 +360,11 @@ This is /sort of/ a language support mode.
   :mode (("\\.tmpl\\'" . web-mode)
          ("\\.ftl\\'"  . web-mode)
          ("\\.html\\'" . web-mode)
-         ("\\.css\\'"  . web-mode))
+         ("\\.css\\'"  . web-mode)))
 
 (setq web-mode-engines-alist
       '(("closure"    . "\\.tmpl\\'")
-        ("freemarker" . "\\.ftl\\'"))
+        ("freemarker" . "\\.ftl\\'")))
 
 (defun web-mode-config-hook ()
      "Configuration hook for web-mode"
