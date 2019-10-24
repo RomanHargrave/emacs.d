@@ -297,6 +297,15 @@ Provides tab groups for navigating open buffers
   :init (setq markdown-command "pandoc"))
 #+END_SRC
 
+*** Python
+#+BEGIN_SRC emacs-lisp
+(use-package python-mode
+  :ensure t
+  :mode "\\.py\\'"
+  :config
+  (setq python-shell-interpreter "/usr/bin/python"))
+#+END_SRC
+
 *** PHP
 #+BEGIN_SRC emacs-lisp
 (use-package php-mode
@@ -348,7 +357,7 @@ This is /sort of/ a language support mode.
 (use-package coleslaw
   :quelpa (coleslaw
            :fetcher github
-           :repo    "RomanHargrave/coleslaw-mode")
+           :repo    "RomanHargrave/coleslaw")
   :ensure t
   :demand
   :config
