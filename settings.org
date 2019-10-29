@@ -68,6 +68,8 @@ Quelpa allows for git repositories to be treated as package sources
                                  "o" "l"
                                  "l" "o")
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
+  (define-key evil-normal-state-map (kbd "C-n") 'evil-next-match)
+  ;; Leaving "N" (shifted) as previous match
   (evil-collection-init))
 #+END_SRC
 
@@ -444,9 +446,7 @@ Fix word-skip behaviour
 ** Stateless Global Keybindings
 #+BEGIN_SRC emacs-lisp
 (general-define-key
- "C-s"   'save-buffer
- "M-n"   'evil-next-match
- "M-N"   'evil-previous-match)
+ "C-s"   'save-buffer)
 #+END_SRC
 
 ** Normal mode keybindings
