@@ -373,6 +373,13 @@ This is /sort of/ a language support mode.
 (add-hook 'web-mode-hook 'web-mode-config-hook)
 #+END_SRC
 
+*** cperl-mode
+#+BEGIN_SRC emacs-lisp
+(use-package cperl-mode
+  :defer t)
+
+(defalias 'perl-mode 'cperl-mode)
+#+END_SRC
 * Configuration
 
 ** Editor Behaviour
