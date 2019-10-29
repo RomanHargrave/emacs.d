@@ -297,6 +297,15 @@ Provides tab groups for navigating open buffers
   :init (setq markdown-command "pandoc"))
 #+END_SRC
 
+*** Python
+#+BEGIN_SRC emacs-lisp
+(use-package python-mode
+  :ensure t
+  :mode "\\.py\\'"
+  :config
+  (setq python-shell-interpreter "/usr/bin/python"))
+#+END_SRC
+
 *** PHP
 #+BEGIN_SRC emacs-lisp
 (use-package php-mode
@@ -348,7 +357,9 @@ This is /sort of/ a language support mode.
 (use-package coleslaw
   :quelpa (coleslaw
            :fetcher github
-           :repo    "equwal/coleslaw-mode")
+           :repo    "RomanHargrave/coleslaw")
+  :ensure t
+  :demand
   :config
   (coleslaw-setup))
 #+END_SRC
@@ -369,6 +380,9 @@ This is /sort of/ a language support mode.
 (defun web-mode-config-hook ()
      "Configuration hook for web-mode"
      (setq web-mode-markup-indent-offset 2))
+
+;; Also configure JS indent
+(setq js-indent-level 2)
 
 (add-hook 'web-mode-hook 'web-mode-config-hook)
 #+END_SRC
