@@ -100,6 +100,15 @@ Enable line number gutter
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
+(defun init-theme-setup ()
+  "load themes"
+  (progn
+    (load-theme 'doom-molokai t)
+    (doom-themes-treemacs-config)
+    (doom-themes-org-config)))
+
+(add-hook 'after-init-hook 'init-theme-setup)
+
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
   :ensure t
