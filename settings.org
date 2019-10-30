@@ -288,6 +288,7 @@ Provides tab groups for navigating open buffers
 (use-package perl6-mode        :ensure t)
 (use-package apt-sources-list  :ensure t)
 (use-package ansible           :ensure t)
+(use-package yaml-mode         :ensure t :mode ("\\.yaml\\'" "\\.yml\\'"))
 
 (use-package markdown-mode
   :ensure t
