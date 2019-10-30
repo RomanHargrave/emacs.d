@@ -74,15 +74,27 @@ Quelpa allows for git repositories to be treated as package sources
 * Appearance
 Set the default font-face to /Source Code Pro/
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
-(set-face-attribute 'default t :font "Source Code Pro-10")
+(add-hook 'after-init-hook
+          (lambda ()
+            (progn
+              (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
+              (set-face-attribute 'default t :font "Source Code Pro-10"))))
 #+END_SRC
 
 Disable menu bars, tool bar, and most importantly - scroll bars
 #+BEGIN_SRC emacs-lisp
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
+(add-hook 'after-init-hook
+          (lambda ()
+            (progn
+              (toggle-scroll-bar -1)
+              (tool-bar-mode -1)
+              (menu-bar-mode -1))))
+
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (modify-frame-parameters frame
+                                     '((verticle-scroll-bars   . nil)
+                                       (horizontal-scroll-bars . nil)))))
 #+END_SRC
 
 Enable line number gutter
@@ -96,18 +108,12 @@ Enable line number gutter
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-molokai t)
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
-(defun init-theme-setup ()
-  "load themes"
-  (progn
-    (load-theme 'doom-molokai t)
-    (doom-themes-treemacs-config)
-    (doom-themes-org-config)))
-
-(add-hook 'after-init-hook 'init-theme-setup)
+(add-hook 'after-init-hook
+          (lambda ()
+              (load-theme 'doom-molokai t)))
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
