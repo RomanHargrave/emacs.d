@@ -297,6 +297,13 @@ Provides tab groups for navigating open buffers
               ("M-'" . corral-double-quotes-backward)))
 #+END_SRC
 
+** EditorConfig Support
+#+BEGIN_SRC emacs-lisp
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+#+END_SRC
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
