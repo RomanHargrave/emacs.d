@@ -304,6 +304,13 @@ Provides tab groups for navigating open buffers
   :config
   (editorconfig-mode 1))
 #+END_SRC
+** eterm
+#+BEGIN_SRC emacs-lisp
+(use-package eterm-256color
+  :ensure t)
+
+(add-hook 'term-mode-hook #'eterm-256color-mode)
+#+END_SRC
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
