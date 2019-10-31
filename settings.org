@@ -432,6 +432,23 @@ This is /sort of/ a language support mode.
 
 (defalias 'perl-mode 'cperl-mode)
 #+END_SRC
+
+*** scala-mode
+#+BEGIN_SRC emacs-lisp
+(use-package scala-mode
+  :ensure t
+  :interpreter
+  ("scala" . scala-mode))
+
+(use-package sbt-mode
+  :ensure t
+  :config
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map))
+#+END_SRC
+
 * Configuration
 
 ** Editor Behaviour
