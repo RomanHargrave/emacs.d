@@ -462,14 +462,30 @@ This is /sort of/ a language support mode.
 *** language server protocol support
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
-  :hook ((scala-mode . lsp))
+  :hook ((scala-mode . lsp)
+         (php-mode   . lsp))
   :ensure t
   :commands lsp
   :config
   (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
-  :ensure t)
+  :ensure t
+  :requires lsp-mode flycheck
+  :config
+  (setq lsp-ui-doc-position 'top
+        lsp-ui-flycheck-enable t
+        lsp-ui-flycheck-list-position 'right
+        lsp-ui-flycheck-live-reporting t))
+
+(general-define-key
+ "<f6>" 'lsp-rename
+ "<f7>" 'lsp-ui-peek-find-definitions
+ "<f8>" 'lsp-ui-peek-find-references)
+
+(general-define-key
+ :states 'normal
+ "SPC l g g" 'lsp-ui-imenu)
 
 (use-package company-lsp
   :ensure t)
