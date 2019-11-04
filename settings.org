@@ -563,7 +563,7 @@ Fix word-skip behaviour
  "SPC g r a" 'magit-unstage-all
  "SPC g s t" 'magit-status
  "SPC g d d" 'magit-diff-unstaged
- "SPC g d q" 'magit-diff-staged
+ "SPC g d s" 'magit-diff-staged
  "SPC g d f" 'magit-diff-buffer-file
  "SPC g p p" 'magit-push-to-remote
  "SPC g p r" 'magit-push-refspecs
