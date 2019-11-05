@@ -60,15 +60,15 @@ Quelpa allows for git repositories to be treated as package sources
 #+BEGIN_SRC emacs-lisp
 (use-package evil-collection
   :ensure t
-  :after evil
+  :requires evil
   :config
   (evil-collection-translate-key nil 'evil-motion-state-map
                                  "n" "j"
                                  "e" "k"
                                  "o" "l"
                                  "l" "o")
-  (define-key evil-motion-state-map (kbd "o") 'evil-forward-char)
-  (define-key evil-motion-state-map (kbd "C-n") 'evil-search-next)
+  (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
+  (define-key evil-normal-state-map (kbd "C-n") 'evil-search-next)
   ;; Leaving "N" (shifted) as previous match
   (evil-collection-init))
 #+END_SRC
