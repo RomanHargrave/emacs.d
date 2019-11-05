@@ -14,3 +14,5 @@ projectile-bookmarks.eld
 settings.el
 local.org
 local.el
+.lsp-session*
+lsp-cache/**
