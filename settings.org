@@ -316,6 +316,19 @@ Provides tab groups for navigating open buffers
 (use-package flycheck
   :hook ('after-init-hook . #'global-flycheck-mode))
 #+END_SRC
+** Reddit Mode
+#+BEGIN_SRC emacs-lisp
+(use-package md4rd
+  :ensure t
+  :config
+  (add-hook 'md4rd-mode-hook 'md4rd-indent-all-the-lines)
+  (setq md4rd-subs-active
+        '(emacs
+          scala
+          linux
+          c_programming)))
+   
+#+END_SRC
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
