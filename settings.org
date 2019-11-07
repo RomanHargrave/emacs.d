@@ -190,6 +190,16 @@ Enable line number gutter
   (company-mode . company-box-mode))
 #+END_SRC
 
+** Tramp
+#+BEGIN_SRC emacs-lisp
+(use-package tramp
+  :defer t
+  :ensure t
+  :config
+  (setf tramp-persistency-file-name
+        (concat temporary-file-directory "tramp-" (user-login-name))))                                                                       :defer t
+#+END_SRC
+
 ** Treemacs
 #+BEGIN_SRC emacs-lisp
 (use-package treemacs
