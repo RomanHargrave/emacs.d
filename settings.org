@@ -555,6 +555,18 @@ This is /sort of/ a language support mode.
 
 #+BEGIN_SRC emacs-lisp
 (use-package fxrd-mode
+  :quelpa (fxrd-mode
+           :fetcher github
+           :repo "RomanHargrave/fxrd-mode")
+  :pin manual
+  :demand
+  :ensure t)
+#+END_SRC
+
+*** NginX mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package nginx-mode
   :defer t
   :ensure t)
 #+END_SRC
