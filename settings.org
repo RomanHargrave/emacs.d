@@ -298,24 +298,30 @@ Provides tab groups for navigating open buffers
 #+END_SRC
 
 ** EditorConfig Support
+
 #+BEGIN_SRC emacs-lisp
 (use-package editorconfig
   :ensure t
   :config
   (editorconfig-mode 1))
 #+END_SRC
+
 ** eterm
+
 #+BEGIN_SRC emacs-lisp
 (use-package eterm-256color
   :ensure t)
 
 (add-hook 'term-mode-hook #'eterm-256color-mode)
 #+END_SRC
+
 ** Flycheck
+
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :hook ('after-init-hook . #'global-flycheck-mode))
 #+END_SRC
+
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode   :ensure t :mode "Dockerfile")
@@ -333,6 +339,18 @@ Provides tab groups for navigating open buffers
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
+#+END_SRC
+
+*** D
+
+#+BEGIN_SRC emacs-lisp
+(use-package d-mode
+  :defer t
+  :ensure t
+  :mode ("\\.d\\'"))
+
+(use-package company-dcd
+  :requires company-mode)
 #+END_SRC
 
 *** Python
@@ -494,6 +512,14 @@ This is /sort of/ a language support mode.
   :ensure t)
 
 (use-package lsp-treemacs
+  :ensure t)
+#+END_SRC
+
+*** fintech formats
+
+#+BEGIN_SRC emacs-lisp
+(use-package fxrd-mode
+  :defer t
   :ensure t)
 #+END_SRC
 
