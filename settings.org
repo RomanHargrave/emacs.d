@@ -519,7 +519,7 @@ This is /sort of/ a language support mode.
     :new-connection (lsp-stdio-connection '("dub" "run" "dls"))
     :major-modes '(d-mode)
     :server-id 'dls))
-  (add-to-list lsp-language-id-configuration '(d-mode . "d"))
+  (add-to-list 'lsp-language-id-configuration '(d-mode . "d"))
   (setq lsp-prefer-flymake nil))
 
 
