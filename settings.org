@@ -238,7 +238,9 @@ Provides tab groups for navigating open buffers
        (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "*lsp" name)
-       (string-prefix-p "magit" name))))
+       (string-prefix-p "magit" name)
+       (string-prefix-p "Treemacs" name)
+       (string-prefix-p "*Treemacs" name))))
   :bind
   (:map evil-normal-state-map
         ("g t" . centaur-tabs-forward)
@@ -481,11 +483,20 @@ This is /sort of/ a language support mode.
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
   :hook ((scala-mode . lsp)
-         (php-mode   . lsp))
+         (php-mode   . lsp)
+         (d-mode     . lsp))
   :ensure t
   :commands lsp
+  :init
   :config
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("dub" "run" "dls"))
+    :major-modes '(d-mode)
+    :server-id 'dls))
+  (add-to-list lsp-language-id-configuration '(d-mode . "d"))
   (setq lsp-prefer-flymake nil))
+
 
 (use-package lsp-ui
   :ensure t
