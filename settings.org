@@ -349,7 +349,12 @@ Provides tab groups for navigating open buffers
 (use-package d-mode
   :defer t
   :ensure t
-  :mode ("\\.d\\'"))
+  :mode ("\\.d\\'")
+  :config
+  (add-hook 'd-mode-hook
+            (lamdba ()
+                    (setq c-basic-offset 2
+                          tab-width      2))))
 
 (use-package company-dcd
   :requires company-mode)
@@ -572,8 +577,10 @@ Fix word-skip behaviour
 
 ** Keybindings
 #+BEGIN_SRC emacs-lisp
-(use-package general :ensure t)
-(require 'general)
+(use-package general
+ :demand
+ :ensure t
+ :init (require 'general))
 #+END_SRC
 
 ** Stateless Global Keybindings
