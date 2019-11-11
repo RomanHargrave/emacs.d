@@ -352,7 +352,7 @@ Provides tab groups for navigating open buffers
   :mode ("\\.d\\'")
   :config
   (add-hook 'd-mode-hook
-            (lamdba ()
+            (lambda ()
                     (setq c-basic-offset 2
                           tab-width      2))))
 
