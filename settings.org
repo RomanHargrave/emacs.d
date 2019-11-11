@@ -190,6 +190,16 @@ Enable line number gutter
   (company-mode . company-box-mode))
 #+END_SRC
 
+** Tramp
+#+BEGIN_SRC emacs-lisp
+(use-package tramp
+  :defer t
+  :ensure t
+  :config
+  (setf tramp-persistency-file-name
+        (concat temporary-file-directory "tramp-" (user-login-name))))                                                                       :defer t
+#+END_SRC
+
 ** Treemacs
 #+BEGIN_SRC emacs-lisp
 (use-package treemacs
@@ -322,6 +332,21 @@ Provides tab groups for navigating open buffers
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :hook ('after-init-hook . #'global-flycheck-mode))
+#+END_SRC
+
+** Reddit Mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package md4rd
+  :ensure t
+  :config
+  (add-hook 'md4rd-mode-hook 'md4rd-indent-all-the-lines)
+  (setq md4rd-subs-active
+        '(emacs
+          scala
+          linux
+          c_programming)))
+   
 #+END_SRC
 
 ** Language Support Modes
@@ -535,6 +560,18 @@ This is /sort of/ a language support mode.
 
 #+BEGIN_SRC emacs-lisp
 (use-package fxrd-mode
+  :quelpa (fxrd-mode
+           :fetcher github
+           :repo "RomanHargrave/fxrd-mode")
+  :pin manual
+  :demand
+  :ensure t)
+#+END_SRC
+
+*** NginX mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package nginx-mode
   :defer t
   :ensure t)
 #+END_SRC
