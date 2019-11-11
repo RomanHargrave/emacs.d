@@ -644,7 +644,7 @@ Fix word-skip behaviour
  "SPC g c r" 'magit-commit-reword
  "SPC g a a" 'magit-stage
  "SPC g a m" 'magit-stage-modified
- "SPC g r s" 'magit-unstage
+ "SPC g r s" 'magit-unstage-file
  "SPC g r a" 'magit-unstage-all
  "SPC g s t" 'magit-status
  "SPC g d d" 'magit-diff-unstaged
