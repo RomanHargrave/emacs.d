@@ -197,7 +197,7 @@ Enable line number gutter
   :ensure t
   :config
   (setf tramp-persistency-file-name
-        (concat temporary-file-directory "tramp-" (user-login-name))))                                                                       :defer t
+        (concat temporary-file-directory "tramp-" (user-login-name))))
 #+END_SRC
 
 ** Treemacs
@@ -404,6 +404,14 @@ Provides tab groups for navigating open buffers
   :ensure t
   :config
   (add-hook 'php-mode-hook 'php-refactor-mode))
+#+END_SRC
+
+*** DBGp support
+#+BEGIN_SRC emacs-lisp
+(use-package geben
+  :ensure t
+  :defer t
+  :commands geben)
 #+END_SRC
 
 *** CMake
