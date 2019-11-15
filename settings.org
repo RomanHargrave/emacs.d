@@ -407,6 +407,7 @@ Provides tab groups for navigating open buffers
 #+END_SRC
 
 *** DBGp support
+
 #+BEGIN_SRC emacs-lisp
 (use-package geben
   :ensure t
