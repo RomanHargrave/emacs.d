@@ -373,7 +373,7 @@ Provides tab groups for navigating open buffers
 Tweaks to cc-mode, more or less
 
 #+BEGIN_SRC emacs-lisp
-(setq c-default-style "linux" ; gnu is nasty
+(setq c-default-style "bsd" ; gnu is nasty
       c-basic-offset  2)
 #+END_SRC
 
@@ -715,4 +715,16 @@ Fix word-skip behaviour
  "l" 'tetris-rotate-next
  "e" 'tetris-rotate-prev
  "p" 'tetris-pause)
+#+END_SRC
+
+* Final Steps
+
+** Load Custom Settings
+
+Custom settings include things such as whitelisted dir-local/local vars
+
+#+BEGIN_SRC emacs-lisp
+(load-file
+ (expand-file-name
+  (concat user-emacs-directory "custom.el")))
 #+END_SRC
