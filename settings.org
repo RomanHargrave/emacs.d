@@ -522,9 +522,10 @@ This is /sort of/ a language support mode.
 *** language server protocol support
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
-  :hook ((scala-mode . lsp)
-         (php-mode   . lsp)
-         (d-mode     . lsp))
+  :hook ((scala-mode  . lsp)
+         (php-mode    . lsp)
+         (python-mode . lsp)
+         (d-mode      . lsp))
   :ensure t
   :commands lsp
   :init
