@@ -368,6 +368,15 @@ Provides tab groups for navigating open buffers
   :init (setq markdown-command "pandoc"))
 #+END_SRC
 
+*** C
+
+Tweaks to cc-mode, more or less
+
+#+BEGIN_SRC emacs-lisp
+(setq c-default-style "linux" ; gnu is nasty
+      c-basic-offset  2)
+#+END_SRC
+
 *** D
 
 #+BEGIN_SRC emacs-lisp
