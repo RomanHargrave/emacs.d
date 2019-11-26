@@ -1,21 +1,25 @@
 * Package init
-** Configure package sources
-/Note:/ If GNU ELPA is having package verification issues, set ~package-check-signature~ to ~nil~ (temporarily) and install ~gnu-elpa-keyring-update~
-#+BEGIN_SRC emacs-lisp
-(package-initialize)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+** Set up straight.el
 
-(setq package-archives '(("gnu"     . "https://elpa.gnu.org/packages/")
-                         ("melpa"   . "https://melpa.org/packages/")))
+#+BEGIN_SRC emacs-lisp
+(defvar bootstrap-version)
+(defvar straight-use-package-by-default)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 #+END_SRC
 
 ** Set up `use-package`
 #+BEGIN_SRC emacs-lisp
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
+(straight-use-package 'use-package)
 #+END_SRC
 
 *** Set encoding system to utf8
@@ -25,27 +29,11 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 (set-language-environment "UTF-8")
 #+END_SRC emacs-lisp
 
-** Use quelpa
-Quelpa allows for git repositories to be treated as package sources
-#+BEGIN_SRC emacs-lisp
-(use-package quelpa
-  :ensure t)
-
-(require 'quelpa)
-
-(quelpa
- '(quelpa-use-package
-   :fetcher git
-   :url     "https://framagit.org/steckerhalter/quelpa-use-package.git"))
-
-(require 'quelpa-use-package)
-#+END_SRC
 * evil
 ** Load evil
 ~evil~ is enabled by default. The search module is set to ~evil-search~.
 #+BEGIN_SRC emacs-lisp
 (use-package evil
-  :ensure t
   :init
   (setq evil-want-keybinding  nil
         evil-want-integration t
@@ -59,7 +47,6 @@ Quelpa allows for git repositories to be treated as package sources
 ~define-key~ has to be used to fix ~o~ for some reason.
 #+BEGIN_SRC emacs-lisp
 (use-package evil-collection
-  :ensure t
   :requires evil
   :config
   (evil-collection-translate-key nil 'evil-motion-state-map
@@ -109,7 +96,6 @@ Enable line number gutter
 ** Theme
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
-  :ensure t
   :config
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
@@ -120,11 +106,9 @@ Enable line number gutter
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
-  :ensure t
   :hook (after-init . doom-modeline-mode))
 
 (use-package rainbow-delimiters
-  :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
@@ -134,7 +118,6 @@ Enable line number gutter
 ** Popwin
 #+BEGIN_SRC emacs-lisp
 (use-package popwin
-  :ensure t
   :config
   (popwin-mode 1)
   (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config)
@@ -147,13 +130,11 @@ Enable line number gutter
 ** Helm
 #+BEGIN_SRC emacs-lisp
 (use-package helm
-  :ensure t
   :config
   (require 'helm-config)
   (helm-mode 1))
 
 (use-package helm-ag
-  :ensure t
   :config
   (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
 #+END_SRC
@@ -161,7 +142,6 @@ Enable line number gutter
 ** Company
 #+BEGIN_SRC emacs-lisp
 (use-package company
-  :ensure t
   :config
   (add-hook 'prog-mode-hook #'company-mode)
   (add-hook 'latex-mode-hook #'company-mode)
@@ -174,16 +154,15 @@ Enable line number gutter
 
 *** Backends
 #+BEGIN_SRC emacs-lisp
-(use-package company-php     :ensure t)
-(use-package company-nginx   :ensure t)
-(use-package company-ansible :ensure t)
-(use-package company-plsense :ensure t)
+(use-package company-php)
+(use-package company-nginx)
+(use-package company-ansible)
+(use-package company-plsense)
 #+END_SRC
 
 *** Company Box frontend
 #+BEGIN_SRC emacs-lisp
 (use-package company-box
-  :ensure t
   :config
   (setq company-box-icons-alist 'company-box-icons-all-the-icons)
   :hook
@@ -194,7 +173,6 @@ Enable line number gutter
 #+BEGIN_SRC emacs-lisp
 (use-package tramp
   :defer t
-  :ensure t
   :config
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name))))
@@ -203,7 +181,6 @@ Enable line number gutter
 ** Treemacs
 #+BEGIN_SRC emacs-lisp
 (use-package treemacs
-  :ensure t
   :config
   '(treemacs-RET-actions-config
     (quote
@@ -219,11 +196,9 @@ Enable line number gutter
       (tag-node         . treemacs-visit-node-default)))))
 
 (use-package treemacs-evil
-  :ensure t
   :after treemacs evil)
 
 (use-package treemacs-magit
-  :ensure t
   :after treemacs magit)
 #+END_SRC
 
@@ -231,7 +206,6 @@ Enable line number gutter
 Provides tab groups for navigating open buffers
 #+BEGIN_SRC emacs-lisp
 (use-package centaur-tabs
-  :ensure t
   :demand
   :config
   (centaur-tabs-mode t)
@@ -260,7 +234,6 @@ Provides tab groups for navigating open buffers
 ** Projectile
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
-  :ensure t
   :config
   (projectile-mode 1))
 #+END_SRC
@@ -268,15 +241,13 @@ Provides tab groups for navigating open buffers
 *** Projectile Helm UI
 #+BEGIN_SRC emacs-lisp
 (use-package helm-projectile
-  :ensure t
   :after projectile helm)
 #+END_SRC
 
 ** Magit
 #+BEGIN_SRC emacs-lisp
-(use-package magit :ensure t)
+(use-package magit)
 (use-package evil-magit
-  :ensure t
   :config
   (setq evil-magit-state          'normal
         evil-magit-use-y-for-yank nil)
@@ -285,20 +256,18 @@ Provides tab groups for navigating open buffers
 
 ** ggtags
 #+BEGIN_SRC emacs-lisp
-(use-package ggtags :ensure t)
+(use-package ggtags)
 #+END_SRC
 
 ** delim-kill
 #+BEGIN_SRC emacs-lisp
 (use-package delim-kill
-  :ensure t
   :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
 #+END_SRC
 
 ** Corral
 #+BEGIN_SRC emacs-lisp
 (use-package corral
-  :ensure t
   :bind (:map evil-insert-state-map
               ("M-9" . corral-parenthesis-backward)
               ("M-0" . corral-parenthesis-forward)
@@ -313,7 +282,6 @@ Provides tab groups for navigating open buffers
 
 #+BEGIN_SRC emacs-lisp
 (use-package editorconfig
-  :ensure t
   :config
   (editorconfig-mode 1))
 #+END_SRC
@@ -321,8 +289,7 @@ Provides tab groups for navigating open buffers
 ** eterm
 
 #+BEGIN_SRC emacs-lisp
-(use-package eterm-256color
-  :ensure t)
+(use-package eterm-256color)
 
 (add-hook 'term-mode-hook #'eterm-256color-mode)
 #+END_SRC
@@ -338,7 +305,6 @@ Provides tab groups for navigating open buffers
 
 #+BEGIN_SRC emacs-lisp
 (use-package md4rd
-  :ensure t
   :config
   (add-hook 'md4rd-mode-hook 'md4rd-indent-all-the-lines)
   (setq md4rd-subs-active
@@ -351,17 +317,16 @@ Provides tab groups for navigating open buffers
 
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
-(use-package dockerfile-mode   :ensure t :mode "Dockerfile")
-(use-package lua-mode          :ensure t :mode "\\.lua\\'")
-(use-package robots-txt-mode   :ensure t :mode "robots.txt")
-(use-package fish-mode         :ensure t :mode "\\.fish\\'" :magic "\\#!.+fish\\'")
-(use-package perl6-mode        :ensure t)
-(use-package apt-sources-list  :ensure t)
-(use-package ansible           :ensure t)
-(use-package yaml-mode         :ensure t :mode ("\\.yaml\\'" "\\.yml\\'"))
+(use-package dockerfile-mode :mode "Dockerfile")
+(use-package lua-mode :mode "\\.lua\\'")
+(use-package robots-txt-mode :mode "robots.txt")
+(use-package fish-mode :mode "\\.fish\\'" :magic "\\#!.+fish\\'")
+(use-package perl6-mode)
+(use-package apt-sources-list)
+(use-package ansible)
+(use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
 
 (use-package markdown-mode
-  :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
@@ -382,7 +347,6 @@ Tweaks to cc-mode, more or less
 #+BEGIN_SRC emacs-lisp
 (use-package d-mode
   :defer t
-  :ensure t
   :mode ("\\.d\\'")
   :config
   (add-hook 'd-mode-hook
@@ -397,7 +361,6 @@ Tweaks to cc-mode, more or less
 *** Python
 #+BEGIN_SRC emacs-lisp
 (use-package python-mode
-  :ensure t
   :mode "\\.py\\'"
   :config
   (setq python-shell-interpreter "/usr/bin/python"))
@@ -406,11 +369,9 @@ Tweaks to cc-mode, more or less
 *** PHP
 #+BEGIN_SRC emacs-lisp
 (use-package php-mode
-  :ensure t
   :mode "\\.php\\'"
   :magic "\\#!.+php\\'")
 (use-package php-refactor-mode
-  :ensure t
   :config
   (add-hook 'php-mode-hook 'php-refactor-mode))
 #+END_SRC
@@ -419,7 +380,6 @@ Tweaks to cc-mode, more or less
 
 #+BEGIN_SRC emacs-lisp
 (use-package geben
-  :ensure t
   :defer t
   :commands geben)
 #+END_SRC
@@ -428,10 +388,8 @@ Tweaks to cc-mode, more or less
 Also includes cmake-ide for clang integration
 #+BEGIN_SRC emacs-lisp
 (use-package cmake-mode
-  :ensure t
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 (use-package cmake-ide
-  :ensure t
   :config
   (cmake-ide-setup))
 #+END_SRC
@@ -440,32 +398,24 @@ Also includes cmake-ide for clang integration
 Includes company backends
 #+BEGIN_SRC emacs-lisp
 (use-package auctex
-  :ensure auctex
   :defer t)
 
 (use-package company-auctex
-  :after auctex
-  :ensure t)
+  :after auctex)
 
-(use-package edit-indirect-region-latex
-  :ensure t)
+(use-package edit-indirect-region-latex)
 
-(use-package latex-pretty-symbols
-  :ensure t)
+(use-package latex-pretty-symbols)
 
-(use-package latex-preview-pane
-  :ensure t)
+(use-package latex-preview-pane)
 #+END_SRC
 
 *** coleslaw-mode
 This is /sort of/ a language support mode.
 #+BEGIN_SRC emacs-lisp
 (use-package coleslaw
-  :quelpa (coleslaw
-           :fetcher github
-           :repo    "RomanHargrave/coleslaw")
-  :ensure t
-  :demand
+  :straight (coleslaw :type git :host github :repo "equwal/coleslaw"
+                      :fork (:host github :repo "RomanHargrave/coleslaw"))
   :config
   (coleslaw-setup))
 #+END_SRC
@@ -473,7 +423,6 @@ This is /sort of/ a language support mode.
 *** web-mode
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
-  :ensure t
   :mode (("\\.tmpl\\'"         . web-mode)
          ("\\.ftl\\'"          . web-mode)
          ("\\.blade\\.php\\'"  . web-mode)
@@ -510,12 +459,10 @@ This is /sort of/ a language support mode.
 *** scala-mode
 #+BEGIN_SRC emacs-lisp
 (use-package scala-mode
-  :ensure t
   :interpreter
   ("scala" . scala-mode))
 
 (use-package sbt-mode
-  :ensure t
   :config
   (substitute-key-definition
    'minibuffer-complete-word
@@ -533,8 +480,7 @@ This is /sort of/ a language support mode.
 #+BEGIN_SRC emacs-lisp
 (use-package fountain-mode
   :mode ("\\.fountain\\'" "\\.spmd\\'")
-  :defer t
-  :ensure t)
+  :defer t)
 #+END_SRC
 
 *** language server protocol support
@@ -544,7 +490,6 @@ This is /sort of/ a language support mode.
          (php-mode    . lsp)
          (python-mode . lsp)
          (d-mode      . lsp))
-  :ensure t
   :commands lsp
   :init
   :config
@@ -558,7 +503,6 @@ This is /sort of/ a language support mode.
 
 
 (use-package lsp-ui
-  :ensure t
   :requires lsp-mode flycheck
   :config
   (setq lsp-ui-doc-position 'top
@@ -575,22 +519,18 @@ This is /sort of/ a language support mode.
  :states 'normal
  "SPC l g g" 'lsp-ui-imenu)
 
-(use-package company-lsp
-  :ensure t)
+(use-package company-lsp)
 
-(use-package helm-lsp
-  :ensure t)
+(use-package helm-lsp)
 
-(use-package lsp-treemacs
-  :ensure t)
+(use-package lsp-treemacs)
 #+END_SRC
 
 *** NginX mode
 
 #+BEGIN_SRC emacs-lisp
 (use-package nginx-mode
-  :defer t
-  :ensure t)
+  :defer t)
 #+END_SRC
 
 * Configuration
@@ -631,10 +571,8 @@ Fix word-skip behaviour
 
 ** Keybindings
 #+BEGIN_SRC emacs-lisp
-(use-package general
- :demand
- :ensure t
- :init (require 'general))
+(straight-use-package 'general)
+(require 'general)
 #+END_SRC
 
 ** Stateless Global Keybindings
