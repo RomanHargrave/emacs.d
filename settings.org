@@ -197,7 +197,10 @@ Enable line number gutter
   :ensure t
   :config
   (setf tramp-persistency-file-name
-        (concat temporary-file-directory "tramp-" (user-login-name))))
+        (concat temporary-file-directory "tramp-" (user-login-name)))
+  (add-to-list 'tramp-remote-process-environment
+               "GIT_AUTHOR_NAME=Roman Hargrave"
+               "GIT_AUTHOR_EMAIL=roman@hargrave.info"))
 #+END_SRC
 
 ** Treemacs
