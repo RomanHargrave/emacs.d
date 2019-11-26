@@ -527,6 +527,15 @@ This is /sort of/ a language support mode.
 #+END_SRC
 
 
+*** Fountain Mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package fountain-mode
+  :mode ("\\.fountain\\'" "\\.spmd\\'")
+  :defer t
+  :ensure t)
+#+END_SRC
+
 *** language server protocol support
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
