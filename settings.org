@@ -3,7 +3,6 @@
 
 #+BEGIN_SRC emacs-lisp
 (defvar bootstrap-version)
-(defvar straight-use-package-by-default)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
@@ -20,6 +19,7 @@
 ** Set up `use-package`
 #+BEGIN_SRC emacs-lisp
 (straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 #+END_SRC
 
 *** Set encoding system to utf8
@@ -114,6 +114,11 @@ Enable line number gutter
 #+END_SRC
 
 * Extensions
+
+** general.el
+#+BEGIN_SRC emacs-lisp
+(use-package general)
+#+END_SRC
 
 ** Popwin
 #+BEGIN_SRC emacs-lisp
@@ -573,10 +578,6 @@ Fix word-skip behaviour
 #+END_SRC
 
 ** Keybindings
-#+BEGIN_SRC emacs-lisp
-(straight-use-package 'general)
-(require 'general)
-#+END_SRC
 
 ** Stateless Global Keybindings
 #+BEGIN_SRC emacs-lisp
