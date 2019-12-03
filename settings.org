@@ -182,7 +182,8 @@ Enable line number gutter
 ** Tramp
 #+BEGIN_SRC emacs-lisp
 (use-package tramp
-  :defer t
+  :straight (tramp :type git :host github :repo "emacs-straight/tramp"
+                   :fork (:host github :repo "RomanHargrave/tramp"))
   :config
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name)))
