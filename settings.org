@@ -502,7 +502,9 @@ This is /sort of/ a language support mode.
   :hook ((scala-mode  . lsp)
          (php-mode    . lsp)
          (python-mode . lsp)
-         (d-mode      . lsp))
+         (d-mode      . lsp)
+         (perl-mode   . lsp)
+         (cperl-mode  . lsp))
   :commands lsp
   :init
   :config
@@ -512,6 +514,12 @@ This is /sort of/ a language support mode.
     :major-modes '(d-mode)
     :server-id 'dls))
   (add-to-list 'lsp-language-id-configuration '(d-mode . "d"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("perl" "-MPerl::LanguageServer" "-e" "Perl::LanguageServer::run"))
+    :major-modes '(perl-mode cperl-mode)
+    :server-id 'perl-language-server))
+  (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
   (setq lsp-prefer-flymake nil))
 
 
