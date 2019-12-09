@@ -120,6 +120,15 @@ Enable line number gutter
 
 * Extensions
 
+** exec-path-from-shell
+#+BEGIN_SRC emacs-lisp
+(use-package exec-path-from-shell
+  :init
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+#+END_SRC
+
 ** general.el
 #+BEGIN_SRC emacs-lisp
 (use-package general)
