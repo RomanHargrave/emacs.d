@@ -144,7 +144,7 @@ Enable line number gutter
   (require 'helm-config)
   (helm-mode 1))
 
-(use-package helm-ag
+(use-package helm-rg
   :config
   (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
 #+END_SRC
