@@ -124,8 +124,7 @@ Enable line number gutter
 #+BEGIN_SRC emacs-lisp
 (use-package exec-path-from-shell
   :init
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 #+END_SRC
 
@@ -306,6 +305,11 @@ Provides tab groups for navigating open buffers
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
+#+END_SRC
+
+** String edit-at-point
+#+BEGIN_SRC emacs-lisp
+(use-package string-edit)
 #+END_SRC
 
 ** eterm
@@ -496,9 +500,7 @@ This is /sort of/ a language support mode.
             (setq evil-shift-width 2)))
 #+END_SRC
 
-
 *** Fountain Mode
-
 #+BEGIN_SRC emacs-lisp
 (use-package fountain-mode
   :mode ("\\.fountain\\'" "\\.spmd\\'")
