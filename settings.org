@@ -358,6 +358,8 @@ Provides tab groups for navigating open buffers
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
+
+(add-to-list 'auto-mode-alist '("\\.ftn\'" . fortran-mode))
 #+END_SRC
 
 *** C
