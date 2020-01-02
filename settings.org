@@ -277,17 +277,20 @@ Provides tab groups for navigating open buffers
 #+END_SRC
 
 ** ggtags
+
 #+BEGIN_SRC emacs-lisp
 (use-package ggtags)
 #+END_SRC
 
 ** delim-kill
+
 #+BEGIN_SRC emacs-lisp
 (use-package delim-kill
   :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
 #+END_SRC
 
 ** Corral
+
 #+BEGIN_SRC emacs-lisp
 (use-package corral
   :bind (:map evil-insert-state-map
@@ -300,6 +303,15 @@ Provides tab groups for navigating open buffers
               ("M-'" . corral-double-quotes-backward)))
 #+END_SRC
 
+** YASnippet
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :straight (yasnippet :type git :host github :repo "joaotavora/yasnippet")
+  :config
+  (yas-global-mode 1))
+#+END_SRC
+
 ** EditorConfig Support
 
 #+BEGIN_SRC emacs-lisp
@@ -309,6 +321,7 @@ Provides tab groups for navigating open buffers
 #+END_SRC
 
 ** String edit-at-point
+
 #+BEGIN_SRC emacs-lisp
 (use-package string-edit)
 #+END_SRC
