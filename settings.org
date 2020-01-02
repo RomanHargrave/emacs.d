@@ -532,6 +532,7 @@ This is /sort of/ a language support mode.
          (python-mode . lsp)
          (d-mode      . lsp)
          (perl-mode   . lsp)
+         (ruby-mode   . lsp)
          (cperl-mode  . lsp))
   :commands lsp
   :init
