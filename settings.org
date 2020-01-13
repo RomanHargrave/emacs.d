@@ -352,7 +352,7 @@ Provides tab groups for navigating open buffers
           scala
           linux
           c_programming)))
-   
+
 #+END_SRC
 
 ** Language Support Modes
@@ -672,7 +672,8 @@ Fix word-skip behaviour
  "SPC p f d" 'helm-projectile-find-dir
  "SPC p s p" 'helm-projectile-switch-project
  "SPC p a a" 'helm-projectile-rg
- "SPC f c c" 'flycheck-clear)
+ "SPC f c c" 'flycheck-clear
+ "SPC d t w" 'delete-trailing-whitespace)
 #+END_SRC
 
 *** Treemacs
