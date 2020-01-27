@@ -102,7 +102,7 @@ Enable line number gutter
 
 (add-hook 'after-init-hook
           (lambda ()
-              (load-theme 'doom-molokai t)))
+              (load-theme 'doom-horizon t)))
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
