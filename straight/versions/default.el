@@ -31,6 +31,7 @@
  ("emacs-doom-themes" . "d48df7b02e404cc52bfb8d2eb961e47ac161b891")
  ("emacs-fish" . "688c82decad108029b0434e3bce6c3d129ede6f3")
  ("emacs-memoize" . "51b075935ca7070f62fae1d69fe0ff7d8fa56fdd")
+ ("emacs-neotree" . "5e1271655170f4cdc6849258e383c548a4e6e3d0")
  ("emacs-request" . "431d14343c61bc51a86c9a9e1acb6c26fe9a6298")
  ("emacs-sbt-mode" . "633a315ad453cd963588c9b8fba02d9cf75296b4")
  ("emacs-scala-mode" . "46bb948345f165ebffe6ff3116e36a3b8a3f219d")

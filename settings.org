@@ -97,7 +97,7 @@ Enable line number gutter
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
   :config
-  (doom-themes-treemacs-config)
+  (doom-themes-neotree-config)
   (doom-themes-org-config))
 
 (add-hook 'after-init-hook
@@ -200,28 +200,15 @@ Enable line number gutter
                "GIT_AUTHOR_EMAIL=roman@hargrave.info"))
 #+END_SRC
 
-** Treemacs
+** NeoTree
 #+BEGIN_SRC emacs-lisp
-(use-package treemacs
+(use-package neotree
+  :after general evil magit
   :config
-  '(treemacs-RET-actions-config
-    (quote
-     ((file-node-close  . treemacs-visit-node-in-most-recently-used-window)
-      (file-node-open   . treemacs-visit-node-in-most-recently-used-window)
-      (root-node-open   . treemacs-toggle-node)
-      (root-node-closed . treemacs-toggle-node)
-      (dir-node-open    . treemacs-toggle-node)
-      (dir-node-closed  . treemacs-toggle-node)
-      (file-node-closed . treemacs-visit-node-default)
-      (tag-node-open    . treemacs-toggle-node-prefer-tag-visit)
-      (tag-node-closed  . treemacs-toggle-node-prefer-tag-visit)
-      (tag-node         . treemacs-visit-node-default)))))
-
-(use-package treemacs-evil
-  :after treemacs evil)
-
-(use-package treemacs-magit
-  :after treemacs magit)
+  (general-define-key "<f13>" 'neotree-toggle)
+  (general-define-key
+   :states 'normal
+   "SPC t m t" 'neotree-toggle))
 #+END_SRC
 
 ** Centaur
