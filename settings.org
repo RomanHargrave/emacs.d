@@ -457,7 +457,9 @@ This is /sort of/ a language support mode.
          ("\\.ftl\\'"          . web-mode)
          ("\\.blade\\.php\\'"  . web-mode)
          ("\\.html\\'"         . web-mode)
-         ("\\.css\\'"          . web-mode)))
+         ("\\.css\\'"          . web-mode)
+         ("\\.tpl\\'"          . web-mode)
+         ("\\.vue\\'"          . web-mode)))
 
 (setq web-mode-engines-alist
       '(("closure"    . "\\.tmpl\\'")
