@@ -359,6 +359,7 @@ Provides tab groups for navigating open buffers
 (use-package ansible)
 (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
+(use-package enh-ruby-mode :mode ("\\.rb\\'" "\\Gemfile\\" "\\rackup.ru\\"))
 
 (use-package markdown-mode
   :mode (("README\\.md\\'" . gfm-mode)
@@ -522,13 +523,14 @@ This is /sort of/ a language support mode.
 *** language server protocol support
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
-  :hook ((scala-mode  . lsp)
-         (php-mode    . lsp)
-         (python-mode . lsp)
-         (d-mode      . lsp)
-         (perl-mode   . lsp)
-         (ruby-mode   . lsp)
-         (cperl-mode  . lsp))
+  :hook ((scala-mode    . lsp)
+         (php-mode      . lsp)
+         (python-mode   . lsp)
+         (d-mode        . lsp)
+         (perl-mode     . lsp)
+         (ruby-mode     . lsp)
+         (enh-ruby-mode . lsp)
+         (cperl-mode    . lsp))
   :commands lsp
   :init
   :config
