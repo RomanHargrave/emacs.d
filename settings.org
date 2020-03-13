@@ -359,7 +359,7 @@ Provides tab groups for navigating open buffers
 (use-package ansible)
 (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
-(use-package enh-ruby-mode :mode ("\\.rb\\'" "\\Gemfile\\" "\\rackup.ru\\"))
+(use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru"))
 
 (use-package markdown-mode
   :mode (("README\\.md\\'" . gfm-mode)
