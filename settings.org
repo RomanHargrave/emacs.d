@@ -466,7 +466,9 @@ This is /sort of/ a language support mode.
          ("\\.html\\'"         . web-mode)
          ("\\.css\\'"          . web-mode)
          ("\\.tpl\\'"          . web-mode)
-         ("\\.vue\\'"          . web-mode)))
+         ("\\.vue\\'"          . web-mode)
+         ("\\.erb\\'"          . web-mode)
+         ("\\.haml\\'"         . web-mode)))
 
 (setq web-mode-engines-alist
       '(("closure"    . "\\.tmpl\\'")
