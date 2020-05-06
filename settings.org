@@ -20,6 +20,14 @@
 #+BEGIN_SRC emacs-lisp
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
+
+(add-to-list 'load-path (expand-file-name "dist-packages" user-emacs-directory))
+#+END_SRC
+
+** Define a user var for the `inc` dir beneath `emacs-user-directory`
+#+BEGIN_SRC emacs-lisp
+(setq user-inc-dir
+  (expand-file-name "inc" user-emacs-directory))
 #+END_SRC
 
 *** Set encoding system to utf8
@@ -370,6 +378,12 @@ Provides tab groups for navigating open buffers
 (add-to-list 'auto-mode-alist '("\\.ftn\'" . fortran-mode))
 #+END_SRC
 
+*** AnyINIMode
+#+BEGIN_SRC emacs-lisp
+(use-package any-ini-mode
+  :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
+#+END_SRC
+
 *** C
 
 Tweaks to cc-mode, more or less
@@ -588,6 +602,9 @@ This is /sort of/ a language support mode.
 ** Editor Behaviour
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
+(setq-default tab-stop-list '(3 6))
+(setq-default tab-with 3)
+(setq-default standard-indent 3)
 
 (setq scroll-step                    1
       scroll-margin                  9
