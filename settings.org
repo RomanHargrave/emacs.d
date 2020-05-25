@@ -68,6 +68,14 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
   (evil-collection-init))
 #+END_SRC
 
+** Load evil-leader
+This package adds ~<leader>~ support to evil
+#+BEGIN_SRC emacs-lisp
+(use-package evil-leader
+  :config
+  (global-evil-leader-mode))
+#+END_SRC
+
 * Appearance
 Set the default font-face to /Source Code Pro/
 #+BEGIN_SRC emacs-lisp
@@ -597,6 +605,29 @@ This is /sort of/ a language support mode.
   :defer t)
 #+END_SRC
 
+** Ctags
+
+#+BEGIN_SRC emacs-lisp
+(use-package ctags-update
+  :config
+  (progn
+    (add-hook 'c++-mode-hook      'turn-on-ctags-auto-update-mode)
+    (add-hook 'cperl-mode-hook    'turn-on-ctags-auto-update-mode)
+    (add-hook 'c-mode-hook        'turn-on-ctags-auto-update-mode)
+    (add-hook 'enh-ruby-mode-hook 'turn-on-ctags-auto-update-mode)
+    (setq ctags-update-command "/usr/bin/ctags")))
+
+(evil-leader/set-key
+  "g" 'helm-etags-select)
+
+(defun regenerate-tags ()
+  (interactive)
+  (let ((tags-directory (directory-file-name (projectile-project-root)))
+        (tags-file (expand-file-name "TAGS" projectile-project-root)))
+    (shell-command
+     (format "/usr/bin/ctags -f %s -e -R %s" tags-file tags-directory))))
+#+END_SRC
+
 * Configuration
 
 ** Editor Behaviour
@@ -642,6 +673,9 @@ Fix word-skip behaviour
 #+BEGIN_SRC emacs-lisp
 (general-define-key
  "C-s"   'save-buffer)
+
+(evil-leader/set-key
+  "z" 'eval-expression)
 #+END_SRC
 
 ** Normal mode keybindings
