@@ -45,9 +45,7 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
   :init
   (setq evil-want-keybinding  nil
         evil-want-integration t
-        evil-search-module    'evil-search)
-  :config
-  (evil-mode 1))
+        evil-search-module    'evil-search))
 #+END_SRC
 
 ** Load evil-collection
@@ -73,8 +71,14 @@ This package adds ~<leader>~ support to evil
 #+BEGIN_SRC emacs-lisp
 (use-package evil-leader
   :config
-  (global-evil-leader-mode))
+  (global-evil-leader-mode)
+  (evil-mode 1))
 #+END_SRC
+
+** Enable evil
+
+#+BEGIN_SRC emacs-lisp
+#+END_SRC emacs-lisp
 
 * Appearance
 Set the default font-face to /Source Code Pro/
@@ -119,7 +123,7 @@ Enable line number gutter
 
 (add-hook 'after-init-hook
           (lambda ()
-              (load-theme 'doom-challenger-deep t)))
+              (load-theme 'doom-acario-dark t)))
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
@@ -616,6 +620,8 @@ This is /sort of/ a language support mode.
     (add-hook 'c-mode-hook        'turn-on-ctags-auto-update-mode)
     (add-hook 'enh-ruby-mode-hook 'turn-on-ctags-auto-update-mode)
     (setq ctags-update-command "/usr/bin/ctags")))
+
+(use-package tags-tree)
 
 (evil-leader/set-key
   "g" 'helm-etags-select)
