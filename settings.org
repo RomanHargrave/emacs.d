@@ -780,6 +780,5 @@ Custom settings include things such as whitelisted dir-local/local vars
 
 #+BEGIN_SRC emacs-lisp
 (load-file
- (expand-file-name
-  (concat user-emacs-directory "custom.el")))
+ (expand-file-name "custom.el" user-emacs-directory))
 #+END_SRC
