@@ -615,11 +615,7 @@ This is /sort of/ a language support mode.
 #+BEGIN_SRC emacs-lisp
 (use-package ctags-update
   :config
-  (progn
-    (add-hook 'c++-mode-hook      'turn-on-ctags-auto-update-mode)
-    (add-hook 'c-mode-hook        'turn-on-ctags-auto-update-mode)
-    (add-hook 'enh-ruby-mode-hook 'turn-on-ctags-auto-update-mode)
-    (setq ctags-update-command "/usr/bin/ctags")))
+  (setq ctags-update-command "/usr/bin/ctags"))
 
 ;; do not ask about loading TAGS when ctags-update changes it
 (setq tags-revert-without-query 1)
