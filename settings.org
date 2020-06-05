@@ -146,7 +146,8 @@ Enable line number gutter
 (use-package exec-path-from-shell
   :init
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+  (exec-path-from-shell-copy-env "SSH_AGENT_PID"))
 #+END_SRC
 
 ** general.el
@@ -616,7 +617,6 @@ This is /sort of/ a language support mode.
   :config
   (progn
     (add-hook 'c++-mode-hook      'turn-on-ctags-auto-update-mode)
-    (add-hook 'cperl-mode-hook    'turn-on-ctags-auto-update-mode)
     (add-hook 'c-mode-hook        'turn-on-ctags-auto-update-mode)
     (add-hook 'enh-ruby-mode-hook 'turn-on-ctags-auto-update-mode)
     (setq ctags-update-command "/usr/bin/ctags")))
@@ -725,6 +725,8 @@ Fix word-skip behaviour
  "SPC g d f" 'magit-diff-buffer-file
  "SPC g p p" 'magit-push-to-remote
  "SPC g p r" 'magit-push-refspecs
+ "SPC g l l" 'magit-log
+ "SPC g l f" 'magit-log-buffer-file
  "SPC s a"   'helm-ag
  "SPC s s"   'helm-ag-project-root
  "SPC s f"   'helm-ag-this-file
