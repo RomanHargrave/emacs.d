@@ -8,9 +8,9 @@
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
+	(url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -375,10 +375,10 @@ Provides tab groups for navigating open buffers
 (use-package lua-mode :mode "\\.lua\\'")
 (use-package robots-txt-mode :mode "robots.txt")
 (use-package fish-mode :mode "\\.fish\\'" :magic "\\#!.+fish\\'")
-(use-package perl6-mode)
 (use-package apt-sources-list)
 (use-package ansible)
 (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
+(use-package any-ini-mode :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
 (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru"))
 
@@ -389,12 +389,6 @@ Provides tab groups for navigating open buffers
   :init (setq markdown-command "pandoc"))
 
 (add-to-list 'auto-mode-alist '("\\.ftn\'" . fortran-mode))
-#+END_SRC
-
-*** AnyINIMode
-#+BEGIN_SRC emacs-lisp
-(use-package any-ini-mode
-  :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
 #+END_SRC
 
 *** C
