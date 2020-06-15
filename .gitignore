@@ -16,3 +16,6 @@ local.org
 local.el
 .lsp-session*
 lsp-cache/**
+straight/build-cache.el
+straight/build/**
+straight/repos/**
