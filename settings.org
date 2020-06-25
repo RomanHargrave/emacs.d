@@ -1,3 +1,17 @@
+* Pre-init stuff
+** Helper function to add multiple patterns to auto-mode-alist at once
+
+#+BEGIN_SRC emacs-lisp
+(defun rh/add-exprs-to-mode (mode expressions)
+  "adds EXPRESSIONS to auto-mode-alist for MODE"
+  (dolist (expression expressions)
+    (add-to-list 'auto-mode-alist `(,mode . ,expression))))
+
+(defun rh/add-exts-to-mode (mode exts)
+  "adds EXTENSIONS to auto-mode-alias for MODE"
+  (rh/add-exprs-to-mode mode (mapcar (lambda (x) (format "\\.%s\\'" x)) exts)))
+#+END_SRC
+
 * Package init
 ** Set up straight.el
 
@@ -216,8 +230,10 @@ Enable line number gutter
   :config
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name)))
+  
   (add-to-list 'tramp-remote-process-environment
-               "GIT_AUTHOR_NAME=Roman Hargrave"
+               "GIT_AUTHOR_NAME=Roman Hargrave")
+  (add-to-list 'tramp-remote-process-environment
                "GIT_AUTHOR_EMAIL=roman@hargrave.info"))
 #+END_SRC
 
@@ -387,7 +403,7 @@ Provides tab groups for navigating open buffers
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-(add-to-list 'auto-mode-alist '("\\.ftn\'" . fortran-mode))
+(rh/add-exts-to-mode 'fortran-mode '(ftn f77 f90))
 #+END_SRC
 
 *** C
