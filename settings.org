@@ -404,7 +404,7 @@ Provides tab groups for navigating open buffers
   :init (setq markdown-command "pandoc"))
 
 (rh/add-exts-to-mode 'fortran-mode '(ftn f77))
-(rh/add-exts-to-mode 'f90-mode '(f90 f95))
+(rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
 #+END_SRC
 
 *** C
