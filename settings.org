@@ -5,7 +5,7 @@
 (defun rh/add-exprs-to-mode (mode expressions)
   "adds EXPRESSIONS to auto-mode-alist for MODE"
   (dolist (expression expressions)
-    (add-to-list 'auto-mode-alist `(,mode . ,expression))))
+    (add-to-list 'auto-mode-alist `(,expression . ,mode))))
 
 (defun rh/add-exts-to-mode (mode exts)
   "adds EXTENSIONS to auto-mode-alias for MODE"
@@ -403,7 +403,7 @@ Provides tab groups for navigating open buffers
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-(rh/add-exts-to-mode 'fortran-mode '(ftn f77 f90))
+(rh/add-exts-to-mode 'fortran-mode '(ftn f77 f95))
 #+END_SRC
 
 *** C
