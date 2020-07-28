@@ -396,6 +396,7 @@ Provides tab groups for navigating open buffers
 (use-package any-ini-mode :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
 (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru"))
+(use-package rust-mode :mode ("\\.rs\\'"))
 
 (use-package markdown-mode
   :mode (("README\\.md\\'" . gfm-mode)
@@ -405,6 +406,9 @@ Provides tab groups for navigating open buffers
 
 (rh/add-exts-to-mode 'fortran-mode '(ftn f77))
 (rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
+
+; also get dtrt-indent, to be polite when working with other's code
+(use-package dtrt-indent)
 #+END_SRC
 
 *** C
@@ -464,8 +468,8 @@ Also includes cmake-ide for clang integration
 (use-package cmake-mode
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 (use-package cmake-ide
-  :config
-  (cmake-ide-setup))
+                                        ;  :config (cmake-ide-setup)
+  )
 #+END_SRC
 
 *** TeX
@@ -670,6 +674,19 @@ This is /sort of/ a language support mode.
       custom-file                    "~/.emacs.d/custom.el")
 
 (show-paren-mode 1)
+#+END_SRC
+
+*** Tab-character highlighting
+#+BEGIN_SRC emacs-lisp
+(defface whitespace-indent-face
+  '((t (:background "color-236")))
+  "Highlights non-space indentation")
+
+(defvar computed-indent-chars
+  '(("\t" . 'whitespace-indent-face)))
+
+(add-hook 'fortran-mode-hook
+          (lambda () (font-lock-add-keywords nil computed-indent-chars)))
 #+END_SRC
 
 *** Fix org-mode source-editor indentation
