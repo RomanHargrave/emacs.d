@@ -396,7 +396,8 @@ Provides tab groups for navigating open buffers
 (use-package any-ini-mode :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
 (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru"))
-(use-package rust-mode :mode ("\\.rs\\'"))
+
+(use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
 
 (use-package markdown-mode
   :mode (("README\\.md\\'" . gfm-mode)
@@ -448,7 +449,7 @@ Tweaks to cc-mode, more or less
 #+BEGIN_SRC emacs-lisp
 (use-package php-mode
   :mode "\\.php\\'"
-  :magic "\\#!.+php\\'")
+  :magic "#!.+php$")
 (use-package php-refactor-mode
   :config
   (add-hook 'php-mode-hook 'php-refactor-mode))
@@ -525,7 +526,7 @@ This is /sort of/ a language support mode.
 (add-hook 'web-mode-hook 'web-mode-config-hook)
 #+END_SRC
 
-*** cperl-mode
+*** cperl-mode & raku-mode
 #+BEGIN_SRC emacs-lisp
 (use-package cperl-mode
   :defer t
@@ -536,6 +537,17 @@ This is /sort of/ a language support mode.
         cperl-indent-parens-as-block t))
 
 (defalias 'perl-mode 'cperl-mode)
+
+(use-package raku-mode
+  :mode (("\\.raku\\'" . raku-mode)
+         ("\\.t6\\'"   . raku-mode)
+         ("\\.pm6\\'"  . raku-mode)
+         ("\\.p6\\'"   . raku-mode))
+  :magic (("#!.+raku" . raku-mode)
+          ("#!.+rakudo" . raku-mode)
+          ("#!.+perl6" . raku-mode))
+  :config
+  (setq raku-indent-offset 3))
 #+END_SRC
 
 *** scala-mode
