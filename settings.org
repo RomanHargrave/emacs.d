@@ -10,6 +10,16 @@
 (defun rh/add-exts-to-mode (mode exts)
   "adds EXTENSIONS to auto-mode-alias for MODE"
   (rh/add-exprs-to-mode mode (mapcar (lambda (x) (format "\\.%s\\'" x)) exts)))
+
+(defun rh/add-to-list (list to-add)
+  "adds entries in TO-ADD to LIST"
+  (unless (consp to-add)
+    (error "TO-ADD must be a list"))
+  (let ((tgt (symbol-value list)))
+    (if tgt
+        (setcdr (last tgt) to-add)
+      (set list to-add)))
+  (symbol-value list))
 #+END_SRC
 
 * Package init
@@ -35,7 +45,9 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
-(add-to-list 'load-path (expand-file-name "dist-packages" user-emacs-directory))
+(defvar local-pkg (expand-file-name "dist-packages" user-emacs-directory))
+
+(add-to-list 'load-path local-pkg)
 #+END_SRC
 
 ** Define a user var for the `inc` dir beneath `emacs-user-directory`
@@ -404,6 +416,17 @@ Provides tab groups for navigating open buffers
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
+
+(use-package sql-indent
+  :config
+  (add-hook 'sql-mode-hook #'sqlind-minor-mode))
+
+(use-package sqlup-mode
+  :config
+  (add-hook 'sql-mode-hook #'sqlup-mode)
+  (rh/add-to-list 'sqlup-blacklist
+                  '("public" "date" "id" "plans"
+                    "name" "state")))
 
 (rh/add-exts-to-mode 'fortran-mode '(ftn f77))
 (rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
