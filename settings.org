@@ -565,6 +565,7 @@ This is /sort of/ a language support mode.
 (defalias 'perl-mode 'cperl-mode)
 
 (use-package raku-mode
+  :straight (raku-mode :type git :host github :repo "Raku/raku-mode")
   :mode (("\\.raku\\'" . raku-mode)
          ("\\.t6\\'"   . raku-mode)
          ("\\.pm6\\'"  . raku-mode)
