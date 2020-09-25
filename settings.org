@@ -197,6 +197,12 @@ Enable line number gutter
   (popwin-mode 1))
 #+END_SRC
 
+** Ivy/Siper/Counsel
+#+BEGIN_SRC emacs-lisp
+(use-package ivy)
+(use-package counsel)
+#+END_SRC
+
 ** Company
 #+BEGIN_SRC emacs-lisp
 (use-package company
@@ -732,12 +738,15 @@ Fix word-skip behaviour
 
 (general-define-key
  :states 'normal
+ "SPC c f f" 'counsel-find-file
  "SPC d t p" 'describe-text-properties
+ "SPC d t w" 'delete-trailing-whitespace
  "SPC t m t" 'treemacs
  "SPC t m o" 'treemacs-select-window
  "SPC t f n" 'treemacs-create-file
  "SPC t d n" 'treemacs-create-dir
  "SPC t t l" 'toggle-truncate-lines
+ "SPC f c c" 'flycheck-clear
  "SPC f e x" 'eval-buffer
  "SPC g c c" 'magit-commit-create
  "SPC g c a" 'magit-commit-amend
@@ -754,9 +763,7 @@ Fix word-skip behaviour
  "SPC g p p" 'magit-push-to-remote
  "SPC g p r" 'magit-push-refspecs
  "SPC g l l" 'magit-log
- "SPC g l f" 'magit-log-buffer-file
- "SPC f c c" 'flycheck-clear
- "SPC d t w" 'delete-trailing-whitespace)
+ "SPC g l f" 'magit-log-buffer-file)
 #+END_SRC
 
 *** Treemacs
