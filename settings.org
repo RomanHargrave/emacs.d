@@ -161,11 +161,6 @@ Enable line number gutter
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 
-;; Fix modeline icons in daemon graphical mode frames
-(add-hook 'after-make-frame-functions
-          (lambda ()
-            (setq doom-modeline-icon t)))
-
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
@@ -775,6 +770,7 @@ Fix word-skip behaviour
 
 (general-define-key
  :states 'normal
+ "SPC d t p" 'describe-text-properties
  "SPC t m t" 'treemacs
  "SPC t m o" 'treemacs-select-window
  "SPC t f n" 'treemacs-create-file
