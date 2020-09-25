@@ -485,14 +485,6 @@ Tweaks to cc-mode, more or less
   (add-hook 'php-mode-hook 'php-refactor-mode))
 #+END_SRC
 
-*** DBGp support
-
-#+BEGIN_SRC emacs-lisp
-(use-package geben
-  :defer t
-  :commands geben)
-#+END_SRC
-
 *** CMake
 Also includes cmake-ide for clang integration
 #+BEGIN_SRC emacs-lisp
