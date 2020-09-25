@@ -194,24 +194,7 @@ Enable line number gutter
 #+BEGIN_SRC emacs-lisp
 (use-package popwin
   :config
-  (popwin-mode 1)
-  (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config)
-  (add-hook 'helm-after-initialize-hook (lambda ()
-                                          (popwin:display-buffer helm-buffer t)
-                                          (popwin-mode -1)))
-  (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1))))
-#+END_SRC
-
-** Helm
-#+BEGIN_SRC emacs-lisp
-(use-package helm
-  :config
-  (require 'helm-config)
-  (helm-mode 1))
-
-(use-package helm-rg
-  :config
-  (setq helm-ag-base-command "rg --vimgrep --no-heading --smart-case"))
+  (popwin-mode 1))
 #+END_SRC
 
 ** Company
@@ -272,7 +255,6 @@ Provides tab groups for navigating open buffers
   :demand
   :config
   (centaur-tabs-mode t)
-  (centaur-tabs-build-helm-source)
   (centaur-tabs-group-by-projectile-project)
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-gray-out-icons 'buffer)
@@ -282,7 +264,6 @@ Provides tab groups for navigating open buffers
     (let ((name (format "%s" n)))
       (or
        (string-prefix-p "*epc" name)
-       (string-prefix-p "*helm" name)
        (string-prefix-p "*Compile-Log*" name)
        (string-prefix-p "magit" name)
        (string-prefix-p "Pfuture" name)
@@ -299,12 +280,6 @@ Provides tab groups for navigating open buffers
 (use-package projectile
   :config
   (projectile-mode 1))
-#+END_SRC
-
-*** Projectile Helm UI
-#+BEGIN_SRC emacs-lisp
-(use-package helm-projectile
-  :after projectile helm)
 #+END_SRC
 
 ** Magit
@@ -647,8 +622,6 @@ This is /sort of/ a language support mode.
 
 (use-package company-lsp)
 
-(use-package helm-lsp)
-
 (use-package lsp-treemacs)
 #+END_SRC
 
@@ -670,9 +643,6 @@ This is /sort of/ a language support mode.
 (setq tags-revert-without-query 1)
 
 (use-package tags-tree)
-
-(evil-leader/set-key
-  "g" 'helm-etags-select)
 
 (defun regenerate-tags ()
   (interactive)
@@ -767,7 +737,6 @@ Fix word-skip behaviour
  "SPC t m o" 'treemacs-select-window
  "SPC t f n" 'treemacs-create-file
  "SPC t d n" 'treemacs-create-dir
- "SPC t m b" 'helm-buffers-list
  "SPC t t l" 'toggle-truncate-lines
  "SPC f e x" 'eval-buffer
  "SPC g c c" 'magit-commit-create
@@ -786,13 +755,6 @@ Fix word-skip behaviour
  "SPC g p r" 'magit-push-refspecs
  "SPC g l l" 'magit-log
  "SPC g l f" 'magit-log-buffer-file
- "SPC s a"   'helm-ag
- "SPC s s"   'helm-ag-project-root
- "SPC s f"   'helm-ag-this-file
- "SPC p f f" 'helm-projectile-find-file
- "SPC p f d" 'helm-projectile-find-dir
- "SPC p s p" 'helm-projectile-switch-project
- "SPC p a a" 'helm-projectile-rg
  "SPC f c c" 'flycheck-clear
  "SPC d t w" 'delete-trailing-whitespace)
 #+END_SRC
