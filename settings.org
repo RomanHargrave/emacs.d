@@ -144,7 +144,10 @@ Enable line number gutter
 ; (require 'robin-hood-theme)
 ; (use-package forest-blue-theme)
 
+(require 'pine-theme)
+
 (use-package doom-themes
+  :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "pine")
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
@@ -152,16 +155,11 @@ Enable line number gutter
 
 (add-hook 'after-init-hook
           (lambda ()
-              (load-theme 'doom-oceanic-next t)))
+            (load-theme 'doom-pine t)))
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
-
-;; Fix modeline icons in daemon graphical mode frames
-(add-hook 'after-make-frame-functions
-          (lambda ()
-            (setq doom-modeline-icon t)))
 
 (use-package rainbow-delimiters
   :config
@@ -170,9 +168,12 @@ Enable line number gutter
 
 * Extensions
 
-** font-lock-studio
+** font-lock-studio & rainbow-mode (for face tweaking)
 #+BEGIN_SRC emacs-lisp
 (use-package font-lock-studio)
+
+;; minor mode for highlighting color codes
+(use-package rainbow-mode)
 #+END_SRC
 
 ** exec-path-from-shell
@@ -232,15 +233,6 @@ Enable line number gutter
 (use-package company-nginx)
 (use-package company-ansible)
 (use-package company-plsense)
-#+END_SRC
-
-*** Company Box frontend
-#+BEGIN_SRC emacs-lisp
-(use-package company-box
-  :config
-  (setq company-box-icons-alist 'company-box-icons-all-the-icons)
-  :hook
-  (company-mode . company-box-mode))
 #+END_SRC
 
 ** Tramp
@@ -778,6 +770,7 @@ Fix word-skip behaviour
 
 (general-define-key
  :states 'normal
+ "SPC d t p" 'describe-text-properties
  "SPC t m t" 'treemacs
  "SPC t m o" 'treemacs-select-window
  "SPC t f n" 'treemacs-create-file
