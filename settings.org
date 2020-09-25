@@ -228,7 +228,6 @@ Enable line number gutter
 #+BEGIN_SRC emacs-lisp
 (use-package tramp
   :config
-  (require 'tramp-compat)
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name)))
   
