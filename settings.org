@@ -147,15 +147,15 @@ Enable line number gutter
 (require 'pine-theme)
 
 (use-package doom-themes
+  :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "pine")
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
-  ;(doom-themes-treemacs-config)
-  ;(doom-themes-org-config)
-  )
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
 
 (add-hook 'after-init-hook
           (lambda ()
-            (load-theme 'pine t)))
+            (load-theme 'doom-pine t)))
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
@@ -173,9 +173,12 @@ Enable line number gutter
 
 * Extensions
 
-** font-lock-studio
+** font-lock-studio & rainbow-mode (for face tweaking)
 #+BEGIN_SRC emacs-lisp
 (use-package font-lock-studio)
+
+;; minor mode for highlighting color codes
+(use-package rainbow-mode)
 #+END_SRC
 
 ** exec-path-from-shell
