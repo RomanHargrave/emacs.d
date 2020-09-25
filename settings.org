@@ -144,15 +144,18 @@ Enable line number gutter
 ; (require 'robin-hood-theme)
 ; (use-package forest-blue-theme)
 
+(require 'pine-theme)
+
 (use-package doom-themes
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
-  (doom-themes-org-config))
+  ;(doom-themes-treemacs-config)
+  ;(doom-themes-org-config)
+  )
 
 (add-hook 'after-init-hook
           (lambda ()
-              (load-theme 'doom-oceanic-next t)))
+            (load-theme 'pine t)))
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
@@ -232,15 +235,6 @@ Enable line number gutter
 (use-package company-nginx)
 (use-package company-ansible)
 (use-package company-plsense)
-#+END_SRC
-
-*** Company Box frontend
-#+BEGIN_SRC emacs-lisp
-(use-package company-box
-  :config
-  (setq company-box-icons-alist 'company-box-icons-all-the-icons)
-  :hook
-  (company-mode . company-box-mode))
 #+END_SRC
 
 ** Tramp
