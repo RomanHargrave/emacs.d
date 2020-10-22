@@ -402,6 +402,7 @@ Provides tab groups for navigating open buffers
 (use-package go-mode :mode ("\\.go\\'"))
 (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru"))
 (use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
+(use-package ebuild-mode :mode "\\.ebuild\\'")
 
 (use-package krakatau-mode
   :straight (krakatau-mode :type git :host github :repo "RomanHargrave/krakatau-mode")
