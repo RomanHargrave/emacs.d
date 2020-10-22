@@ -433,6 +433,10 @@ Provides tab groups for navigating open buffers
 
 ; also get dtrt-indent, to be polite when working with other's code
 (use-package dtrt-indent)
+
+(use-package clojure-mode
+  :mode ("\\.clj\\'"))
+(use-package cider)
 #+END_SRC
 
 *** C
@@ -569,8 +573,13 @@ This is /sort of/ a language support mode.
 *** scala-mode
 #+BEGIN_SRC emacs-lisp
 (use-package scala-mode
+  :mode (("\\.scala\\'" . scala-mode)
+         ("\\.sc\\'"    . scala-mode))
   :interpreter
   ("scala" . scala-mode))
+
+(use-package lsp-metals
+  :after lsp-mode)
 
 (use-package sbt-mode
   :config
@@ -619,7 +628,6 @@ This is /sort of/ a language support mode.
   (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
   (setq lsp-prefer-flymake nil)
   (setq lsp-solargraph-use-bundler t))
-
 
 (use-package lsp-ui
   :requires lsp-mode flycheck
