@@ -400,7 +400,7 @@ Provides tab groups for navigating open buffers
 (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
 (use-package any-ini-mode :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
-(use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru"))
+(use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'"))
 (use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
 (use-package ebuild-mode :mode "\\.ebuild\\'")
 
@@ -433,7 +433,8 @@ Provides tab groups for navigating open buffers
 (rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
 
 ; also get dtrt-indent, to be polite when working with other's code
-(use-package dtrt-indent)
+(use-package dtrt-indent
+  :config (dtrt-indent-global-mode 1))
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"))
