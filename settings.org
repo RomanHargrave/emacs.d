@@ -628,7 +628,12 @@ This is /sort of/ a language support mode.
     :server-id 'perl-language-server))
   (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
   (setq lsp-prefer-flymake nil)
-  (setq lsp-solargraph-use-bundler t))
+  (setq lsp-solargraph-use-bundler t)
+  (defun lsp-solargraph--build-command ()
+    "Build solargraph command (modded)"
+    '("fish" "-c" "rvm use && bundle exec solargraph stdio")))
+
+
 
 (use-package lsp-ui
   :requires lsp-mode flycheck
