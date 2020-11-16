@@ -161,6 +161,8 @@ Enable line number gutter
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 
+(setq frame-resize-pixelwise t)
+
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
@@ -272,7 +274,6 @@ Provides tab groups for navigating open buffers
 (use-package centaur-tabs
   :demand
   :config
-  (centaur-tabs-mode t)
   (centaur-tabs-group-by-projectile-project)
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-gray-out-icons 'buffer)
@@ -787,7 +788,8 @@ Fix word-skip behaviour
  "g p r" 'magit-push-refspecs
  "g l l" 'magit-log
  "g l f" 'magit-log-buffer-file
- "i s b" 'ivy-switch-buffer)
+ "i s b" 'counsel-switch-buffer
+ "c s b" 'counsel-switch-buffer)
 
 
 #+END_SRC
