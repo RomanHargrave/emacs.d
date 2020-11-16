@@ -399,11 +399,11 @@ Provides tab groups for navigating open buffers
 (use-package apt-sources-list)
 (use-package ansible)
 (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
-(use-package any-ini-mode :mode ("\\.ini\\'" "\\.service\\'" "\\.mount\\'"))
 (use-package go-mode :mode ("\\.go\\'"))
 (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'"))
 (use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
 (use-package ebuild-mode :mode "\\.ebuild\\'")
+(use-package apache-mode)
 
 (use-package krakatau-mode
   :straight (krakatau-mode :type git :host github :repo "RomanHargrave/krakatau-mode")
@@ -631,6 +631,13 @@ This is /sort of/ a language support mode.
   (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
   (setq lsp-prefer-flymake nil)
   (setq lsp-solargraph-use-bundler t))
+
+(defun lsp-solargraph--build-command ()
+    "Build solargraph command (modded)"
+    '("fish" "-c" "rvm use && bundle exec solargraph stdio"))
+
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024))
 
 (use-package lsp-ui
   :requires lsp-mode flycheck
