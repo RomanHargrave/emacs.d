@@ -67,11 +67,14 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 ** Load evil
 ~evil~ is enabled by default. The search module is set to ~evil-search~.
 #+BEGIN_SRC emacs-lisp
+(use-package undo-fu)
+
 (use-package evil
   :init
   (setq evil-want-keybinding  nil
         evil-want-integration t
-        evil-search-module    'evil-search))
+        evil-search-module    'evil-search)
+  (evil-set-undo-system 'undo-fu))
 #+END_SRC
 
 ** Load evil-collection
