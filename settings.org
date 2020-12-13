@@ -408,6 +408,10 @@ Provides tab groups for navigating open buffers
 (use-package ebuild-mode :mode "\\.ebuild\\'")
 (use-package apache-mode)
 
+(use-package csharp-mode
+  :straight (csharp-mode :type git :host github :repo "emacs-csharp/csharp-mode")
+  :mode "\\.cs\\'")
+
 (use-package krakatau-mode
   :straight (krakatau-mode :type git :host github :repo "RomanHargrave/krakatau-mode")
   :mode "\\.j\\'")
@@ -450,7 +454,8 @@ Provides tab groups for navigating open buffers
 Tweaks to cc-mode, more or less
 
 #+BEGIN_SRC emacs-lisp
-(setq c-default-style "bsd" ; gnu is nasty
+(setq c-default-style '((cc-mode . "bsd")
+                        (csharp-mode . "csharp"))
       c-basic-offset  2)
 #+END_SRC
 
