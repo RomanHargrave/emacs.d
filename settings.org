@@ -796,7 +796,8 @@ Fix word-skip behaviour
  "g l l" 'magit-log
  "g l f" 'magit-log-buffer-file
  "i s b" 'counsel-switch-buffer
- "c s b" 'counsel-switch-buffer)
+ "c s b" 'counsel-switch-buffer
+ "p f f" 'counsel-projectile-find-file)
 
 
 #+END_SRC
