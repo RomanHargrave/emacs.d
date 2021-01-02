@@ -70,7 +70,7 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 (use-package undo-fu)
 
 (use-package evil
-  :init
+  :config
   (setq evil-want-keybinding  nil
         evil-want-integration t
         evil-search-module    'evil-search)
