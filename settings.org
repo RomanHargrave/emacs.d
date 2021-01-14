@@ -107,13 +107,15 @@ This package adds ~<leader>~ support to evil
 #+END_SRC emacs-lisp
 
 * Appearance
-Set the default font-face to /Source Code Pro/
+Set the default font-face to /Source Code Pro/ and more
 #+BEGIN_SRC emacs-lisp
 (add-hook 'after-init-hook
           (lambda ()
             (progn
               (add-to-list 'default-frame-alist '(font . "Dank Mono-11"))
               (set-face-attribute 'default t :font "Dank Mono-11" :weight 'medium))))
+
+(setq jit-lock-stealth-time 30)
 #+END_SRC
 
 Disable menu bars, tool bar, and most importantly - scroll bars
