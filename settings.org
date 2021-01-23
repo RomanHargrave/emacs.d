@@ -70,9 +70,10 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 (use-package undo-fu)
 
 (use-package evil
+  :init
+  (setq evil-want-keybinding nil)
   :config
-  (setq evil-want-keybinding  nil
-        evil-want-integration t
+  (setq evil-want-integration t
         evil-search-module    'evil-search)
   (evil-set-undo-system 'undo-fu))
 #+END_SRC
@@ -83,6 +84,7 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 #+BEGIN_SRC emacs-lisp
 (use-package evil-collection
   :requires evil
+  :after evil
   :config
   (evil-collection-translate-key nil 'evil-motion-state-map
                                  "n" "j"
@@ -103,11 +105,6 @@ This package adds ~<leader>~ support to evil
   (global-evil-leader-mode)
   (evil-mode 1))
 #+END_SRC
-
-** Enable evil
-
-#+BEGIN_SRC emacs-lisp
-#+END_SRC emacs-lisp
 
 * Appearance
 Set the default font-face to /Source Code Pro/
@@ -210,34 +207,35 @@ Enable line number gutter
   :init
   (ivy-mode 1))
 
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
-
 (use-package counsel)
+
+;(use-package ivy-rich
+;  :after counsel
+;  :init
+;  (ivy-rich-mode 1))
 
 (use-package counsel-projectile)
 #+END_SRC
 
 ** Company
 #+BEGIN_SRC emacs-lisp
-(use-package company
-  :config
-  (add-hook 'prog-mode-hook #'company-mode)
-  (add-hook 'latex-mode-hook #'company-mode)
-  :bind
-  (:map evil-insert-state-map
-        ("C-p" . company-complete))
-  (:map company-active-map
-        ("RET" . company-complete-selection)))
+;(use-package company
+;  :config
+;  (add-hook 'prog-mode-hook #'company-mode)
+;  (add-hook 'latex-mode-hook #'company-mode)
+;  :bind
+;  (:map evil-insert-state-map
+;        ("C-p" . company-complete))
+;  (:map company-active-map
+;        ("RET" . company-complete-selection)))
 #+END_SRC
 
 *** Backends
 #+BEGIN_SRC emacs-lisp
-(use-package company-php)
-(use-package company-nginx)
-(use-package company-ansible)
-(use-package company-plsense)
+;(use-package company-php)
+;(use-package company-nginx)
+;(use-package company-ansible)
+;(use-package company-plsense)
 #+END_SRC
 
 ** Tramp
@@ -262,12 +260,14 @@ Enable line number gutter
 
 ** Magit
 #+BEGIN_SRC emacs-lisp
-(use-package magit)
-(use-package evil-magit
+(use-package magit
   :config
-  (setq evil-magit-state          'normal
-        evil-magit-use-y-for-yank nil)
-  (require 'evil-magit))
+  (setq magit-save-repository-buffers 'dontask))
+;(use-package evil-magit
+;  :config
+;  (setq evil-magit-state          'normal
+;        evil-magit-use-y-for-yank nil)
+;  (require 'evil-magit))
 #+END_SRC
 
 ** ggtags
@@ -333,20 +333,6 @@ Enable line number gutter
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :hook ('after-init-hook . #'global-flycheck-mode))
-#+END_SRC
-
-** Reddit Mode
-
-#+BEGIN_SRC emacs-lisp
-(use-package md4rd
-  :config
-  (add-hook 'md4rd-mode-hook 'md4rd-indent-all-the-lines)
-  (setq md4rd-subs-active
-        '(emacs
-          scala
-          linux
-          c_programming)))
-
 #+END_SRC
 
 ** Language Support Modes
