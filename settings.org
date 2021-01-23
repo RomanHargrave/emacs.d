@@ -271,32 +271,6 @@ Enable line number gutter
   :after treemacs magit)
 #+END_SRC
 
-** Centaur
-Provides tab groups for navigating open buffers
-#+BEGIN_SRC emacs-lisp
-(use-package centaur-tabs
-  :demand
-  :config
-  (centaur-tabs-group-by-projectile-project)
-  (setq centaur-tabs-set-icons t)
-  (setq centaur-tabs-gray-out-icons 'buffer)
-  (setq centaur-tabs-style 'bar)
-  (setq centaur-tabs-set-modified-marker nil)
-  (defun centaur-tabs-hide-tab (n)
-    (let ((name (format "%s" n)))
-      (or
-       (string-prefix-p "*epc" name)
-       (string-prefix-p "*Compile-Log*" name)
-       (string-prefix-p "magit" name)
-       (string-prefix-p "Pfuture" name)
-       (string-prefix-p "Treemacs" name)
-       (string-prefix-p "*Treemacs" name))))
-  :bind
-  (:map evil-normal-state-map
-        ("g t" . centaur-tabs-forward)
-        ("g T" . centaur-tabs-backward)))
-#+END_SRC
-
 ** Projectile
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
@@ -564,7 +538,7 @@ This is /sort of/ a language support mode.
   (setq cperl-indent-level 3
         cperl-close-paren-offset -3
         cperl-continued-statement-offset 3
-        cperl-indent-parens-as-block t))
+        cperl-indent-parens-as-block nil))
 
 (defalias 'perl-mode 'cperl-mode)
 
