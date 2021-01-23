@@ -107,13 +107,15 @@ This package adds ~<leader>~ support to evil
 #+END_SRC
 
 * Appearance
-Set the default font-face to /Source Code Pro/
+Set the default font-face to /Source Code Pro/ and more
 #+BEGIN_SRC emacs-lisp
 (add-hook 'after-init-hook
           (lambda ()
             (progn
               (add-to-list 'default-frame-alist '(font . "Dank Mono-11"))
               (set-face-attribute 'default t :font "Dank Mono-11" :weight 'medium))))
+
+(setq jit-lock-stealth-time 30)
 #+END_SRC
 
 Disable menu bars, tool bar, and most importantly - scroll bars
@@ -740,7 +742,8 @@ Fix word-skip behaviour
  "g l l" 'magit-log
  "g l f" 'magit-log-buffer-file
  "i s b" 'counsel-switch-buffer
- "c s b" 'counsel-switch-buffer)
+ "c s b" 'counsel-switch-buffer
+ "p f f" 'counsel-projectile-find-file)
 
 
 #+END_SRC
