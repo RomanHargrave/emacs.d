@@ -152,8 +152,6 @@ Enable line number gutter
 (use-package doom-themes
   :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "pine")
   :config
-  (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
 (add-hook 'after-init-hook
@@ -253,22 +251,6 @@ Enable line number gutter
                "GIT_AUTHOR_NAME=Roman Hargrave")
   (add-to-list 'tramp-remote-process-environment
                "GIT_AUTHOR_EMAIL=roman@hargrave.info"))
-#+END_SRC
-
-** Treemacs
-#+BEGIN_SRC emacs-lisp
-(use-package treemacs
-  :config
-  (treemacs-git-mode 'deferred))
-
-(use-package treemacs-evil
-  :after treemacs evil)
-
-(use-package treemacs-projectile
-  :after treemacs projectile)
-
-(use-package treemacs-magit
-  :after treemacs magit)
 #+END_SRC
 
 ** Projectile
@@ -639,8 +621,6 @@ This is /sort of/ a language support mode.
  "SPC l g g" 'lsp-ui-imenu)
 
 (use-package company-lsp)
-
-(use-package lsp-treemacs)
 #+END_SRC
 
 *** NginX mode
@@ -754,10 +734,6 @@ Fix word-skip behaviour
  "c f f" 'counsel-find-file
  "d t p" 'describe-text-properties
  "d t w" 'delete-trailing-whitespace
- "t m t" 'treemacs
- "t m o" 'treemacs-select-window
- "t f n" 'treemacs-create-file
- "t d n" 'treemacs-create-dir
  "t t l" 'toggle-truncate-lines
  "f c c" 'flycheck-clear
  "f e x" 'eval-buffer
@@ -781,30 +757,6 @@ Fix word-skip behaviour
  "c s b" 'counsel-switch-buffer)
 
 
-#+END_SRC
-
-*** Treemacs
-#+BEGIN_SRC emacs-lisp
-;; treemacs-mode bindings
-(general-define-key
- :keymaps    'treemacs-mode-map
- "C-c"       'treemacs
- "r"         'treemacs-visit-node-in-most-recently-used-window
- "R"         'treemacs-refresh)
-
-;; because once was not enough
-(general-define-key
- :keymaps 'treemacs-mode-map
- :prefix "C-w"
- "q"       'treemacs-close
- "<up>"    'evil-window-up
- "e"       'evil-window-up
- "<down>"  'evil-window-down
- "n"       'evil-window-down
- "<left>"  'evil-window-left
- "h"       'evil-window-left
- "<right>" 'evil-window-right
- "o"       'evil-window-right)
 #+END_SRC
 
 *** Tetris
