@@ -92,7 +92,7 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
                                  "o" "l"
                                  "l" "o")
   (define-key evil-normal-state-map (kbd "o") 'evil-forward-char)
-  (define-key evil-normal-state-map (kbd "C-n") 'evil-ex-search-next)
+  (define-key evil-normal-state-map (kbd "C-n") 'evil-search-next)
   ;; Leaving "N" (shifted) as previous match
   (evil-collection-init))
 #+END_SRC
