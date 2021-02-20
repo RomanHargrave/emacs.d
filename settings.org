@@ -334,7 +334,21 @@ Enable line number gutter
 
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
-  :hook ('after-init-hook . #'global-flycheck-mode))
+  :hook ('after-init-hook . #'global-flycheck-mode)
+  :config
+  ;;(flycheck-define-checker raku
+  ;;  "A Raku syntax checker."
+  ;;  :command (`(,(expand-file-name "raku-flycheck-wrapper" user-emacs-directory)
+  ;;            source source-original flycheck-raku-include-path))
+  ;;  :error-patterns
+  ;;  ((error (or (and line-start (message) (? "\r") "\nat " (file-name) ":" line (? "\r") line-end)
+  ;;              (and "compiling " (file-name) (? "\r") "\n" (message (minimal-match (1+ anything))) " at line " line)
+  ;;                                      ; "Module not found" message
+  ;;              (and "===SORRY!===" (? "\r") "\n" (message (minimal-match (1+ anything))) " at line " line))))
+  ;;  :modes raku-mode)
+  ;; (add-to-list 'flycheck-checkers 'raku))
+  )
+  
 #+END_SRC
 
 ** Language Support Modes
@@ -385,8 +399,7 @@ Enable line number gutter
 (rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
 
 ; also get dtrt-indent, to be polite when working with other's code
-(use-package dtrt-indent
-  :config (dtrt-indent-global-mode 1))
+(use-package dtrt-indent)
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"))
@@ -513,7 +526,7 @@ This is /sort of/ a language support mode.
 (defalias 'perl-mode 'cperl-mode)
 
 (use-package raku-mode
-  :straight (raku-mode :type git :host github :repo "Raku/raku-mode")
+  :straight (raku-mode :type git :host github :repo "RomanHargrave/raku-mode")
   :mode (("\\.raku\\'" . raku-mode)
          ("\\.t6\\'"   . raku-mode)
          ("\\.pm6\\'"  . raku-mode)
@@ -628,7 +641,7 @@ This is /sort of/ a language support mode.
 ;; do not ask about loading TAGS when ctags-update changes it
 (setq tags-revert-without-query 1)
 
-(use-package tags-tree)
+; (use-package tags-tree)
 
 (defun regenerate-tags ()
   (interactive)
