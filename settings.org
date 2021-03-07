@@ -382,7 +382,9 @@ Enable line number gutter
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "pandoc"))
+  :init (setq markdown-command "pandoc")
+  :config
+  (add-hook 'markdown-mode-hook 'auto-fill-mode))
 
 (use-package sql-indent
   :config
@@ -464,7 +466,10 @@ Also includes cmake-ide for clang integration
 Includes company backends
 #+BEGIN_SRC emacs-lisp
 (use-package auctex
-  :defer t)
+  :defer t
+  :config
+  (add-hook 'tex-mode-hook 'auto-fill-mode)
+  (add-hook 'latex-mode-hook 'auto-fill-mode))
 
 (use-package company-auctex
   :after auctex)
