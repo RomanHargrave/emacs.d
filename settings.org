@@ -116,6 +116,9 @@ Set the default font-face to /Source Code Pro/ and more
               (set-face-attribute 'default t :font "Dank Mono-11" :weight 'medium))))
 
 (setq jit-lock-stealth-time 30)
+
+; show columns
+(setq column-number-mode 1)
 #+END_SRC
 
 Disable menu bars, tool bar, and most importantly - scroll bars
