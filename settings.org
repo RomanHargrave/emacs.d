@@ -112,8 +112,8 @@ Set the default font-face to /Source Code Pro/ and more
 (add-hook 'after-init-hook
           (lambda ()
             (progn
-              (add-to-list 'default-frame-alist '(font . "Dank Mono-11"))
-              (set-face-attribute 'default t :font "Dank Mono-11" :weight 'medium))))
+              (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-10"))
+              (set-face-attribute 'default t :font "IBM Plex Mono-10" :weight 'normal))))
 
 (setq jit-lock-stealth-time 30)
 
@@ -195,11 +195,24 @@ Enable line number gutter
 (use-package general)
 #+END_SRC
 
-** Popwin
+** Shackle
 #+BEGIN_SRC emacs-lisp
-(use-package popwin
+;; Inspired by Dale Sedevic's `my:pop-up-buffer-p'
+(defun rh/is-popup-buffer (&optional buffer)
+  "Is BUFFER a pop-up buffer?"
+  (with-current-buffer (or buffer (current-buffer))
+    (derived-mode-p 'compilation-mode)))
+    
+(defvar rh/shackle-defaults
+  '(:popup t :align below :size 0.2))
+
+(use-package shackle
   :config
-  (popwin-mode 1))
+  (shackle-mode 1)
+  (setq shackle-rules
+        `(('("*Help*" "*General Keybindings*") ,@rh/shackle-defaults :select t)
+          ('(:custom rh/is-popup-buffer) ,@rh/shackle-defaults))))
+
 #+END_SRC
 
 ** Ivy/Swiper/Counsel
@@ -222,27 +235,6 @@ Enable line number gutter
 (use-package counsel-projectile)
 #+END_SRC
 
-** Company
-#+BEGIN_SRC emacs-lisp
-;(use-package company
-;  :config
-;  (add-hook 'prog-mode-hook #'company-mode)
-;  (add-hook 'latex-mode-hook #'company-mode)
-;  :bind
-;  (:map evil-insert-state-map
-;        ("C-p" . company-complete))
-;  (:map company-active-map
-;        ("RET" . company-complete-selection)))
-#+END_SRC
-
-*** Backends
-#+BEGIN_SRC emacs-lisp
-;(use-package company-php)
-;(use-package company-nginx)
-;(use-package company-ansible)
-;(use-package company-plsense)
-#+END_SRC
-
 ** Tramp
 #+BEGIN_SRC emacs-lisp
 (use-package tramp
@@ -250,10 +242,11 @@ Enable line number gutter
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name)))
   
-  (add-to-list 'tramp-remote-process-environment
-               "GIT_AUTHOR_NAME=Roman Hargrave")
-  (add-to-list 'tramp-remote-process-environment
-               "GIT_AUTHOR_EMAIL=roman@hargrave.info"))
+  ;(add-to-list 'tramp-remote-process-environment
+  ;             "GIT_AUTHOR_NAME=Roman Hargrave")
+  ;(add-to-list 'tramp-remote-process-environment
+  ;             "GIT_AUTHOR_EMAIL=roman@hargrave.info")
+)
 #+END_SRC
 
 ** Projectile
@@ -337,21 +330,9 @@ Enable line number gutter
 
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
-  :hook ('after-init-hook . #'global-flycheck-mode)
-  :config
-  ;;(flycheck-define-checker raku
-  ;;  "A Raku syntax checker."
-  ;;  :command (`(,(expand-file-name "raku-flycheck-wrapper" user-emacs-directory)
-  ;;            source source-original flycheck-raku-include-path))
-  ;;  :error-patterns
-  ;;  ((error (or (and line-start (message) (? "\r") "\nat " (file-name) ":" line (? "\r") line-end)
-  ;;              (and "compiling " (file-name) (? "\r") "\n" (message (minimal-match (1+ anything))) " at line " line)
-  ;;                                      ; "Module not found" message
-  ;;              (and "===SORRY!===" (? "\r") "\n" (message (minimal-match (1+ anything))) " at line " line))))
-  ;;  :modes raku-mode)
-  ;; (add-to-list 'flycheck-checkers 'raku))
-  )
-  
+  :hook ('after-init-hook . #'global-flycheck-mode))
+(use-package flycheck-raku
+  :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
 #+END_SRC
 
 ** Language Support Modes
@@ -408,6 +389,7 @@ Enable line number gutter
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"))
+
 (use-package cider)
 #+END_SRC
 
@@ -716,7 +698,23 @@ Fix word-skip behaviour
 ** Stateless Global Keybindings
 #+BEGIN_SRC emacs-lisp
 (general-define-key
- "C-s"   'save-buffer)
+ "C-s"     'save-buffer
+ "M-x"     'counsel-M-x
+ "C-h f"   'counsel-describe-function
+ "C-h v"   'counsel-describe-variable)
+
+;; M-c --- Counsel/Ivy
+(global-unset-key (kbd "M-c"))
+(general-define-key
+ :prefix "M-c"
+ "r g"   'counsel-rg
+ "e m"   'counsel-evil-marks
+ "f c"   'counsel-flycheck
+ "y y"   'counsel-yank-pop
+ "c h"   'counsel-command-history
+ "b b"   'counsel-switch-buffers
+ "f f"   'counsel-find-file
+ "p f f" 'counsel-projectile-find-file)
 
 (evil-leader/set-key
   "z" 'eval-expression)
@@ -741,6 +739,8 @@ Fix word-skip behaviour
  :states 'normal
  :prefix "SPC"
  "c f f" 'counsel-find-file
+ "c r g" 'counsel-rg
+ "c e m" 'counsel-evil-marks
  "d t p" 'describe-text-properties
  "d t w" 'delete-trailing-whitespace
  "t t l" 'toggle-truncate-lines
