@@ -63,6 +63,29 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
 (set-language-environment "UTF-8")
 #+END_SRC emacs-lisp
 
+* ergoemacs
+  Planning to switch to this from evil. My weird layout is declared here
+#+BEGIN_SRC emacs-lisp
+(defvar ergoemacs-layout-minimak12
+  '("" "`" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" "-" "=" ""
+    "" ""  "q" "w" "d" "f" "k" "y" "u" "i" "l" ";" "[" "]" ""
+    "" ""  "a" "s" "t" "r" "g" "h" "n" "n" "e" "o" "p" "'" "\\"
+    "" ""  "z" "x" "c" "v" "b" "j" "m" "," "." "/" "" "" ""
+    ;; Shifted
+    "" "~" "!" "@" "#" "$" "%" "^" "&" "*" "(" ")" "_" "+" ""
+    "" ""  "Q" "W" "D" "F" "K" "Y" "U" "I" "L" ":" "{" "}" ""
+    "" ""  "A" "S" "T" "R" "G" "H" "N" "E" "O" "P" "\"" "|" ""
+    "" ""  "Z" "X" "C" "V" "B" "J" "M" "<" ">" "?" "" "" "")
+  "US Engilsh Minimak-12 Keyboard")
+
+;(use-package ergoemacs-mode
+;  :config
+;  (setq ergoemacs-keyboard-layout "minimak12")
+;  (setq ergoemacs-theme nil))
+
+(use-package god-mode)
+#+END_SRC 
+
 * evil
 ** Load evil
 ~evil~ is enabled by default. The search module is set to ~evil-search~.
@@ -162,7 +185,9 @@ Enable line number gutter
 
 ;; XXX remember to run (all-the-icons-install-fonts)
 (use-package doom-modeline
-  :hook (after-init . doom-modeline-mode))
+  :hook
+  ((after-init . doom-modeline-mode)
+   (after-make-frame-functions . (lambda (setq doom-modeline-icon t)))))
 
 (setq frame-resize-pixelwise t)
 
@@ -201,7 +226,9 @@ Enable line number gutter
 (defun rh/is-popup-buffer (&optional buffer)
   "Is BUFFER a pop-up buffer?"
   (with-current-buffer (or buffer (current-buffer))
-    (derived-mode-p 'compilation-mode)))
+    (derived-mode-p 'compilation-mode
+                    'epa-key-list-mode
+                    'help-mode)))
     
 (defvar rh/shackle-defaults
   '(:popup t :align below :size 0.2))
@@ -285,14 +312,14 @@ Enable line number gutter
 
 #+BEGIN_SRC emacs-lisp
 (use-package corral
-  :bind (:map evil-insert-state-map
-              ("M-9" . corral-parenthesis-backward)
-              ("M-0" . corral-parenthesis-forward)
-              ("M-[" . corral-brackets-backward)
-              ("M-]" . corral-brackets-forward)
-              ("M-{" . corral-braces-backward)
-              ("M-}" . corral-braces-forward)
-              ("M-'" . corral-double-quotes-backward)))
+  :bind
+  ("M-9" . corral-parentheses-backward)
+  ("M-0" . corral-parentheses-forward)
+  ("M-[" . corral-brackets-backward)
+  ("M-]" . corral-brackets-forward)
+  ("M-{" . corral-braces-backward)
+  ("M-}" . corral-braces-forward)
+  ("M-'" . corral-double-quotes-backward))
 #+END_SRC
 
 ** YASnippet
@@ -330,7 +357,7 @@ Enable line number gutter
 
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
-  :hook ('after-init-hook . #'global-flycheck-mode))
+  :hook ((after-init . #'global-flycheck-mode)))
 (use-package flycheck-raku
   :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
 #+END_SRC
@@ -349,6 +376,11 @@ Enable line number gutter
 (use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
 (use-package ebuild-mode :mode "\\.ebuild\\'")
 (use-package apache-mode)
+
+(use-package wikitext-mode)
+
+(use-package mediawiki
+  :mode ("/tmp/tmp_..\\.wikipedia\\.org_.+" . mediawiki-mode))
 
 (use-package csharp-mode
   :straight (csharp-mode :type git :host github :repo "emacs-csharp/csharp-mode")
@@ -389,6 +421,13 @@ Enable line number gutter
 
 (use-package clojure-mode
   :mode ("\\.clj\\'"))
+
+(use-package paredit
+  :hook
+  ((emacs-lisp-mode . paredit-mode)
+   (lisp-mode       . paredit-mode)
+   (clojure-mode    . paredit-mode)))
+(use-package macrostep)
 
 (use-package cider)
 #+END_SRC
@@ -515,17 +554,17 @@ This is /sort of/ a language support mode.
 
 (defalias 'perl-mode 'cperl-mode)
 
-(use-package raku-mode
-  :straight (raku-mode :type git :host github :repo "RomanHargrave/raku-mode")
-  :mode (("\\.raku\\'" . raku-mode)
-         ("\\.t6\\'"   . raku-mode)
-         ("\\.pm6\\'"  . raku-mode)
-         ("\\.p6\\'"   . raku-mode))
-  :magic (("#!.+raku" . raku-mode)
-          ("#!.+rakudo" . raku-mode)
-          ("#!.+perl6" . raku-mode))
-  :config
-  (setq raku-indent-offset 3))
+;(use-package raku-mode
+;  :straight (raku-mode :type git :host github :repo "RomanHargrave/raku-mode")
+;  :mode (("\\.raku\\'" . raku-mode)
+;         ("\\.t6\\'"   . raku-mode)
+;         ("\\.pm6\\'"  . raku-mode)
+;         ("\\.p6\\'"   . raku-mode))
+;  :magic (("#!.+raku" . raku-mode)
+;          ("#!.+rakudo" . raku-mode)
+;          ("#!.+perl6" . raku-mode))
+;  :config
+;  (setq raku-indent-offset 3))
 #+END_SRC
 
 *** scala-mode
