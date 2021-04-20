@@ -75,21 +75,6 @@ This is particularly necessary in order to use auctex due to a dependency upon ~
   (global-unset-key (kbd key)))
 #+END_SRC 
 
-* evil
-** Load evil
-~evil~ is enabled by default. The search module is set to ~evil-search~.
-#+BEGIN_SRC emacs-lisp
-(use-package undo-fu)
-
-(use-package evil
-  :init
-  (setq evil-want-keybinding nil)
-  :config
-  (setq evil-want-integration t
-        evil-search-module    'evil-search)
-  (evil-set-undo-system 'undo-fu))
-#+END_SRC
-
 * Appearance
 Set the default font-face to /Source Code Pro/ and more
 #+BEGIN_SRC emacs-lisp
@@ -187,7 +172,7 @@ Enable line number gutter
 
    ;; i'm going to replace the main modeline because i'm that person
    (doom-modeline-def-modeline 'main
-     '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position rh/point word-count parrot selection-info)
+     '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
      '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process vcs checker))
 
    (doom-modeline-def-modeline 'minimal
@@ -290,7 +275,7 @@ Shackle makes popups manageable
   :config
   (shackle-mode 1)
   (setq shackle-rules
-        `(('("*Help*" "*General Keybindings*" "*Flycheck errors*") ,@rh/shackle-defaults :select t)
+        `(('("*Help*" "*General Keybindings*" "*Flycheck errors*" "*Apropos*") ,@rh/shackle-defaults :select t)
           ('(:custom rh/is-popup-buffer) ,@rh/shackle-defaults))))
 
 #+END_SRC
@@ -371,11 +356,6 @@ Shackle makes popups manageable
 (use-package magit
   :config
   (setq magit-save-repository-buffers 'dontask))
-;(use-package evil-magit
-;  :config
-;  (setq evil-magit-state          'normal
-;        evil-magit-use-y-for-yank nil)
-;  (require 'evil-magit))
 #+END_SRC
 
 ** ggtags
@@ -384,25 +364,11 @@ Shackle makes popups manageable
 (use-package ggtags)
 #+END_SRC
 
-** delim-kill
-
-#+BEGIN_SRC emacs-lisp
-(use-package delim-kill
-  :bind (:map evil-normal-state-map ("SPC k d" . delim-kill)))
-#+END_SRC
 
 ** Corral
 
 #+BEGIN_SRC emacs-lisp
-(use-package corral
-  :bind
-  ("M-9" . corral-parentheses-backward)
-  ("M-0" . corral-parentheses-forward)
-  ("M-[" . corral-brackets-backward)
-  ("M-]" . corral-brackets-forward)
-  ("M-{" . corral-braces-backward)
-  ("M-}" . corral-braces-forward)
-  ("M-'" . corral-double-quotes-backward))
+(use-package corral)
 #+END_SRC
 
 ** YASnippet
@@ -820,7 +786,7 @@ Fix word-skip behaviour
    
 ** Stateless Global Keybindings
 #+BEGIN_SRC emacs-lisp
-
+(use-package which-key :config (which-key-mode 1))
 ;; enhanced defaults and things that should have better bindings
 (general-define-key
  ;; these take inspiration from my Vim movement keys for minimak-12
@@ -923,13 +889,16 @@ Allows for the use of my PTT pedal as ~~C-~~ in keybindings, but only when I hav
 ;; can't do this as a minor mode because you'll end up doing all the
 ;; work to modify key-translation-map anyways
 
+(defvar rh/pedal-keysym
+  "<XF86Phone>")
+
 (defvar rh/pedal-key
-  (kbd "<XF86Phone>")
-  "Pedal keysym")
+  (kbd rh/pedal-keysym)
+  "Pedal key")
 
 (defvar rh/pedal-key-enabled
   nil
-  "Is pedal treated as C-?")
+  "Is pedal treated as sticky meta?")
 
 (defun rh/toggle-pedal ()
   "Allow <XF86Phone> to translate to a control modifier"
@@ -938,13 +907,11 @@ Allows for the use of my PTT pedal as ~~C-~~ in keybindings, but only when I hav
         (let ((enabled (lookup-key key-translation-map rh/pedal-key)))
           (if enabled
               (define-key key-translation-map rh/pedal-key nil)
-            (define-key key-translation-map rh/pedal-key 'event-apply-control-modifier))
+            (define-key key-translation-map rh/pedal-key 'event-apply-meta-modifier))
           (message "Pedal %s" (if enabled
                                   "disabled"
                                 "enabled"))
           (not enabled))))
-
-
 
 (general-define-key
  "<f13>" 'rh/toggle-pedal)
