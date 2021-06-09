@@ -98,7 +98,10 @@ Disable menu bars, tool bar, and most importantly - scroll bars
   "Configure a normal frame."
   (modify-frame-parameters frame '((vertical-scroll-bars . nil)
                                    (horizontal-scroll-bars . nil)
-                                   (alpha . 96))))
+                                   (alpha . 96)))
+  ;; text-mode only stuff
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
 
 
 (add-hook 'after-make-frame-functions #'rh/setup-frame)
