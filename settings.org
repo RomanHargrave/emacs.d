@@ -174,6 +174,8 @@ Disable menu bars, tool bar, and most importantly - scroll bars
 
          (doom-modeline-spc))))
 
+    (customize-set-variable 'doom-modeline-enable-word-count t)
+
     ;; i'm going to replace the main modeline because i'm that person
     (doom-modeline-def-modeline 'main
       '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
@@ -368,7 +370,11 @@ Shackle makes popups manageable
 (use-package ggtags)
 #+END_SRC
 
-
+** Edit Server
+#+BEGIN_SRC emacs-lisp
+(use-package edit-server)
+(edit-server-start)
+#+END_SRC
 ** Corral
 
 #+BEGIN_SRC emacs-lisp
