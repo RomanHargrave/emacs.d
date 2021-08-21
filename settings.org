@@ -436,6 +436,10 @@ Shackle makes popups manageable
 
 (use-package wikitext-mode)
 
+(use-package ledger-mode
+  :config
+  (setq ledger-default-date-format ledger-iso-date-format))
+
 (use-package mediawiki
   :mode ("/tmp/tmp_..\\.wikipedia\\.org_.+" . mediawiki-mode))
 
