@@ -425,6 +425,62 @@ Shackle makes popups manageable
   :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
 #+END_SRC
 
+*** language server protocol support
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-mode
+  :hook ((scala-mode-hook    . lsp)
+         (php-mode-hook      . lsp)
+         (python-mode-hook   . lsp)
+         (d-mode-hook        . lsp)
+         (perl-mode-hook     . lsp)
+         (ruby-mode-hook     . lsp)
+         (enh-ruby-mode-hook . lsp)
+         (cperl-mode-hook    . lsp))
+  :commands lsp
+  :init
+  :config
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("dub" "run" "dls"))
+    :major-modes '(d-mode)
+    :server-id 'dls))
+  (add-to-list 'lsp-language-id-configuration '(d-mode . "d"))
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("perl" "-MPerl::LanguageServer" "-e" "Perl::LanguageServer::run"))
+    :major-modes '(perl-mode cperl-mode)
+    :server-id 'perl-language-server))
+  (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-solargraph-use-bundler t))
+
+(defun lsp-solargraph--build-command ()
+    "Build solargraph command (modded)"
+    '("fish" "-c" "rvm use && bundle exec solargraph stdio"))
+
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024))
+
+(use-package lsp-ui
+  :requires lsp-mode flycheck
+  :config
+  (setq lsp-ui-doc-position 'top
+        lsp-ui-flycheck-enable t
+        lsp-ui-flycheck-list-position 'right
+        lsp-ui-flycheck-live-reporting t))
+
+(general-define-key
+ "<f6>" 'lsp-rename
+ "<f7>" 'lsp-ui-peek-find-definitions
+ "<f8>" 'lsp-ui-peek-find-references)
+
+(general-define-key
+ :states 'normal
+ "SPC l g g" 'lsp-ui-imenu)
+
+(use-package company-lsp)
+#+END_SRC
+
 ** Language Support Modes
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode :mode "Dockerfile")
@@ -498,16 +554,31 @@ Shackle makes popups manageable
 (use-package macrostep)
 
 (use-package cider)
-#+END_SRC
 
-*** C
-
-Tweaks to cc-mode, more or less
-
-#+BEGIN_SRC emacs-lisp
 (setq c-default-style '((cc-mode . "bsd")
                         (csharp-mode . "csharp"))
       c-basic-offset  2)
+
+(use-package python-mode
+  :mode "\\.py\\'"
+  :config
+  (setq python-shell-interpreter "/usr/bin/python"))
+
+(use-package cmake-mode
+  :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
+
+(use-package coleslaw
+  :straight (coleslaw :type git :host github :repo "equwal/coleslaw"
+                      :fork (:host github :repo "RomanHargrave/coleslaw"))
+  :config
+  (coleslaw-setup))
+
+(use-package fountain-mode
+  :mode ("\\.fountain\\'" "\\.spmd\\'")
+  :defer t)
+
+(use-package nginx-mode
+  :defer t)
 #+END_SRC
 
 *** D
@@ -526,14 +597,6 @@ Tweaks to cc-mode, more or less
   :requires company-mode)
 #+END_SRC
 
-*** Python
-#+BEGIN_SRC emacs-lisp
-(use-package python-mode
-  :mode "\\.py\\'"
-  :config
-  (setq python-shell-interpreter "/usr/bin/python"))
-#+END_SRC
-
 *** PHP
 #+BEGIN_SRC emacs-lisp
 (use-package php-mode
@@ -542,16 +605,6 @@ Tweaks to cc-mode, more or less
 (use-package php-refactor-mode
   :config
   (add-hook 'php-mode-hook 'php-refactor-mode))
-#+END_SRC
-
-*** CMake
-Also includes cmake-ide for clang integration
-#+BEGIN_SRC emacs-lisp
-(use-package cmake-mode
-  :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
-(use-package cmake-ide
-                                        ;  :config (cmake-ide-setup)
-  )
 #+END_SRC
 
 *** TeX
@@ -573,17 +626,7 @@ Includes company backends
 (use-package latex-preview-pane)
 #+END_SRC
 
-*** coleslaw-mode
-This is /sort of/ a language support mode.
-#+BEGIN_SRC emacs-lisp
-(use-package coleslaw
-  :straight (coleslaw :type git :host github :repo "equwal/coleslaw"
-                      :fork (:host github :repo "RomanHargrave/coleslaw"))
-  :config
-  (coleslaw-setup))
-#+END_SRC
-
-*** web-mode
+*** web-mode, Tide
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
   :mode (("\\.tmpl\\'"         . web-mode)
@@ -601,13 +644,22 @@ This is /sort of/ a language support mode.
         ("freemarker" . "\\.ftl\\'")))
 
 (defun web-mode-config-hook ()
-     "Configuration hook for web-mode"
-     (setq web-mode-markup-indent-offset 2))
+  "Configuration hook for web-mode"
+  (setq web-mode-markup-indent-offset 2))
 
 ;; Also configure JS indent
 (setq js-indent-level 2)
 
 (add-hook 'web-mode-hook 'web-mode-config-hook)
+
+(use-package typescript-mode
+  :mode (("\\.tsx?\\'" . typescript-mode)))
+
+(lsp-register-client
+ (make-lsp-client
+  :new-connection (lsp-stdio-connection '("npx" "typescript-language-server" "--stdio"))
+  :major-modes '(typescript-mode) ;; todo: maybe add web-mode
+  :server-id tsserver))
 #+END_SRC
 
 *** cperl-mode & raku-mode
@@ -656,76 +708,6 @@ This is /sort of/ a language support mode.
 (add-hook 'scala-mode-hook
           (lambda ()
             (setq evil-shift-width 2)))
-#+END_SRC
-
-*** Fountain Mode
-#+BEGIN_SRC emacs-lisp
-(use-package fountain-mode
-  :mode ("\\.fountain\\'" "\\.spmd\\'")
-  :defer t)
-#+END_SRC
-
-*** language server protocol support
-#+BEGIN_SRC emacs-lisp
-(use-package lsp-mode
-  :hook ((scala-mode-hook    . lsp)
-         (php-mode-hook      . lsp)
-         (python-mode-hook   . lsp)
-         (d-mode-hook        . lsp)
-         (perl-mode-hook     . lsp)
-         (ruby-mode-hook     . lsp)
-         (enh-ruby-mode-hook . lsp)
-         (cperl-mode-hook    . lsp))
-  :commands lsp
-  :init
-  :config
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection '("dub" "run" "dls"))
-    :major-modes '(d-mode)
-    :server-id 'dls))
-  (add-to-list 'lsp-language-id-configuration '(d-mode . "d"))
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection '("perl" "-MPerl::LanguageServer" "-e" "Perl::LanguageServer::run"))
-    :major-modes '(perl-mode cperl-mode)
-    :server-id 'perl-language-server))
-  (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
-  (setq lsp-prefer-flymake nil)
-  (setq lsp-solargraph-use-bundler t))
-
-(defun lsp-solargraph--build-command ()
-    "Build solargraph command (modded)"
-    '("fish" "-c" "rvm use && bundle exec solargraph stdio"))
-
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024))
-
-(use-package lsp-ui
-  :requires lsp-mode flycheck
-  :config
-  (setq lsp-ui-doc-position 'top
-        lsp-ui-flycheck-enable t
-        lsp-ui-flycheck-list-position 'right
-        lsp-ui-flycheck-live-reporting t))
-
-(general-define-key
- "<f6>" 'lsp-rename
- "<f7>" 'lsp-ui-peek-find-definitions
- "<f8>" 'lsp-ui-peek-find-references)
-
-(general-define-key
- :states 'normal
- "SPC l g g" 'lsp-ui-imenu)
-
-(use-package company-lsp)
-#+END_SRC
-
-*** NginX mode
-
-#+BEGIN_SRC emacs-lisp
-(use-package nginx-mode
-  :defer t)
 #+END_SRC
 
 ** Ctags
