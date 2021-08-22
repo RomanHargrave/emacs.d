@@ -54,7 +54,7 @@
 #+END_SRC
 
 ** Base behaviour
-   
+
 #+BEGIN_SRC emacs-lisp
 (setq user-inc-dir
   (expand-file-name "inc" user-emacs-directory))
@@ -68,14 +68,14 @@
 #+END_SRC
 
 ** Remove undesirable keyboard behavior
-   
+
 #+BEGIN_SRC emacs-lisp
 (dolist (fk  (number-sequence 1 24))
   (global-unset-key (kbd (concat "<f" (number-to-string fk) ">"))))
 
 (dolist (key '("C-t" "C-x m"))
   (global-unset-key (kbd key)))
-#+END_SRC 
+#+END_SRC
 
 * Appearance
 Set the default font-face to /Source Code Pro/ and more
@@ -119,126 +119,133 @@ Disable menu bars, tool bar, and most importantly - scroll bars
 #+END_SRC
 
 ** Theme and UI customizations
- #+BEGIN_SRC emacs-lisp
- (global-display-line-numbers-mode)
+  #+BEGIN_SRC emacs-lisp
+   (global-display-line-numbers-mode)
 
-  (use-package doom-themes
-    :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "pine")
-    :config
-    (doom-themes-org-config))
+   (use-package doom-themes
+     :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "pine")
+     :config
+     (doom-themes-org-config))
 
- (defun rh/load-theme ()
-   "Load desired theme."
-   (load-theme 'doom-pine t))
+   (defun rh/load-theme ()
+     "Load desired theme."
+     (load-theme 'doom-pine t))
 
- (add-hook 'after-init-hook #'rh/load-theme)
+   (add-hook 'after-init-hook #'rh/load-theme)
 
-  ;; XXX remember to run (all-the-icons-install-fonts)
-  (use-package doom-modeline
-    :hook
-    (after-init-hook . doom-modeline-mode)
-    (after-make-frame-functions . (lambda (frame) (setq doom-modeline-icon t)))
-    :config
-    (doom-modeline-def-segment rh/pedal-state
-      "Displays whether pedal is enabled."
-      (when rh/pedal-key-enabled
-        (let ((face (if (doom-modeline--active)
-                        'doom-modeline-buffer-major-mode
-                      'mode-line-inactive)))
-          (concat
-           (doom-modeline-spc)
-           (propertize
-            "Pedal"
-            'face face)
-           (doom-modeline-spc)))))
+   ;; XXX remember to run (all-the-icons-install-fonts)
 
-    ;; just going to spin my own buffer-position
-    (doom-modeline-def-segment rh/point
-      "Displays absolute location of point."
-      (concat
-       (doom-modeline-spc)
-       (propertize
-        (number-to-string (point))
-        'face (if (doom-modeline--active)
-                  'mode-line
-                'mode-line-inactive))
-       (doom-modeline-spc)))
+   (use-package minions
+     :config
+     (minions-mode 1))
 
-    (doom-modeline-def-segment buffer-position
-      (let* ((face   (if (doom-modeline--active)
-                         'mode-line
+   (use-package doom-modeline
+     :hook
+     (after-init-hook . doom-modeline-mode)
+     (after-make-frame-functions . (lambda (frame) (setq doom-modeline-icon t)))
+     :config
+     (doom-modeline-def-segment rh/pedal-state
+       "Displays whether pedal is enabled."
+       (when rh/pedal-key-enabled
+         (let ((face (if (doom-modeline--active)
+                         'doom-modeline-buffer-major-mode
                        'mode-line-inactive)))
-        (concat
-         (doom-modeline-spc)
+           (concat
+            (doom-modeline-spc)
+            (propertize
+             "Pedal"
+             'face face)
+            (doom-modeline-spc)))))
 
-         (propertize (concat (format-mode-line '("%4l:%2c"))
-                             " (" (number-to-string (point)) ")")
-                     'face face)
+     ;; just going to spin my own buffer-position
+     (doom-modeline-def-segment rh/point
+       "Displays absolute location of point."
+       (concat
+        (doom-modeline-spc)
+        (propertize
+         (number-to-string (point))
+         'face (if (doom-modeline--active)
+                   'mode-line
+                 'mode-line-inactive))
+        (doom-modeline-spc)))
 
-         (doom-modeline-spc))))
+     (doom-modeline-def-segment buffer-position
+       (let* ((face   (if (doom-modeline--active)
+                          'mode-line
+                        'mode-line-inactive)))
+         (concat
+          (doom-modeline-spc)
 
-    (customize-set-variable 'doom-modeline-enable-word-count t)
+          (propertize (concat (format-mode-line '("%4l:%2c"))
+                              " (" (number-to-string (point)) ")")
+                      'face face)
 
-    ;; i'm going to replace the main modeline because i'm that person
-    (doom-modeline-def-modeline 'main
-      '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
-      '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process vcs checker))
+          (doom-modeline-spc))))
 
-    (doom-modeline-def-modeline 'minimal
-      '(bar matches buffer-info-simple)
-      '(media-info major-mode))
+     (customize-set-variable 'doom-modeline-minor-modes t)
+     (customize-set-variable 'doom-modeline-enable-word-count t)
 
-    (doom-modeline-def-modeline 'special
-      '(bar window-number modals matches buffer-info buffer-position word-count parrot selection-info)
-      '(objed-state misc-info battery irc-buffers debug minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process))
+     ;; i'm going to replace the main modeline because i'm that person
+     (doom-modeline-def-modeline 'main
+       '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
+       '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process vcs checker))
 
-    (doom-modeline-def-modeline 'project
-      '(bar window-number buffer-default-directory)
-      '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
+     (doom-modeline-def-modeline 'minimal
+       '(bar matches buffer-info-simple)
+       '(media-info major-mode))
 
-    (doom-modeline-def-modeline 'dashboard
-      '(bar window-number buffer-default-directory-simple)
-      '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
+     (doom-modeline-def-modeline 'special
+       '(bar window-number modals matches buffer-info buffer-position word-count parrot selection-info)
+       '(objed-state misc-info battery irc-buffers debug minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process))
 
-    (doom-modeline-def-modeline 'vcs
-      '(bar window-number modals matches buffer-info buffer-position parrot selection-info)
-      '(misc-info battery irc mu4e gnus github debug minor-modes buffer-encoding major-mode process))
+     (doom-modeline-def-modeline 'project
+       '(bar window-number buffer-default-directory)
+       '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
 
-    (doom-modeline-def-modeline 'package
-      '(bar window-number package)
-      '(misc-info major-mode process))
+     (doom-modeline-def-modeline 'dashboard
+       '(bar window-number buffer-default-directory-simple)
+       '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
 
-    (doom-modeline-def-modeline 'info
-      '(bar window-number buffer-info info-nodes buffer-position parrot selection-info)
-      '(misc-info buffer-encoding major-mode rh/pedal-state))
+     (doom-modeline-def-modeline 'vcs
+       '(bar window-number modals matches buffer-info buffer-position parrot selection-info)
+       '(misc-info battery irc mu4e gnus github debug minor-modes buffer-encoding major-mode process))
 
-    (doom-modeline-def-modeline 'media
-      '(bar window-number buffer-size buffer-info)
-      '(misc-info media-info major-mode process vcs))
+     (doom-modeline-def-modeline 'package
+       '(bar window-number package)
+       '(misc-info major-mode process))
 
-    (doom-modeline-def-modeline 'message
-      '(bar window-number modals matches buffer-info-simple buffer-position word-count parrot selection-info)
-      '(objed-state misc-info battery debug minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state))
+     (doom-modeline-def-modeline 'info
+       '(bar window-number buffer-info info-nodes buffer-position parrot selection-info)
+       '(misc-info buffer-encoding major-mode rh/pedal-state))
 
-    (doom-modeline-def-modeline 'pdf
-      '(bar window-number matches buffer-info pdf-pages)
-      '(misc-info major-mode process vcs))
+     (doom-modeline-def-modeline 'media
+       '(bar window-number buffer-size buffer-info)
+       '(misc-info media-info major-mode process vcs))
 
-    (doom-modeline-def-modeline 'org-src
-      '(bar window-number modals matches buffer-info-simple buffer-position word-count parrot selection-info)
-      '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process checker))
+     (doom-modeline-def-modeline 'message
+       '(bar window-number modals matches buffer-info-simple buffer-position word-count parrot selection-info)
+       '(objed-state misc-info battery debug minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state))
 
-    (doom-modeline-def-modeline 'timemachine
-      '(bar window-number matches git-timemachine buffer-position word-count parrot selection-info)
-      '(misc-info minor-modes indent-info buffer-encoding major-mode)))
+     (doom-modeline-def-modeline 'pdf
+       '(bar window-number matches buffer-info pdf-pages)
+       '(misc-info major-mode process vcs))
 
-  (setq frame-resize-pixelwise t)
+     (doom-modeline-def-modeline 'org-src
+       '(bar window-number modals matches buffer-info-simple buffer-position word-count parrot selection-info)
+       '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode rh/pedal-state process checker))
 
-  (use-package rainbow-delimiters
+     (doom-modeline-def-modeline 'timemachine
+       '(bar window-number matches git-timemachine buffer-position word-count parrot selection-info)
+       '(misc-info minor-modes indent-info buffer-encoding major-mode)))
+
+   (setq frame-resize-pixelwise t)
+
+ (use-package rainbow-delimiters
     :config
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-  ;; A E S T H E T I C
+   ;; A E S T H E T I C
+
   (set-face-background 'menu "aquamarine4")
  #+END_SRC
 
@@ -276,7 +283,7 @@ Shackle makes popups manageable
     (derived-mode-p 'compilation-mode
                     'epa-key-list-mode
                     'help-mode)))
-    
+
 (defvar rh/shackle-defaults
   '(:popup t :align below :size 0.2))
 
@@ -345,7 +352,7 @@ Shackle makes popups manageable
   :config
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name)))
-  
+
   ;(add-to-list 'tramp-remote-process-environment
   ;             "GIT_AUTHOR_NAME=Roman Hargrave")
   ;(add-to-list 'tramp-remote-process-environment
@@ -783,7 +790,7 @@ Fix word-skip behaviour
 #+END_SRC
 
 ** Keybindings
-   
+
 ** Stateless Global Keybindings
 #+BEGIN_SRC emacs-lisp
 (use-package which-key :config (which-key-mode 1))
