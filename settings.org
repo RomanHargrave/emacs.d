@@ -420,7 +420,7 @@ Shackle makes popups manageable
   :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
 #+END_SRC
 
-*** language server protocol support
+*** language server protocol support, company
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
   :hook ((scala-mode-hook    . lsp)
@@ -459,19 +459,28 @@ Shackle makes popups manageable
 (use-package lsp-ui
   :requires lsp-mode flycheck
   :config
-  (setq lsp-ui-doc-position 'top
+  (setq lsp-ui-doc-mode t
+        lsp-ui-doc-show-with-cursor nil
+        lsp-ui-doc-show-with-mouse t
+        lsp-ui-doc-position 'at-point
         lsp-ui-flycheck-enable t
         lsp-ui-flycheck-list-position 'right
         lsp-ui-flycheck-live-reporting t))
 
 (general-define-key
  "<f6>" 'lsp-rename
+ "<f4>" 'lsp-glance
  "<f7>" 'lsp-ui-peek-find-definitions
  "<f8>" 'lsp-ui-peek-find-references)
 
 (general-define-key
  :states 'normal
  "SPC l g g" 'lsp-ui-imenu)
+
+(use-package company
+  :config
+  (define-key company-mode-map
+    [remap indent-for-tab-command] #'company-indent-or-complete-common))
 
 (use-package company-lsp)
 #+END_SRC
@@ -746,6 +755,7 @@ Includes company backends
       coding-system-for-read         'utf-8
       coding-system-for-write        'utf-8
       sentence-end-double-space      nil
+      tab-always-insert              'complete ;; does not apply for the most part b/c company
       auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t))
       backup-directory-alist         `(("." . "~/.emacs.d/backups"))
       delete-old-versions            -1
@@ -779,7 +789,6 @@ Fix word-skip behaviour
 
 ** Keybindings
 
-** Stateless Global Keybindings
 #+BEGIN_SRC emacs-lisp
 (use-package which-key :config (which-key-mode 1))
 ;; enhanced defaults and things that should have better bindings
@@ -922,12 +931,6 @@ Allows for the use of my PTT pedal as ~~C-~~ in keybindings, but only when I hav
 
 (general-define-key
  "<f13>" 'rh/toggle-pedal)
-#+END_SRC
-
-** Normal mode keybindings
-*** Global
-#+BEGIN_SRC emacs-lisp
-
 #+END_SRC
 
 *** Tetris
