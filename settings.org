@@ -353,11 +353,7 @@ Shackle makes popups manageable
   (setf tramp-persistency-file-name
         (concat temporary-file-directory "tramp-" (user-login-name)))
 
-  ;(add-to-list 'tramp-remote-process-environment
-  ;             "GIT_AUTHOR_NAME=Roman Hargrave")
-  ;(add-to-list 'tramp-remote-process-environment
-  ;             "GIT_AUTHOR_EMAIL=roman@hargrave.info")
-)
+  (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt"))
 #+END_SRC
 
 ** Projectile
