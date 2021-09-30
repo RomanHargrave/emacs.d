@@ -574,6 +574,9 @@
 
    (use-package nginx-mode
      :defer t)
+
+   (use-package cucumber
+     :mode (("\\.feature\\'" . feature-mode)))
    #+END_SRC
 
 *** D
