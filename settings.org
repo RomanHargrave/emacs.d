@@ -1,3 +1,5 @@
+#+STARTUP: showeverything
+
 * Pre-init stuff
 ** Helper function to add multiple patterns to auto-mode-alist at once
 
