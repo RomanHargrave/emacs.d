@@ -53,6 +53,11 @@
    (add-to-list 'load-path local-pkg)
 
    (setq use-package-hook-name-suffix nil)
+
+   ;; dumb older versions of emacs problem, huge nuisance
+   ;; just use the version from ELPA when i tell you!
+   (when (version<= tramp-version "2.5.0")
+     (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt"))
    #+END_SRC
 
 ** Base behaviour
