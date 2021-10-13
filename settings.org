@@ -604,7 +604,7 @@
       :config
       (add-hook 'php-mode-hook 'php-refactor-mode))
     #+END_SRC
- 
+
 *** TeX
     Includes company backends
     #+BEGIN_SRC emacs-lisp
@@ -731,7 +731,7 @@
 * Configuration
 
 ** Editor Behaviour
-   
+
    #+BEGIN_SRC emacs-lisp
    (setq-default indent-tabs-mode nil)
    (setq-default tab-stop-list '(3 6))
@@ -757,6 +757,8 @@
          custom-file                    "~/.emacs.d/custom.el")
 
    (show-paren-mode 1)
+
+   (modify-syntax-entry ?_ "w")
    #+END_SRC
 
 *** Tab-character highlighting
@@ -775,11 +777,6 @@
 *** Fix org-mode source-editor indentation
     #+BEGIN_SRC emacs-lisp
     (setq org-edit-src-content-indentation 0)
-    #+END_SRC
-
-    Fix word-skip behaviour
-    #+BEGIN_SRC emacs-lisp
-    (modify-syntax-entry ?_ "w")
     #+END_SRC
 
 ** Keybindings
