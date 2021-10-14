@@ -786,7 +786,7 @@
       (setq org-roam-v2-ack t)
       :bind* (("C-x C-n f" . org-roam-node-find)
               ("C-x C-n i" . org-roam-node-insert)
-              ("C-x C-n c" . org-roam-node-capture))
+              ("C-x C-n c" . org-roam-capture))
       :config
       (org-roam-db-autosync-mode)
       (push '("e" "encrypted" plain "%?"
