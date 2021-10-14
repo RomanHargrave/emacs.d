@@ -774,8 +774,14 @@
               (lambda () (font-lock-add-keywords nil computed-indent-chars)))
     #+END_SRC
 
-*** Fix org-mode source-editor indentation
+*** Org-mode
     #+BEGIN_SRC emacs-lisp
+    ;; XXX: org-directory is set with custom for system-local stuff the
+    ;; same goes for org-roam-directory
+    (use-package org-roam
+      :config
+      (setq org-roam-v2-ack t))
+
     (setq org-edit-src-content-indentation 0)
     #+END_SRC
 
