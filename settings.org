@@ -67,6 +67,9 @@
 
    ;; unfortunately we can't put lockfiles elsewhere for now, and these fuck up everything.
    (setq create-lockfiles nil)
+
+   (setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
+   (load-file custom-file)
    #+END_SRC
 
 ** Remove undesirable keyboard behavior
@@ -754,8 +757,7 @@
          tab-always-insert              'complete ;; does not apply for the most part b/c company
          auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t))
          backup-directory-alist         `(("." . "~/.emacs.d/backups"))
-         delete-old-versions            -1
-         custom-file                    "~/.emacs.d/custom.el")
+         delete-old-versions            -1)
 
    (show-paren-mode 1)
 
@@ -949,14 +951,3 @@
      "e" 'tetris-rotate-prev
      "p" 'tetris-pause)
      #+END_SRC
-
-* Final Steps
-
-** Load Custom Settings
-
-   Custom settings include things such as whitelisted dir-local/local vars
-
-   #+BEGIN_SRC emacs-lisp
-   (load-file
-    (expand-file-name "custom.el" user-emacs-directory))
-   #+END_SRC
