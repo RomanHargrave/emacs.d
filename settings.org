@@ -1,3 +1,5 @@
+#+STARTUP: showeverything
+
 * Pre-init stuff
 ** Helper function to add multiple patterns to auto-mode-alist at once
 
@@ -332,11 +334,10 @@
 ** Tramp
    #+BEGIN_SRC emacs-lisp
    (use-package tramp
+     :straight (:build t :pre-build (("make" "autoloads")))
      :config
      (setf tramp-persistency-file-name
-           (concat temporary-file-directory "tramp-" (user-login-name)))
-
-     (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt"))
+           (concat temporary-file-directory "tramp-" (user-login-name))))
    #+END_SRC
 
 ** Projectile
@@ -548,7 +549,7 @@
 
    (use-package macrostep)
 
-   (use-package cider)
+   (use-package cider :after tramp)
 
    (setq c-default-style '((cc-mode . "bsd")
                            (csharp-mode . "csharp"))
