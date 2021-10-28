@@ -491,7 +491,11 @@
    (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
    (use-package go-mode :mode ("\\.go\\'"))
    (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'"))
-   (use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
+   (use-package rustic
+     :mode (("\\.rs\\'" . rustic-mode))
+     :config
+     (setq rustic-indent-offset 2))
+  
    (use-package ebuild-mode :mode "\\.ebuild\\'")
    (use-package apache-mode)
 
@@ -554,7 +558,7 @@
 
    (use-package cider :after tramp)
 
-   (setq c-default-style '((cc-mode . "bsd")
+   (setq c-default-style '((other . "bsd")
                            (csharp-mode . "csharp"))
          c-basic-offset  2)
 
@@ -676,17 +680,17 @@
 
     (defalias 'perl-mode 'cperl-mode)
 
-    ;;(use-package raku-mode
-    ;;  :straight (raku-mode :type git :host github :repo "RomanHargrave/raku-mode")
-    ;;  :mode (("\\.raku\\'" . raku-mode)
-    ;;         ("\\.t6\\'"   . raku-mode)
-    ;;         ("\\.pm6\\'"  . raku-mode)
-    ;;         ("\\.p6\\'"   . raku-mode))
-    ;;  :magic (("#!.+raku" . raku-mode)
-    ;;          ("#!.+rakudo" . raku-mode)
-    ;;          ("#!.+perl6" . raku-mode))
-    ;;  :config
-    ;;  (setq raku-indent-offset 3))
+    (use-package raku-mode
+      :straight (raku-mode :type git :host github :repo "Raku/raku-mode")
+      :mode (("\\.raku\\'" . raku-mode)
+             ("\\.t6\\'"   . raku-mode)
+             ("\\.pm6\\'"  . raku-mode)
+             ("\\.p6\\'"   . raku-mode))
+      :magic (("#!.+raku" . raku-mode)
+              ("#!.+rakudo" . raku-mode)
+              ("#!.+perl6" . raku-mode))
+      :config
+      (setq raku-indent-offset 3))
     #+END_SRC
 
 *** scala-mode
@@ -732,6 +736,27 @@
         (format "/usr/bin/ctags -f %s -e -R %s" tags-file tags-directory))))
    #+END_SRC
 
+** Touché
+
+#+BEGIN_SRC emacs-lisp
+(use-package go-translate
+  :config
+  (setq gts-translate-list '(("en" "fr") ("fr" "en")
+                             ("en" "es") ("es" "en")
+                             ("en" "eo") ("eo" "en")
+                             ("en" "de") ("de" "en")))
+
+  ;; the default picker behavior is positively awful and direction
+  ;; cycling just doesn't work. As an aside, the variable name
+  ;; gts-default-translator doesn't really cover the entire scope of
+  ;; its use.
+  (setq gts-default-translator
+        (gts-translator
+         :picker (gts-prompt-picker)
+         :engines (list (gts-google-engine))
+         :render  (gts-buffer-render))))
+#+END_SRC
+   
 * Configuration
 
 ** Editor Behaviour
