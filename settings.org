@@ -123,6 +123,34 @@
 
   #+END_SRC
 
+** Things that need to be installed before anything else
+These items include packages that MUST be built before the built-in version can be loaded.
+
+*** Org-mode + Org-roam
+    #+BEGIN_SRC emacs-lisp
+    ;(use-package org
+    ;  :straight (:build t))
+
+    ;; XXX: org-directory is set with custom for system-local stuff the
+    ;; same goes for org-roam-directory
+    ; (use-package org-roam
+    ;  :init
+    ;  (setq org-roam-v2-ack t)
+    ;  :bind* (("C-x C-n f" . org-roam-node-find)
+    ;          ("C-x C-n i" . org-roam-node-insert)
+    ;          ("C-x C-n c" . org-roam-node-capture))
+    ;  :config
+    ;  (org-roam-db-autosync-mode)
+    ;  (push '("e" "encrypted" plain "%?"
+    ;          :target (file+head "${slug}.org.gpg"
+    ;                             "#+title: ${title}\n")
+    ;          :unnarrowed t)
+    ;        org-roam-capture-templates))
+
+    (setq org-edit-src-content-indentation 0)
+    #+END_SRC
+
+
 ** Theme and UI customizations
    #+BEGIN_SRC emacs-lisp
    (global-display-line-numbers-mode)
@@ -414,6 +442,13 @@
    (use-package flycheck-raku
      :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
    #+END_SRC
+
+*** Deadgrep/Ripgrep
+
+    #+BEGIN_SRC emacs-lisp
+    (use-package deadgrep
+      :bind ("<f5>" . deadgrep))
+    #+END_SRC
 
 *** language server protocol support, company
     #+BEGIN_SRC emacs-lisp
@@ -775,27 +810,6 @@
 
     (add-hook 'fortran-mode-hook
               (lambda () (font-lock-add-keywords nil computed-indent-chars)))
-    #+END_SRC
-
-*** Org-mode
-    #+BEGIN_SRC emacs-lisp
-    ;; XXX: org-directory is set with custom for system-local stuff the
-    ;; same goes for org-roam-directory
-    (use-package org-roam
-      :init
-      (setq org-roam-v2-ack t)
-      :bind* (("C-x C-n f" . org-roam-node-find)
-              ("C-x C-n i" . org-roam-node-insert)
-              ("C-x C-n c" . org-roam-node-capture))
-      :config
-      (org-roam-db-autosync-mode)
-      (push '("e" "encrypted" plain "%?"
-              :target (file+head "${slug}.org.gpg"
-                                 "#+title: ${title}\n")
-              :unnarrowed t)
-            org-roam-capture-templates))
-
-    (setq org-edit-src-content-indentation 0)
     #+END_SRC
 
 ** Keybindings
