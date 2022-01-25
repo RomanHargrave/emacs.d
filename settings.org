@@ -568,6 +568,8 @@
    (rh/add-exts-to-mode 'fortran-mode '(ftn f77))
    (rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
 
+   (rh/add-exts-to-mode 'prolog-mode '(plt))
+
                                            ; also get dtrt-indent, to be polite when working with other's code
    (use-package dtrt-indent)
 
