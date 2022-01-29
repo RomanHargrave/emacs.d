@@ -849,6 +849,15 @@
             org-roam-capture-templates))
 
     (setq org-edit-src-content-indentation 0)
+
+    (use-package org-remark
+      :straight (org-remark
+                 :type git
+                 :host github
+                 :repo "nobiot/org-remark")
+      :init
+      (require 'org-remark-global-tracking)
+      (org-remark-global-tracking-mode t))
     #+END_SRC
 
 ** Keybindings
