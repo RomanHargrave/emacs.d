@@ -103,7 +103,7 @@
     "Configure a normal frame."
     (modify-frame-parameters frame '((vertical-scroll-bars . nil)
                                      (horizontal-scroll-bars . nil)
-                                     (alpha . 96)))
+                                     (alpha . 98)))
     ;; text-mode only stuff
     (unless (display-graphic-p (selected-frame))
       (set-face-background 'default "unspecified-bg" (selected-frame))))
