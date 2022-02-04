@@ -29,31 +29,6 @@
    #+END_SRC
 
 * Emacs Basics
-** Package management
-
-   #+BEGIN_SRC emacs-lisp
-   (defvar bootstrap-version)
-   (let ((bootstrap-file
-          (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-         (bootstrap-version 5))
-     (unless (file-exists-p bootstrap-file)
-       (with-current-buffer
-           (url-retrieve-synchronously
-            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-            'silent 'inhibit-cookies)
-         (goto-char (point-max))
-         (eval-print-last-sexp)))
-     (load bootstrap-file nil 'nomessage))
-
-   (straight-use-package 'use-package)
-   (setq straight-use-package-by-default t)
-
-   (defvar local-pkg (expand-file-name "dist-packages" user-emacs-directory))
-
-   (add-to-list 'load-path local-pkg)
-
-   (setq use-package-hook-name-suffix nil)
-   #+END_SRC
 
 ** Base behaviour
 
@@ -103,7 +78,7 @@
     "Configure a normal frame."
     (modify-frame-parameters frame '((vertical-scroll-bars . nil)
                                      (horizontal-scroll-bars . nil)
-                                     (alpha . 96)))
+                                     (alpha . 98)))
     ;; text-mode only stuff
     (unless (display-graphic-p (selected-frame))
       (set-face-background 'default "unspecified-bg" (selected-frame))))
@@ -388,7 +363,7 @@ These items include packages that MUST be built before the built-in version can 
 ** ggtags
 
    #+BEGIN_SRC emacs-lisp
-   (use-package ggtags)
+   ;; (use-package ggtags)
    #+END_SRC
 
 ** Edit Server
@@ -436,11 +411,37 @@ These items include packages that MUST be built before the built-in version can 
 ** Flycheck
 
    #+BEGIN_SRC emacs-lisp
-   (use-package flycheck
-     ;;  :hook ((after-init . #'global-flycheck-mode))
-     )
-   (use-package flycheck-raku
-     :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
+     (use-package flycheck
+       ;;  :hook ((after-init . #'global-flycheck-mode))
+       )
+
+     (use-package flycheck-raku
+       :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
+
+     (use-package flycheck-languagetool
+       :hook ((org-mode . (lambda ()
+			    (add-to-list flycheck-checkers 'languagetool))))
+       :init
+       (defun flycheck-languagetool--start-server ()
+	 "Start the LanguageTool server (custom redefinition for app-text/languagetool)."
+	 (unless (process-live-p (get-process "languagetool-server"))
+	   (let ((process
+		  (apply #'start-process
+			 "languagetool-server"
+			 "*LanguageTool server*"
+			 "languagetool-server"
+			 "--port" (format "%s" flycheck-languagetool-server-port)
+			 flycheck-languagetool-server-args)))
+	     (set-process-query-on-exit-flag process nil)
+	     (while
+		 (with-current-buffer (process-buffer process)
+		   (goto-char (point-min))
+		   (unless (re-search-forward " Server started$" nil t)
+		     (accept-process-output process 1)
+		     (process-live-p process))))))
+	 (defun flycheck-languagetool--enabled ()
+	   "Return true, since there is no need to specify a Jar here."
+	   t)))
    #+END_SRC
 
 *** Deadgrep/Ripgrep
@@ -526,7 +527,11 @@ These items include packages that MUST be built before the built-in version can 
    (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
    (use-package go-mode :mode ("\\.go\\'"))
    (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'"))
-   (use-package rustic :mode (("\\.rs\\'" . rustic-mode)))
+   (use-package rustic
+     :mode (("\\.rs\\'" . rustic-mode))
+     :config
+     (setq rustic-indent-offset 2))
+  
    (use-package ebuild-mode :mode "\\.ebuild\\'")
    (use-package apache-mode)
 
@@ -573,6 +578,8 @@ These items include packages that MUST be built before the built-in version can 
    (rh/add-exts-to-mode 'fortran-mode '(ftn f77))
    (rh/add-exts-to-mode 'f90-mode '(f90 f95 f03 f08))
 
+   (rh/add-exts-to-mode 'prolog-mode '(plt))
+
                                            ; also get dtrt-indent, to be polite when working with other's code
    (use-package dtrt-indent)
 
@@ -589,7 +596,7 @@ These items include packages that MUST be built before the built-in version can 
 
    (use-package cider :after tramp)
 
-   (setq c-default-style '((cc-mode . "bsd")
+   (setq c-default-style '((other . "bsd")
                            (csharp-mode . "csharp"))
          c-basic-offset  2)
 
@@ -720,17 +727,17 @@ These items include packages that MUST be built before the built-in version can 
 
     (defalias 'perl-mode 'cperl-mode)
 
-    ;;(use-package raku-mode
-    ;;  :straight (raku-mode :type git :host github :repo "RomanHargrave/raku-mode")
-    ;;  :mode (("\\.raku\\'" . raku-mode)
-    ;;         ("\\.t6\\'"   . raku-mode)
-    ;;         ("\\.pm6\\'"  . raku-mode)
-    ;;         ("\\.p6\\'"   . raku-mode))
-    ;;  :magic (("#!.+raku" . raku-mode)
-    ;;          ("#!.+rakudo" . raku-mode)
-    ;;          ("#!.+perl6" . raku-mode))
-    ;;  :config
-    ;;  (setq raku-indent-offset 3))
+    (use-package raku-mode
+      :straight (raku-mode :type git :host github :repo "Raku/raku-mode")
+      :mode (("\\.raku\\'" . raku-mode)
+             ("\\.t6\\'"   . raku-mode)
+             ("\\.pm6\\'"  . raku-mode)
+             ("\\.p6\\'"   . raku-mode))
+      :magic (("#!.+raku" . raku-mode)
+              ("#!.+rakudo" . raku-mode)
+              ("#!.+perl6" . raku-mode))
+      :config
+      (setq raku-indent-offset 3))
     #+END_SRC
 
 *** scala-mode
@@ -776,6 +783,27 @@ These items include packages that MUST be built before the built-in version can 
         (format "/usr/bin/ctags -f %s -e -R %s" tags-file tags-directory))))
    #+END_SRC
 
+** Touché
+
+#+BEGIN_SRC emacs-lisp
+(use-package go-translate
+  :config
+  (setq gts-translate-list '(("en" "fr") ("fr" "en")
+                             ("en" "es") ("es" "en")
+                             ("en" "eo") ("eo" "en")
+                             ("en" "de") ("de" "en")))
+
+  ;; the default picker behavior is positively awful and direction
+  ;; cycling just doesn't work. As an aside, the variable name
+  ;; gts-default-translator doesn't really cover the entire scope of
+  ;; its use.
+  (setq gts-default-translator
+        (gts-translator
+         :picker (gts-prompt-picker)
+         :engines (list (gts-google-engine))
+         :render  (gts-buffer-render))))
+#+END_SRC
+   
 * Configuration
 
 ** Editor Behaviour
@@ -819,6 +847,36 @@ These items include packages that MUST be built before the built-in version can 
 
     (add-hook 'fortran-mode-hook
               (lambda () (font-lock-add-keywords nil computed-indent-chars)))
+    #+END_SRC
+
+*** Org-mode
+    #+BEGIN_SRC emacs-lisp
+    ;; XXX: org-directory is set with custom for system-local stuff the
+    ;; same goes for org-roam-directory
+    (use-package org-roam
+      :init
+      (setq org-roam-v2-ack t)
+      :bind* (("C-x C-n f" . org-roam-node-find)
+              ("C-x C-n i" . org-roam-node-insert)
+              ("C-x C-n c" . org-roam-capture))
+      :config
+      (org-roam-db-autosync-mode)
+      (push '("e" "encrypted" plain "%?"
+              :target (file+head "${slug}.org.gpg"
+                                 "#+title: ${title}\n")
+              :unnarrowed t)
+            org-roam-capture-templates))
+
+    (setq org-edit-src-content-indentation 0)
+
+    (use-package org-remark
+      :straight (org-remark
+                 :type git
+                 :host github
+                 :repo "nobiot/org-remark")
+      :init
+      (require 'org-remark-global-tracking)
+      (org-remark-global-tracking-mode t))
     #+END_SRC
 
 ** Keybindings
