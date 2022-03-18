@@ -181,6 +181,8 @@ These items include packages that MUST be built before the built-in version can 
      (customize-set-variable 'doom-modeline-minor-modes t)
      (customize-set-variable 'doom-modeline-enable-word-count t)
 
+     (add-to-list 'doom-modeline-continuous-word-count-modes 'latex-mode)
+
      ;; i'm going to replace the main modeline because i'm that person
      (doom-modeline-def-modeline 'main
        '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
