@@ -625,6 +625,15 @@ These items include packages that MUST be built before the built-in version can 
 
    (use-package cucumber
      :mode (("\\.feature\\'" . feature-mode)))
+
+   (use-package json-mode
+     :mode ("\\.json\\'"))
+
+   (use-package hierarchy
+     :straight (:build t))
+
+   (use-package json-navigator
+     :straight (:build t))
    #+END_SRC
 
 *** D
