@@ -24,3 +24,10 @@
 (org-babel-load-file
  (expand-file-name
   (concat user-emacs-directory "settings.org")))
+
+;; after loading settings.el, load local items
+(when-let (local-el
+           (file-expand-wildcards
+            (concat user-emacs-directory "local.el.d/*.el")))
+  (dolist (f local-el)
+    (load-file f)))
