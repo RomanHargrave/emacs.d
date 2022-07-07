@@ -20,3 +20,4 @@ straight/build-cache.el
 straight/build/**
 straight/repos/**
 straight/modified/**
+local.el.d/*.el
