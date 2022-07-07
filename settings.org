@@ -470,7 +470,8 @@ These items include packages that MUST be built before the built-in version can 
              (perl-mode-hook     . lsp)
              (ruby-mode-hook     . lsp)
              (enh-ruby-mode-hook . lsp)
-             (cperl-mode-hook    . lsp))
+             (cperl-mode-hook    . lsp)
+             (go-mode-hook       . lsp))
       :commands lsp
       :init
       :config
