@@ -45,6 +45,9 @@
 
    (setq custom-file (expand-file-name "~/.emacs.d/custom.el"))
    (load-file custom-file)
+
+   ;; add locai info dir
+   (add-to-list 'Info-directory-list "~/.local/share/info")
    #+END_SRC
 
 ** Remove undesirable keyboard behavior
