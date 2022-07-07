@@ -544,8 +544,9 @@ These items include packages that MUST be built before the built-in version can 
    (use-package rustic
      :mode (("\\.rs\\'" . rustic-mode))
      :config
-     (setq rustic-indent-offset 2))
-  
+     (setq rustic-indent-offset 2)
+     (setq rustic-indent-method-chain t))
+
    (use-package ebuild-mode :mode "\\.ebuild\\'")
    (use-package apache-mode)
 
