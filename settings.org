@@ -536,8 +536,11 @@ These items include packages that MUST be built before the built-in version can 
    (use-package apt-sources-list)
    (use-package ansible)
    (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
-   (use-package go-mode :mode ("\\.go\\'"))
-   (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'"))
+   (use-package go-mode
+     :mode ("\\.go\\'")
+     :hook ((go-mode-hook . (lambda ()
+                              (setq-local tab-width 3)))))
+   (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'" "\\.gemspec'"))
    (use-package rustic
      :mode (("\\.rs\\'" . rustic-mode))
      :config
