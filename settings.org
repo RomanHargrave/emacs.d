@@ -134,7 +134,7 @@ These items include packages that MUST be built before the built-in version can 
    (global-display-line-numbers-mode)
 
    (use-package doom-themes
-     :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "pine")
+     :straight (doom-themes :type git :host github :repo "RomanHargrave/emacs-doom-themes" :branch "feat-pine-theme")
      :config
      (doom-themes-org-config))
 
