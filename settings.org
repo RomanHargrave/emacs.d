@@ -145,6 +145,7 @@ These items include packages that MUST be built before the built-in version can 
    (add-hook 'after-init-hook #'rh/load-theme)
 
    ;; XXX remember to run (all-the-icons-install-fonts)
+   (use-package all-the-icons)
 
    (use-package minions
      :config
