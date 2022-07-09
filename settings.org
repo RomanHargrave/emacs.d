@@ -157,30 +157,18 @@ These items include packages that MUST be built before the built-in version can 
      (after-make-frame-functions . (lambda (frame) (setq doom-modeline-icon t)))
      :config
 
-     ;; just going to spin my own buffer-position
-     (doom-modeline-def-segment rh/point
-       "Displays absolute location of point."
-       (concat
-        (doom-modeline-spc)
-        (propertize
-         (number-to-string (point))
-         'face (if (doom-modeline--active)
-                   'mode-line
-                 'mode-line-inactive))
-        (doom-modeline-spc)))
-
      (doom-modeline-def-segment buffer-position
        (let* ((face   (if (doom-modeline--active)
                           'mode-line
                         'mode-line-inactive)))
          (concat
-          (doom-modeline-spc)
+          doom-modeline-wspc
 
           (propertize (concat (format-mode-line '("%4l:%2c"))
                               " (" (number-to-string (point)) ")")
                       'face face)
 
-          (doom-modeline-spc))))
+          doom-modeline-wspc)))
 
      (customize-set-variable 'doom-modeline-minor-modes t)
      (customize-set-variable 'doom-modeline-enable-word-count t)
