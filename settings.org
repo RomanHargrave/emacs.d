@@ -158,9 +158,7 @@ These items include packages that MUST be built before the built-in version can 
      :config
 
      (doom-modeline-def-segment buffer-position
-       (let* ((face   (if (doom-modeline--active)
-                          'mode-line
-                        'mode-line-inactive)))
+       (let* ((face 'mode-line-inactive))
          (concat
           doom-modeline-wspc
 
