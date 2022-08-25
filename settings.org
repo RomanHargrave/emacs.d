@@ -496,10 +496,11 @@ These items include packages that MUST be built before the built-in version can 
             lsp-ui-flycheck-live-reporting t))
 
     (general-define-key
-     "<f6>" 'lsp-rename
-     "<f4>" 'lsp-glance
-     "<f7>" 'lsp-ui-peek-find-definitions
-     "<f8>" 'lsp-ui-peek-find-references)
+     "M-<tab>" 'lsp-execute-code-action
+     "<f6>"    'lsp-rename
+     "<f4>"    'lsp-ui-doc-glance
+     "<f7>"    'lsp-ui-peek-find-definitions
+     "<f8>"    'lsp-ui-peek-find-references)
 
     (general-define-key
      :states 'normal
@@ -521,17 +522,11 @@ These items include packages that MUST be built before the built-in version can 
    (use-package fish-mode :mode "\\.fish\\'" :magic "\\#!.+fish\\'")
    (use-package apt-sources-list)
    (use-package ansible)
-   (use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
    (use-package go-mode
      :mode ("\\.go\\'")
      :hook ((go-mode-hook . (lambda ()
                               (setq-local tab-width 3)))))
    (use-package enh-ruby-mode :mode ("\\.rb\\'" "Gemfile" "rackup.ru" "\\.rake\\'" "\\.gemspec'"))
-   (use-package rustic
-     :mode (("\\.rs\\'" . rustic-mode))
-     :config
-     (setq rustic-indent-offset 2)
-     (setq rustic-indent-method-chain t))
 
    (use-package ebuild-mode :mode "\\.ebuild\\'")
    (use-package apache-mode)
@@ -635,6 +630,39 @@ These items include packages that MUST be built before the built-in version can 
      :straight (:build t))
    #+END_SRC
 
+*** YAML
+
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode :mode ("\\.yaml\\'" "\\.yml\\'"))
+(use-package yaml-pro
+  :straight (yaml-pro :type git :host github :repo "zkry/yaml-pro"))
+
+(general-add-hook
+ 'yaml-mode-hook '(yaml-pro-mode))
+
+(general-define-key
+ :map yaml-pro-mode-map
+ "M-<up>"   'yaml-pro-move-subtree-up
+ "M-<down>" 'yaml-pro-move-subtree-down)
+ 
+#+END_SRC
+   
+*** Rust
+
+#+BEGIN_SRC emacs-lisp
+(use-package rustic
+  :mode (("\\.rs\\'" . rustic-mode))
+  :config
+  (setq rustic-indent-offset 2)
+  (setq rust-indent-where-clause t)
+  (setq rustic-indent-method-chain t)
+  (setq lsp-rust-analyzer-server-display-inlay-hints t))
+
+(general-define-key
+ :keymaps '(rustic-mode-map)
+ "C-x m e" 'lsp-rust-analyzer-expand-macro)
+#+END_SRC
+   
 *** D
 
     #+BEGIN_SRC emacs-lisp
