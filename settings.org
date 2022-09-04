@@ -494,7 +494,8 @@ These items include packages that MUST be built before the built-in version can 
             lsp-ui-doc-position 'at-point
             lsp-ui-flycheck-enable t
             lsp-ui-flycheck-list-position 'right
-            lsp-ui-flycheck-live-reporting t))
+            lsp-ui-flycheck-live-reporting t
+            lsp-ui-imenu-auto-refresh t))
 
     (general-define-key
      "M-<tab>" 'lsp-execute-code-action
@@ -502,10 +503,6 @@ These items include packages that MUST be built before the built-in version can 
      "<f4>"    'lsp-ui-doc-glance
      "<f7>"    'lsp-ui-peek-find-definitions
      "<f8>"    'lsp-ui-peek-find-references)
-
-    (general-define-key
-     :states 'normal
-     "SPC l g g" 'lsp-ui-imenu)
 
     (use-package company
       :config
