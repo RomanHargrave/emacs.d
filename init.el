@@ -25,9 +25,29 @@
  (expand-file-name
   (concat user-emacs-directory "settings.org")))
 
-;; after loading settings.el, load local items
-(when-let (local-el
-           (file-expand-wildcards
-            (concat user-emacs-directory "local.el.d/*.el")))
-  (dolist (f local-el)
-    (load-file f)))
+(defmacro rh/expand-all-paths (paths)
+  "Collect expansion results for all paths and return them as a
+flattened sequence"
+  `(flatten-list (cl-mapcar 'file-expand-wildcards ,paths)))
+
+(defun rh/load-maybe-tangled (file)
+  "Given FILE load the file, untangling as needed (if it ends with .org)"
+  (when-let*
+      ((extn (file-name-extension file))
+       (load-fn (cond ((string-equal extn "el")
+                       (function load-file))
+                      ((string-equal extn "org")
+                       (function org-babel-load-file)))))
+    (when (apply load-fn `(,file))
+      file)))
+
+(defun rh/load-el-dirs (&rest dir-names)
+  "Load all understood files in each directory in DIR-NAMES"
+  (cl-mapcar 'rh/load-maybe-tangled
+             (rh/expand-all-paths 
+              (cl-mapcar
+               (lambda (dir-name)
+                 (concat user-emacs-directory dir-name "/*.*"))
+               dir-names))))
+
+(rh/load-el-dirs "init.el.d")

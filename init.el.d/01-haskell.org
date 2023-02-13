@@ -1,0 +1,7 @@
+* Haskel Configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package multi-mode) ; undeclared dependency
+(use-package haskell-mode)
+(use-package haskell-latex)
+#+END_SRC
