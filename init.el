@@ -21,10 +21,6 @@
 (straight-use-package 'org)
 (require 'org)
 
-(org-babel-load-file
- (expand-file-name
-  (concat user-emacs-directory "settings.org")))
-
 (defmacro rh/expand-all-paths (paths)
   "Collect expansion results for all paths and return them as a
 flattened sequence"
