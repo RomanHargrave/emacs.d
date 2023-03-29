@@ -39,6 +39,8 @@
 ;; Electric commenting
 (use-package corral)
 
+(use-package dtrt-indent)
+
 (use-package yasnippet
   :straight (yasnippet :type git :host github :repo "joaotavora/yasnippet")
   :config (yas-global-mode 1))
