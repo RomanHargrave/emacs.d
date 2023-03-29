@@ -1,5 +1,5 @@
 (setq custom-file
-      (concat user-emacs-directory "init.el.d/ZZ-custom.el"))
+      (concat user-emacs-directory "init.el.d/ZZ-custom.local.el"))
 
 (message "custom file: %s" custom-file)
 
