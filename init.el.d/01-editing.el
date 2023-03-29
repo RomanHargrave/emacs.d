@@ -39,8 +39,6 @@
 ;; Electric commenting
 (use-package corral)
 
-(use-package string-edit)
-
 (use-package yasnippet
   :straight (yasnippet :type git :host github :repo "joaotavora/yasnippet")
   :config (yas-global-mode 1))

@@ -5,12 +5,6 @@
 
 (defalias 'tramp-compat-rx #'rx)
 
-;; Hack, because bundled tramp is too new(?) for packages, but the
-;; autoloader gets confused and there is just generally spookiness.
-(when-let* ((tramp-el        (concat user-emacs-directory "straight/repos/tramp/tramp.el"))
-	    (tramp-available (file-exists-p tramp-el)))
-  (load-file tramp-el))
-
 ;; set up straight and pull in org from upstream rather than bundled
 (defvar boostrap-version)
 (let ((bootstrap-file

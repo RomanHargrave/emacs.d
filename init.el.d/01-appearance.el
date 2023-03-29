@@ -101,11 +101,7 @@
 	    (menu-bar-mode -1)
 
 	    ;; And configure theme and font
-	    (load-theme 'doom-pine t)
-
-	    (add-to-list 'default-frame-alist
-			 '(font . "IBM Plex Mono-10"))
-	    (set-face-attribute 'default t :font "IBM Plex Mono-10" :weight 'normal)))
+	    (load-theme 'doom-pine t)))
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
