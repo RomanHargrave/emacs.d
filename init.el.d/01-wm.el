@@ -23,6 +23,9 @@
   (define-key winum-keymap (kbd "C-x w") nil)
   (winum-mode 1))
 
+(use-package ace-window
+  :bind (("C-x o" . 'ace-window)))
+
 (defun rh--kill-winum (number)
   "Kill window using positive number."
   (interactive "nWindow: ")
@@ -35,5 +38,4 @@
 (general-define-key
  "C-c w w" 'winum-select-window-by-number
  "C-c w d" 'rh--kill-winum
- "C-c w q" 'delete-window
- "C-x o"   'ace-window)
+ "C-c w q" 'delete-window)
