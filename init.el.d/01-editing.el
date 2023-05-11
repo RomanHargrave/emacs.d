@@ -63,3 +63,5 @@
    "C-x m c" 'macrostep-collapse
    "C-x m n" 'macrostep-next-macro
    "C-x m p" 'macrostep-prev-macro))
+
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
