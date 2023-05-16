@@ -9,7 +9,8 @@
              (cperl-mode-hook    . lsp)
              (go-mode-hook       . lsp)
              (erlang-mode-hook   . lsp)
-             (elixir-mode-hook   . lsp))
+             (elixir-mode-hook   . lsp)
+             (c-mode-hook        . lsp))
       :commands lsp
       :bind (("M-<tab>" . 'lsp-execute-code-action)
 	     ("<f6>"    . 'lsp-rename))
