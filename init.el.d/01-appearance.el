@@ -11,13 +11,13 @@
   (doom-modeline-def-segment buffer-position
     (let* ((face 'mode-line-inactive))
       (concat
-       doom-modeline-spc
+       doom-modeline-wspc
 
        (propertize (concat (format-mode-line '("%4l:%2c"))
                            " (" (number-to-string (point)) ")")
                    'face face)
 
-       doom-modeline-spc)))
+       doom-modeline-wspc)))
 
   (customize-set-variable 'doom-modeline-minor-modes t)
   (customize-set-variable 'doom-modeline-enable-word-count t)
@@ -109,7 +109,7 @@
 	    (modify-frame-parameters frame '((vertical-scroll-bars . nil)
 					     (horizontal-scroll-bars . nil)
 					     (alpha . 98)))
-	    
+
 	    ;; Let terminal emulator choose the default bg
 	    (unless (display-graphic-p (selected-frame))
 	      (set-face-background 'defult "unspecified-bg" (selected-frame)))))
