@@ -1,3 +1,6 @@
+(use-package haml-mode
+  :mode (("\\.haml\\'" . haml-mode)))
+
 (use-package web-mode
   :mode (("\\.tmpl\\'"         . web-mode)
          ("\\.ftl\\'"          . web-mode)
@@ -6,8 +9,7 @@
          ("\\.css\\'"          . web-mode)
          ("\\.tpl\\'"          . web-mode)
          ("\\.vue\\'"          . web-mode)
-         ("\\.erb\\'"          . web-mode)
-         ("\\.haml\\'"         . web-mode)))
+         ("\\.erb\\'"          . web-mode)))
 
 (setq web-mode-engines-alist
       '(("closure"    . "\\.tmpl\\'")
