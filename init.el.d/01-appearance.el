@@ -8,16 +8,19 @@
   (after-make-frame-functions . (lambda (frame) (setq doom-modeline-icon t)))
   :config
 
+  (setq doom-modeline-spc
+    (propertize " " 'face (doom-modeline-face)))
+
   (doom-modeline-def-segment buffer-position
     (let* ((face 'mode-line-inactive))
       (concat
-       doom-modeline-wspc
+       doom-modeline-spc
 
        (propertize (concat (format-mode-line '("%4l:%2c"))
                            " (" (number-to-string (point)) ")")
                    'face face)
 
-       doom-modeline-wspc)))
+       doom-modeline-spc)))
 
   (customize-set-variable 'doom-modeline-minor-modes t)
   (customize-set-variable 'doom-modeline-enable-word-count t)
