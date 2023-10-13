@@ -20,17 +20,17 @@
         :new-connection (lsp-stdio-connection '("dub" "run" "dls"))
         :major-modes '(d-mode)
         :server-id 'dls))
-      
+
       (add-to-list 'lsp-language-id-configuration '(d-mode . "d"))
-      
+
       (lsp-register-client
        (make-lsp-client
         :new-connection (lsp-stdio-connection '("perl" "-MPerl::LanguageServer" "-e" "Perl::LanguageServer::run"))
         :major-modes '(perl-mode cperl-mode)
         :server-id 'perl-language-server))
-      
+
       (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
-      
+
       (setq lsp-prefer-flymake nil)
       (setq lsp-solargraph-use-bundler t)
 
@@ -54,7 +54,14 @@
         lsp-ui-imenu-auto-refresh t))
 
 (use-package company
-  :bind (([remap indent-for-tab-command] . company-indent-or-complete-common)))
+  :bind (([remap indent-for-tab-command] . company-indent-or-complete-common))
+  :config
+  (general-define-key
+   :keymaps 'company-active-map
+   "<return>" nil
+   "RET" nil
+   "C-RET" 'company-complete-selection
+   "C-<return>" 'company-complete-selection))
 
 (use-package company-lsp)
 
