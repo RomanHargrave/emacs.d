@@ -15,13 +15,9 @@
   (doom-modeline-def-segment buffer-position
     (let* ((face 'doom-modeline-face))
       (concat
-       doom-modeline-spc
-
        (propertize (concat (format-mode-line '("%4l:%2c"))
                            " (" (number-to-string (point)) ")")
-                   'face face)
-
-       doom-modeline-spc)))
+                   'face face))))
 
   (customize-set-variable 'doom-modeline-minor-modes t)
   (customize-set-variable 'doom-modeline-enable-word-count t)
