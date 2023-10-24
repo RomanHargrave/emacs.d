@@ -2,6 +2,8 @@
   :config
   (setq magit-save-repository-buffers 'dontask))
 
+(use-package forge)
+
 (use-package projectile
   :config
   (projectile-mode 1))
