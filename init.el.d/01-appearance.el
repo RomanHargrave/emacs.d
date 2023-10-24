@@ -10,14 +10,13 @@
   :config
 
   (setq doom-modeline-spc
-    (propertize " " 'face (doom-modeline-face)))
+    (propertize " " 'face '(doom-modeline)))
 
   (doom-modeline-def-segment buffer-position
-    (let* ((face 'doom-modeline-face))
-      (concat
-       (propertize (concat (format-mode-line '("%4l:%2c"))
-                           " (" (number-to-string (point)) ")")
-                   'face face))))
+    (concat
+     (propertize (concat (format-mode-line '("%4l:%2c"))
+                         " (" (number-to-string (point)) ")")
+                 'face 'doom-modeline)))
 
   (customize-set-variable 'doom-modeline-minor-modes t)
   (customize-set-variable 'doom-modeline-enable-word-count t)
