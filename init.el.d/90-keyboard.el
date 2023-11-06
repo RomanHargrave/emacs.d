@@ -11,13 +11,6 @@
  ;; prefer regexp isearch
  "C-s"     'isearch-forward-regexp
  "C-M-s"   'isearch-backward-regexp
- ;; replace some builtin interactives with better alternatives
- "M-x"     'counsel-M-x
- "C-h f"   'counsel-describe-function
- "C-h v"   'counsel-describe-variable
- "C-x C-f" 'counsel-find-file
- ;; who uses the buffer list? fucking nuisance
- "C-x C-b" 'ivy-switch-buffer
  ;; region stuff
  "C-x r a" 'align
  ;; closing files opened by request, etc...
@@ -83,4 +76,4 @@
 
 (general-define-key
  :keymaps 'org-mode-map
- "C-<tab>" 'org-indent-line) 
+ "C-<tab>" 'org-indent-line)
