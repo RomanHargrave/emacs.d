@@ -31,8 +31,12 @@
 
       (add-to-list 'lsp-language-id-configuration '(cperl-mode . "perl"))
 
-      (setq lsp-prefer-flymake nil)
-      (setq lsp-solargraph-use-bundler t)
+      (custom-set-variables '(lsp-prefer-flymake nil)
+                            '(lsp-solargraph-use-bundler t)
+                            '(lsp-rust-analyzer-display-parameter-hints t)
+                            '(lsp-rust-analyzer-display-chaining-hints t)
+                            ;; disable irritating minibuffer docs
+                            '(lsp-eldoc-enable-hover nil))
 
       (defun lsp-solargraph--build-command ()
         "Build solargraph command (modded)"
@@ -43,15 +47,17 @@
   :bind (("<f4>" . lsp-ui-doc-glance)
 	 ("<f7>" . lsp-ui-peek-find-definitions)
 	 ("<f8>" . lsp-ui-peek-find-references))
+  :hook ((rustic-mode-hook . lsp-inlay-hints-mode))
   :config
-  (setq lsp-ui-doc-mode t
-        lsp-ui-doc-show-with-cursor nil
-        lsp-ui-doc-show-with-mouse t
-        lsp-ui-doc-position 'at-point
-        lsp-ui-flycheck-enable t
-        lsp-ui-flycheck-list-position 'right
-        lsp-ui-flycheck-live-reporting t
-        lsp-ui-imenu-auto-refresh t))
+  (custom-set-variables '(lsp-ui-doc-mode t)
+                        '(lsp-ui-doc-show-with-cursor nil)
+                        '(lsp-ui-doc-show-with-mouse t)
+                        '(lsp-ui-doc-position 'at-point)
+                        '(lsp-inlay-hint-enable t)
+                        '(lsp-ui-flycheck-enable t)
+                        '(lsp-ui-flycheck-list-position 'right)
+                        '(lsp-ui-flycheck-live-reporting t)
+                        '(lsp-ui-imenu-auto-refresh t)))
 
 (use-package company
   :bind (([remap indent-for-tab-command] . company-indent-or-complete-common))
