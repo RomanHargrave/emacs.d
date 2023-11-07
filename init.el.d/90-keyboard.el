@@ -15,6 +15,7 @@
  "C-x r a" 'align
  ;; closing files opened by request, etc...
  "C-c C-c" 'server-edit
+ "C-x C-b" 'switch-to-buffer
  ;; elecom huge buttons - may need to make machine-specific
  "<mouse-8>" 'scroll-up-command
  "<mouse-9>" 'scroll-down-command)
