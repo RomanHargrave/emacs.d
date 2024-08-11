@@ -9,6 +9,8 @@
          ("\\.css\\'"          . web-mode)
          ("\\.tpl\\'"          . web-mode)
          ("\\.vue\\'"          . web-mode)
+         ("\\.php\\'"          . web-mode)
+         ("\\.inc\\'"          . web-mode)
          ("\\.erb\\'"          . web-mode)))
 
 (setq web-mode-engines-alist
