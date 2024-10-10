@@ -57,6 +57,7 @@
                         '(lsp-ui-flycheck-enable t)
                         '(lsp-ui-flycheck-list-position 'right)
                         '(lsp-ui-flycheck-live-reporting t)
+                        '(lsp-ui-sideline-enable nil)
                         '(lsp-ui-imenu-auto-refresh t)))
 
 (use-package company
