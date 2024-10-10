@@ -9,7 +9,7 @@
 
 (use-package edit-indirect-region-latex)
 
-(use-package latex-pretty-symbols)
+;(use-package latex-pretty-symbols)
 
 (use-package latex-preview-pane)
 
