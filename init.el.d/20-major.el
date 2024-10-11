@@ -1,13 +1,9 @@
 (use-package dockerfile-mode :mode "Dockerfile")
-
 (use-package lua-mode :mode "\\.lua\\'")
-
 (use-package robots-txt-mode :mode "robots.txt")
 
-(use-package ansible)
-
 (use-package go-mode
-  :mode ("\\.go\\'")
+  :mode "\\.go\\'"
   :hook ((go-mode-hook . (lambda ()
                            (setq-local tab-width 3)))))
 
@@ -18,8 +14,8 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "pandoc")
   :config
+  (setq markdown-command "pandoc")
   (add-hook 'markdown-mode-hook 'auto-fill-mode))
 
 (use-package sql-indent
@@ -38,11 +34,6 @@
 
 (rh/add-exts-to-mode 'prolog-mode '(plt))
 
-(use-package clojure-mode
-  :mode ("\\.clj\\'"))
-
-(use-package cider :after tramp)
-
 (setq c-default-style '((other . "bsd"))
       c-basic-offset  2)
 
@@ -50,9 +41,6 @@
   :mode "\\.py\\'"
   :config
   (setq python-shell-interpreter "/usr/bin/python"))
-
-(use-package nginx-mode
-  :defer t)
 
 (use-package json-mode
   :mode ("\\.json\\'"))

@@ -20,11 +20,6 @@
  "<mouse-8>" 'scroll-up-command
  "<mouse-9>" 'scroll-down-command)
 
-(general-define-key
- :keymaps '(paredit-mode-map emacs-lisp-mode)
- "C-(" 'backward-sexp
- "C-)" 'forward-sexp)
-
 (use-package avy
   :bind
   ("C-c f"   . avy-goto-char-timer)
@@ -74,7 +69,3 @@
              ("n" windmove-up                   "Move Up")
              ("e" windmove-down                 "Move Down")
              ("o" windmove-right                "Move Right"))))
-
-(general-define-key
- :keymaps 'org-mode-map
- "C-<tab>" 'org-indent-line)

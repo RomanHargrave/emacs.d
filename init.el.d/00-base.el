@@ -23,10 +23,11 @@
   "Compares the `car's of L and R using `equal'"
   (equal (car l) (car r)))
 
-(use-package general)
+(use-package general
+  :demand t)
 
 (use-package exec-path-from-shell
-  :init
+  :config
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
   (exec-path-from-shell-copy-env "SSH_AGENT_PID"))

@@ -1,16 +1,17 @@
 (use-package doom-themes
+  :demand t
   :config
   (doom-themes-org-config))
 
 (use-package doom-modeline
+  :demand t
   :hook
   (after-init-hook . doom-modeline-mode)
   (after-make-frame-functions . (lambda (frame)
                                   (setq doom-modeline-icon t)))
   :config
-
   (setq doom-modeline-spc
-    (propertize " " 'face '(doom-modeline)))
+        (propertize " " 'face '(doom-modeline)))
 
   (doom-modeline-def-segment buffer-position
     (concat
@@ -27,7 +28,7 @@
   ;; i'm going to replace the main modeline because i'm that person
   (doom-modeline-def-modeline 'main
     '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
-    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker))
+    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs))
 
   (doom-modeline-def-modeline 'minimal
     '(bar matches buffer-info-simple)
@@ -71,23 +72,20 @@
 
   (doom-modeline-def-modeline 'org-src
     '(bar window-number modals matches buffer-info-simple buffer-position word-count parrot selection-info)
-    '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode process checker))
+    '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode process))
 
   (doom-modeline-def-modeline 'timemachine
     '(bar window-number matches git-timemachine buffer-position word-count parrot selection-info)
     '(misc-info minor-modes indent-info buffer-encoding major-mode)))
 
 (use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :hook prog-mode)
 
-(use-package olivetti
-  :config
-  (setq olivetti-body-width 75))
-
-(use-package all-the-icons)
+(use-package all-the-icons
+  :demand t)
 
 (use-package ligature
+  :demand t
   :config
   (ligature-set-ligatures 't '("www"))
   (ligature-set-ligatures 'prog-mode

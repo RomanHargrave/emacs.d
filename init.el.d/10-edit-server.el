@@ -1,2 +1,3 @@
 (use-package edit-server
-  :init (edit-server-start))
+  :demand t
+  :config (edit-server-start))

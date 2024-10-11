@@ -1,13 +1,13 @@
 (use-package savehist
-  :init
+  :config
   (savehist-mode t))
 
 (use-package vertico
-  :init
+  :config
   (vertico-mode t))
 
 (use-package orderless
-  :init
+  :config
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))

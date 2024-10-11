@@ -1,6 +1,3 @@
-(use-package flycheck-raku
-  :straight (flycheck-raku :type git :host github :repo "Raku/flycheck-raku"))
-
 (use-package raku-mode
   :straight (raku-mode :type git :host github :repo "Raku/raku-mode")
   :mode (("\\.raku\\'" . raku-mode)

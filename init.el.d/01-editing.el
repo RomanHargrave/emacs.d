@@ -37,31 +37,33 @@
 	    (font-lock-add-keywords nil computed-indent-chars)))
 
 ;; Electric commenting
-(use-package corral)
+(use-package corral
+  :demand t)
 
-(use-package dtrt-indent)
+(use-package dtrt-indent
+  :hook prog-mode)
 
 (use-package yasnippet
   :straight (yasnippet :type git :host github :repo "joaotavora/yasnippet")
+  :demand t
   :config (yas-global-mode 1))
 
 (use-package deadgrep
   :bind ("<f5>" . deadgrep))
 
 (use-package paredit
-  :hook
-  ((emacs-lisp-mode-hook . paredit-mode)
-   (lisp-mode-hook       . paredit-mode)
-   (clojure-mode-hook    . paredit-mode)))
+  ;; interesting - paredit appears to be loaded already when the
+  ;; deferred load takes place.
+  :hook (emacs-lisp-mode lisp-mode)
+  :bind (:map paredit-mode-map
+              ("C-(" . 'backward-sexp)
+              ("C-)" . 'forward-sexp)))
 
 (use-package macrostep
-  :config
-  (general-define-key
-   :keymaps 'emacs-lisp-mode-map
-   :major-modes t
-   "C-x m e" 'macrostep-expand
-   "C-x m c" 'macrostep-collapse
-   "C-x m n" 'macrostep-next-macro
-   "C-x m p" 'macrostep-prev-macro))
+  :bind (:map emacs-lisp-mode-map
+              ("C-x m e" . 'macrostep-expand)
+              ("C-x m c" . 'macrostep-collapse)
+              ("C-x m n" . 'macrostep-next-macro)
+              ("C-x m p" . 'macrostep-prev-macro)))
 
 (add-hook 'before-save-hook #'delete-trailing-whitespace)

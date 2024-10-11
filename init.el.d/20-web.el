@@ -28,9 +28,3 @@
 
 (use-package typescript-mode
   :mode (("\\.tsx?\\'" . typescript-mode)))
-
-(lsp-register-client
- (make-lsp-client
-  :new-connection (lsp-stdio-connection '("npx" "typescript-language-server" "--stdio"))
-  :major-modes '(typescript-mode) ;; todo: maybe add web-mode
-  :server-id 'tsserver))
