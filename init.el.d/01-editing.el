@@ -52,9 +52,7 @@
   :bind ("<f5>" . deadgrep))
 
 (use-package paredit
-  ;; interesting - paredit appears to be loaded already when the
-  ;; deferred load takes place.
-  :hook (emacs-lisp-mode lisp-mode)
+  :hook ((emacs-lisp-mode lisp-mode) . paredit-mode)
   :bind (:map paredit-mode-map
               ("C-(" . 'backward-sexp)
               ("C-)" . 'forward-sexp)))
