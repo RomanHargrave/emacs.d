@@ -79,7 +79,7 @@
     '(misc-info minor-modes indent-info buffer-encoding major-mode)))
 
 (use-package rainbow-delimiters
-  :hook prog-mode)
+  :hook prog-mode-hook)
 
 (use-package all-the-icons
   :demand t)
