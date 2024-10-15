@@ -51,7 +51,7 @@
    (kbd "C-x w")
    (defhydra window-hydra (global-map "C-x w")
              ("w" winum-select-window-by-number "Select window number" :column "Mangement")
-             ("d" rh--kill-winum                "Kill window number")
+             ("d" rh/kill-winum                "Kill window number")
              ("q" delete-window                 "Kill active window" :color blue)
              ("|" split-window-right            "Split Right" :column "Layout")
              ("-" split-window-below            "Split Below")

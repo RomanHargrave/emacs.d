@@ -4,7 +4,8 @@
   (with-current-buffer (or buffer (current-buffer))
     (derived-mode-p 'compilation-mode
                     'epa-key-list-mode
-                    'help-mode)))
+                    'help-mode
+                    'rustfmt)))
 
 (use-package shackle
   :demand t
@@ -12,7 +13,10 @@
   (defvar rh/shackle-defaults
     '(:popup t :align below :size 0.2))
   (setq shackle-rules
-        `(('("*Help*" "*General Keybindings*" "*Flycheck errors*" "*Apropos*") ,@rh/shackle-defaults :select t)
+        `(('("*Help*" "*General Keybindings*" "*Flycheck errors*" "*Apropos*")
+           ,@rh/shackle-defaults
+           :select t)
+          ('("*rustfmt*") ,@rh/shackle-defaults :select nil)
           ('(:custom rh/is-popup-buffer) ,@rh/shackle-defaults)))
   (shackle-mode 1))
 
@@ -30,7 +34,8 @@
     (winum-select-window-by-number (- number))))
 
 (use-package ace-window
-  :bind (("C-x o" . 'ace-window)))
+  :bind (("C-x o" . 'ace-window)
+         ("C-x M-0" . 'ace-delete-window)))
 
 (setq mouse-autoselect-window t)
 
