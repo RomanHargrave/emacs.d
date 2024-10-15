@@ -24,7 +24,9 @@
   :bind
   ("C-c f"   . avy-goto-char-timer)
   ("C-c g"   . avy-goto-line)
-  ("C-c S-g" . avy-goto-end-of-line))
+  ("C-c S-g" . avy-goto-end-of-line)
+  ("<f8>"    . avy-goto-char-in-line)
+  ("S-<f8>"  . avy-goto-char))
 
 (use-package hydra
   :config
