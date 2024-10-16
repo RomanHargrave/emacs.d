@@ -52,7 +52,7 @@
   :bind ("<f5>" . deadgrep))
 
 (use-package paredit
-  :hook ((emacs-lisp-mode-hook lisp-mode-hook) . paredit-mode)
+  :hook ((emacs-lisp-mode-hook lisp-mode-hook ielm-mode-hook) . paredit-mode)
   :bind (:map paredit-mode-map
               ("C-(" . 'backward-sexp)
               ("C-)" . 'forward-sexp)))
