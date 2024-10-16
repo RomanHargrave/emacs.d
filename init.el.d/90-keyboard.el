@@ -26,7 +26,9 @@
   ("C-c g"   . avy-goto-line)
   ("C-c S-g" . avy-goto-end-of-line)
   ("<f8>"    . avy-goto-char-in-line)
-  ("S-<f8>"  . avy-goto-char))
+  ("S-<f8>"  . avy-goto-char)
+  ("<f9>"    . avy-goto-line)
+  ("S-<f9>"  . avy-goto-end-of-line))
 
 (use-package hydra
   :config
