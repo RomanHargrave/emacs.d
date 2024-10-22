@@ -17,7 +17,7 @@
     (concat
      (propertize (concat (format-mode-line '("%4l:%2c"))
                          " (" (number-to-string (point)) ")")
-                 'face 'doom-modeline)))
+                 'face (doom-modeline-face))))
 
   (customize-set-variable 'doom-modeline-minor-modes t)
   (customize-set-variable 'doom-modeline-enable-word-count t)
