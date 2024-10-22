@@ -9,11 +9,15 @@
 
 (use-package company
   :commands (company-mode global-company-mode)
-  :hook ((rustic-mode go-mode enh-ruby-mode web-mode) . company-mode)
+  :hook ((rustic-mode go-mode enh-ruby-mode web-mode go-mode emacs-lisp-mode) . company-mode)
   :bind (([remap indent-for-tab-command] . company-indent-or-complete-common)
          :map company-active-map
          ("<return>" . nil)
          ("RET" . nil)
          ("C-RET" . 'company-complete-selection)
          ("C-<return>" . 'company-complete-selection))
-  :after eglot)
+  :after eglot
+  :config
+  (setq company-backends
+        '((:separate company-capf company-clang company-yasnippet)
+          (company-dabbrev company-ispell))))
