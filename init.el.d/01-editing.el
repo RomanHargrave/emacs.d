@@ -65,3 +65,48 @@
               ("C-x m p" . 'macrostep-prev-macro)))
 
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
+
+(defun reluctant-forward (&optional arg)
+  "Move point to the end of the next word or string of
+non-word-constituent characters.
+
+Do it ARG times if ARG is positive, or -ARG times in the opposite
+direction if ARG is negative. ARG defaults to 1."
+  (interactive "^p")
+  (if (> arg 0)
+      (dotimes (_ arg)
+        ;; First, skip whitespace ahead of point
+        (when (looking-at-p "[ \t\n]")
+          (skip-chars-forward " \t\n"))
+        (unless (= (point) (point-max))
+          ;; Now, if we're at the beginning of a word, skip it…
+          (if (looking-at-p "\\sw")
+              (skip-syntax-forward "w")
+            ;; …otherwise it means we're at the beginning of a string of
+            ;; symbols. Then move forward to another whitespace char,
+            ;; word-constituent char, or to the end of the buffer.
+            (if (re-search-forward "\n\\|\\s-\\|\\sw" nil t)
+                (backward-char)
+              (goto-char (point-max))))))
+    (dotimes (_ (- arg))
+      (when (looking-back "[ \t\n]")
+        (skip-chars-backward " \t\n"))
+      (unless (= (point) (point-min))
+        (if (looking-back "\\sw")
+            (skip-syntax-backward "w")
+          (if (re-search-backward "\n\\|\\s-\\|\\sw" nil t)
+              (forward-char)
+            (goto-char (point-min))))))))
+
+(defun reluctant-backward (&optional arg)
+  "Move point to the beginning of the previous word or string of
+non-word-constituent characters.
+
+Do it ARG times if ARG is positive, or -ARG times in the opposite
+direction if ARG is negative. ARG defaults to 1."
+  (interactive "^p")
+  (reluctant-forward (- arg)))
+
+(general-define-key
+ "M-<right>" 'reluctant-forward
+ "M-<left>"  'reluctant-backward)
