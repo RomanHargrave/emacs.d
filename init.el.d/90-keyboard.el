@@ -18,17 +18,22 @@
  "C-x C-b" 'switch-to-buffer
  ;; elecom huge buttons - may need to make machine-specific
  "<mouse-8>" 'scroll-up-command
- "<mouse-9>" 'scroll-down-command)
+ "<mouse-9>" 'scroll-down-command
+ "C-d" nil)
 
 (use-package avy
   :bind
-  ("C-c f"   . avy-goto-char-timer)
-  ("C-c g"   . avy-goto-line)
-  ("C-c S-g" . avy-goto-end-of-line)
-  ("<f8>"    . avy-goto-char-in-line)
-  ("S-<f8>"  . avy-goto-char)
-  ("<f9>"    . avy-goto-line)
-  ("S-<f9>"  . avy-goto-end-of-line))
+  ("C-c f"           . avy-goto-char-timer)
+  ("C-c g"           . avy-goto-line)
+  ("C-c S-g"         . avy-goto-end-of-line)
+  ("<f8>"            . avy-goto-char-in-line)
+  ("S-<f8>"          . avy-goto-char)
+  ("<f9>"            . avy-goto-line)
+  ("S-<f9>"          . avy-goto-end-of-line)
+  ("C-d <backspace>" . avy-kill-region)
+  ("C-d y"           . avy-copy-region)
+  ("C-d <up>"        . avy-move-region)
+  ("C-j"             . avy-jump))
 
 (use-package hydra
   :config
