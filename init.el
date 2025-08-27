@@ -1,11 +1,16 @@
 (setq custom-file
       (concat user-emacs-directory "init.el.d/ZZ-custom.local.el"))
 
-(message "custom file: %s" custom-file)
-
 (defalias 'tramp-compat-rx #'rx)
 
-;; set up straight and pull in org from upstream rather than bundled
+;; savannah has been unreliable lately
+(defvar straight-recipe-overrides
+  '((nil (nongnu-elpa :type git
+                      :repo "https://github.com/emacsmirror/nongnu_elpa.git"
+                      :depth (full single-branch)
+                      :local-repo "nongnu-elpa"
+                      :build nil))))
+
 (defvar boostrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -25,6 +30,12 @@
   (expand-file-name "dist-packages" user-emacs-directory))
 (add-to-list 'load-path local-pkg)
 (setq use-package-hook-name-suffix nil)
+
+;; early load project from upstream to avoid conflicts if a package
+;; attempts to load the system project (i.e. does not declare a
+;; dependency but requires 'project, becuase it's a core package)
+(straight-use-package 'project)
+(require 'project)
 
 (straight-use-package 'f)
 (require 'f)
@@ -66,7 +77,7 @@ flattened sequence"
 (defun rh/load-el-dirs (&rest dir-names)
   "Load all understood files in each directory in DIR-NAMES"
   (cl-mapcar 'rh/load-maybe-tangled
-             (rh/expand-all-paths 
+             (rh/expand-all-paths
               (cl-mapcar
                (lambda (dir-name)
                  (concat user-emacs-directory dir-name "/*.*"))
